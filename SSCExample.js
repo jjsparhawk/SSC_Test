@@ -1,5 +1,5 @@
 //Set Logger Level
-Logger.level = Logger.WARNING;
+//Logger.level = Logger.WARNING;
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -162,12 +162,12 @@ afterConsume*/
 
 //Custom Ping/Pong endpoint
 Hydra.get('custom_ping', function(request, response) {
-    //response.success({"ret":"custom_pong"});
-    return {"ret":"custom_pong"};
+    response.success({"ret":"custom_pong"});
+    //return {"ret":"custom_pong"};
 });
 
 //Attempt an Impossible Update, updating 'me' with Server Access
-Hydra.get('impossible_update', function(request, response){
+/*Hydra.get('impossible_update', function(request, response){
     var serverAuth = Hydra.Client.authServer();
 
     Hydra.Client.put("/profiles/me", {auth: serverAuth, body:[["set","data.ServerMe","Impossible"]]}, function(serverRequest, body) {
@@ -177,7 +177,7 @@ Hydra.get('impossible_update', function(request, response){
             response.failure({});
         }
     })
-});
+});*/
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
