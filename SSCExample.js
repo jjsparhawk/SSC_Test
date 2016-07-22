@@ -1,0 +1,291 @@
+//Set Logger Level
+Logger.level = Logger.WARNING;
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//Account Events
+/*beforeCreate
+afterCreate
+beforeUpdate
+afterUpdate
+beforeBan
+afterBan
+beforeUnban
+afterUnban
+beforeKick
+afterKick
+beforeAuth*/
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//Profile Events
+/*afterCreate
+beforeUpdate
+afterUpdate
+beforeFileCreate
+afterFileCreate
+beforeFileUpdate
+afterFileUpdate
+beforeFileDelete
+afterFileDelete*/
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//Match Events
+/*beforeCreate
+afterCreate
+beforeUpdate
+afterUpdate
+beforeJoin
+afterJoin
+beforeLeave
+afterLeave
+beforeComplete
+afterComplete
+beforeKick
+afterKick
+beforeInvite
+afterInvite
+beforeFluidCreate
+afterFluidCreate
+beforeFixedCreate
+afterFixedCreate*/
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//Generic Object Events
+/*beforeCreate
+afterCreate
+beforeUpdate
+afterUpdate
+beforeDelete
+afterDelete*/
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//Clan Events
+/*beforeCreate
+afterCreate
+beforeUpdate
+afterUpdate*/
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//Clan Member Events
+/*beforeJoin
+afterJoin
+beforeUpdate
+afterUpdate
+beforeLeave
+afterLeave
+beforeKick
+afterKick
+beforeRoleUpdate
+afterRoleUpdate*/
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//Lobby Events
+/*beforeCreate
+afterCreate
+beforeUpdate
+afterUpdate
+beforeDelete
+afterDelete*/
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//Matchmaking Request Events
+/*beforeCreate
+afterCreate
+beforeCancel
+afterCancel*/
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//Matchmaking Result Events
+/*beforeCreate
+afterCreate*/
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//UGC Item Events
+/*beforeCreate
+afterCreate
+beforeUpdate
+afterUpdate
+beforeShare
+afterShare
+beforeUnshare
+afterUnshare
+beforePublish
+afterPublish
+beforeUnpublish
+afterUnpublish
+beforeDelete
+afterDelete*/
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//UGC Version Events
+/*beforeCreate
+afterCreate
+beforeFileCreate
+afterFileCreate
+beforeFileUpdate
+afterFileUpdate
+beforeFileDelete
+afterFileDelete*/
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//Purchase Events
+/*beforeCreate
+afterFinalize
+afterCancel*/
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//Inventory Events
+/*beforeUpdate
+afterUpdate*/
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//Notification Events
+/*beforeConsume
+afterConsume*/
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//Custom Endpoints
+
+//Custom Ping/Pong endpoint
+Hydra.get('custom_ping', function(request, response) {
+    //response.success({"ret":"custom_pong"});
+    return {"ret":"custom_pong"};
+});
+
+//Attempt an Impossible Update, updating 'me' with Server Access
+Hydra.get('impossible_update', function(request, response){
+    var serverAuth = Hydra.Client.authServer();
+
+    Hydra.Client.put("/profiles/me", {auth: serverAuth, body:[["set","data.ServerMe","Impossible"]]}, function(serverRequest, body) {
+        if(serverRequest.statusCode == 200) {
+            response.success({});
+        } else {
+            response.failure({});
+        }
+    })
+});
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//Before Profile Update 
+/*Hydra.profile.beforeUpdate(function(request, response) {
+    response.success([['inc', 'server_data.times_profile_updated', 1]]);
+});*/
+
+
+
+
+//Notification Hooks
+
+//Before Notification Consume, update account
+/*Hydra.notification.beforeConsume(function(request, response) {
+    var serverAuth = Hydra.Client.authServer("1ef8c79dc364407f9eb9c84d053827c0", "MDZhZTU1MzEtOWViZS00YzRmLWFmMTYtOWRlOWYyMzBhNWZiNGUyMTE5ZjktY2QxNy00NjE4LTg3MDgtODZiNDExMWMzODNi");
+
+    Hydra.Client.put("/accounts/572a7671e80762f4d7fe7953", {auth: serverAuth, body:[["inc","server_data.timesBeforeNotificationConsume",1]]}, function(serverRequest, body) {
+        if(serverRequest.statusCode == 200) {
+            response.success({});
+        } else {
+            response.failure({});
+        }
+    })
+});
+
+//After Notification Consume, update account
+Hydra.notification.afterConsume(function(request, response) {
+    var serverAuth = Hydra.Client.authServer("1ef8c79dc364407f9eb9c84d053827c0", "MDZhZTU1MzEtOWViZS00YzRmLWFmMTYtOWRlOWYyMzBhNWZiNGUyMTE5ZjktY2QxNy00NjE4LTg3MDgtODZiNDExMWMzODNi");
+
+    Hydra.Client.put("/accounts/572a7671e80762f4d7fe7953", {auth: serverAuth, body:[["inc","server_data.timesAfterNotificationConsume",1]]}, function(serverRequest, body) {
+        if(serverRequest.statusCode == 200) {
+            response.success({});
+        } else {
+            response.failure({});
+        }
+    })
+});*/
+
+/*
+//Generic Object Service Hooks
+
+//Before Generic Object creation 
+Hydra.object.beforeCreate(function(request, response) {
+  response.success([['set', 'server_data.beforeCreateHookHit', "true"]]);
+});
+
+//After Generic Object creation 
+Hydra.object.afterCreate(function(request, response) {
+  response.success([['set', 'server_data.afterCreateHookHit', "true"]]);
+});
+
+//Before Generic Object Update 
+Hydra.object.beforeUpdate(function(request, response) {
+  response.success([['inc', 'data.timesBeforeUpdateHit', 1]]);
+});
+
+//After Generic Object Update 
+Hydra.object.afterUpdate(function(request, response) {
+  response.success([['inc', 'data.timesAfterUpdateHit', 1]]);
+});
+
+//Before Generic Object Delete, Update Account
+Hydra.object.beforeDelete(function(request, response) {
+    var serverAuth = Hydra.Client.authServer("3f3379d19374409a9c069e4a087329fe", "YjRlZDRiMzUtNjhmYy00YjQ1LWJhNjUtZmIzNmI3Nzk5Nzg4ODEyZmVjYzgtNmU4Mi00MTRjLTkyNTAtZTgwYjMxMzk4NGMx");
+
+    Hydra.Client.put("/accounts/561c174f1fd89c2c4388a9da", {auth: serverAuth, body:[["inc","server_data.timesBeforeDeleteHit",1]]}, function(serverRequest, body) {
+        if(serverRequest.statusCode == 200) {
+            response.success({});
+        } else {
+            response.failure({});
+        }
+    })
+});
+
+//After Generic Object Delete, Update Account
+Hydra.object.afterDelete(function(request, response) {
+    var serverAuth = Hydra.Client.authServer("cc909b3e8e8c4b2b98f76b54023aa821", "ZmI5ZjVmN2YtNDk0YS00NDgwLWJhYTMtNDJkZjA2MDEwZjUyOTQ1MDdjODMtNWFiYi00MGYxLWI1ZTctNDI1NmQ5MTA0MmZk");
+
+    Hydra.Client.put("/accounts/569eb62c1fd89c3340c233ea", {auth: serverAuth, body:[["inc","server_data.timesAfterDeleteHit",1]]}, function(serverRequest, body) {
+        if(serverRequest.statusCode == 200) {
+            response.success([]);
+        } else {
+            response.failure([]);
+        }
+    })
+});
+
+//Test custom logger stuff
+Logger.level = Logger.WARNING;
+
+Hydra.get('custom_log', function(request, response) {
+    Logger.error("error message");
+    response.success({})
+});
+
+Hydra.get('custom_log_global_levels', function(request, response) {
+    Logger.info("info message");
+    Logger.warning("warning message");
+    Logger.error("error message");
+    response.success({})
+});
+
+Hydra.get('custom_log_local_levels', function(request, response) {
+    Logger.level = Logger.INFO;
+
+    Logger.info("info message");
+    Logger.warning("warning message");
+    Logger.error("error message");
+    response.success({})
+});*/
