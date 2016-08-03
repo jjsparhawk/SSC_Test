@@ -7,13 +7,16 @@ Logger.level = Logger.INFO;
 //beforeCreate
 Hydra.account.beforeCreate(function(request, response){
     Logger.info("Before Profile Update Log");
-    var account = request.model;
-    return {msg: "Before Account Hook Completed"};
+    return;
 })
-/*beforeCreate
 
+//afterCreate
+Hydra.account.afterCreate(function(request, response){
+    Logger.info("After Profile Update Log");
+    return;
+})
 
-afterCreate
+/*
 beforeUpdate
 afterUpdate
 beforeBan
