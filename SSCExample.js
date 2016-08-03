@@ -7,13 +7,13 @@ Logger.level = Logger.INFO;
 //beforeCreate
 Hydra.account.beforeCreate(function(request, response){
     Logger.info("Before Profile Update Log");
-    return;
+    return {};
 })
 
 //afterCreate
 Hydra.account.afterCreate(function(request, response){
     Logger.info("After Profile Update Log");
-    return;
+    return {};
 })
 
 /*
