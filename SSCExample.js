@@ -75,6 +75,18 @@ afterDelete*/
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Clan Events
+
+//beforeDelete
+Hydra.clan.beforeDelete(function(request, response){
+    Logger.info("Before Clan Delete Log");
+    return {};
+})
+
+//afterDelete
+Hydra.clan.afterDelete(function(request, response){
+    Logger.info("After Clan Delete Log");
+    return {};
+})
 /*beforeCreate
 afterCreate
 beforeUpdate
