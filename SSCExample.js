@@ -1,10 +1,19 @@
 //Set Logger Level
-//Logger.level = Logger.WARNING;
+Logger.level = Logger.WARNING;
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Account Events
+
+//beforeCreate
+Hydra.account.beforeCreate(function(request, response){
+    //Logger.info("Before Profile Update Log");
+    var account = request.model;
+    response.success({msg: "Before Account Hook Completed"});
+})
 /*beforeCreate
+
+
 afterCreate
 beforeUpdate
 afterUpdate
