@@ -7,7 +7,7 @@ Logger.level = Logger.WARNING;
 
 //beforeCreate
 Hydra.account.beforeCreate(function(request, response){
-    //Logger.info("Before Profile Update Log");
+    Logger.info("Before Profile Update Log");
     var account = request.model;
     response.success({msg: "Before Account Hook Completed"});
 })
