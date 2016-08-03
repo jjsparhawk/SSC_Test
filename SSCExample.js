@@ -1,6 +1,5 @@
-//Set Logger Level
-Logger.level = Logger.WARNING;
-
+//Set Logger Level to INFO
+Logger.level = Logger.INFO;
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Account Events
@@ -9,7 +8,7 @@ Logger.level = Logger.WARNING;
 Hydra.account.beforeCreate(function(request, response){
     Logger.info("Before Profile Update Log");
     var account = request.model;
-    response.success({msg: "Before Account Hook Completed"});
+    return {msg: "Before Account Hook Completed"};
 })
 /*beforeCreate
 
