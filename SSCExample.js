@@ -14,7 +14,7 @@ Hydra.onLoad(function(response) {
    //Post to accounts with server auth
    Hydra.Client.post("/accounts", {auth: serverAuth, body:{"username":"testingThis", "password":"password1"}}, function(serverRequest, body) {})
 
-   return true;
+   return {};
 });
 
 //------------------------------------------------------------------------------------------------------------------------------------------
