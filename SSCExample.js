@@ -6,9 +6,15 @@ Logger.level = Logger.INFO;
 //OnLoad event
 
 Hydra.onLoad(function(response) {
-   Logger.info("hi from onLoad function")
-   Global.set("hi", "there");
-   return D.resolved("done");
+   //Logger.info("hi from onLoad function")
+   //Global.set("hi", "there");
+
+   var serverAuth = Hydra.Client.authServer();
+
+   //Post to accounts with server auth
+   Hydra.Client.post("/accounts", {auth: serverAuth, body:{"username":"testingThis", "password":"password1"}}, function(serverRequest, body) {})
+
+   return true;
 });
 
 //------------------------------------------------------------------------------------------------------------------------------------------
