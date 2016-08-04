@@ -1,5 +1,16 @@
 //Set Logger Level to INFO
 Logger.level = Logger.INFO;
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//OnLoad event
+
+Hydra.onLoad(function(response) {
+   Logger.info("hi from onLoad function")
+   Global.set("hi", "there");
+   return D.resolved("done");
+});
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Account Events
