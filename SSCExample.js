@@ -5,17 +5,16 @@ Logger.level = Logger.INFO;
 
 //OnLoad event
 
+
 Hydra.onLoad(function(response) {
-   //Logger.info("hi from onLoad function")
-   //Global.set("hi", "there");
+   var serverAuth = Hydra.Client.authServer("3f3379d19374409a9c069e4a087329fe", "YjRlZDRiMzUtNjhmYy00YjQ1LWJhNjUtZmIzNmI3Nzk5Nzg4ODEyZmVjYzgtNmU4Mi00MTRjLTkyNTAtZTgwYjMxMzk4NGMx");
 
-   var serverAuth = Hydra.Client.authServer();
-
-   //Post to accounts with server auth
-   Hydra.Client.post("/accounts", {auth: serverAuth, body:{"username":"testingThis", "password":"password1"}}, function(serverRequest, body) {})
-
-   return {};
-});
+   return Hydra.Client.get("/broadcast_channels/test/broadcast_messages", {auth: serverAuth})
+   .then(function(result) {
+      Global.set("onLoad", result.body);
+      return true;
+   })
+})
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
