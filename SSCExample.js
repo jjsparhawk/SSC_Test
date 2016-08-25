@@ -124,6 +124,94 @@ afterRoleUpdate*/
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
+//Clan Member Invitation Events
+
+//beforeInvite
+Hydra.clan.beforeInvite(function(request, response){
+    Logger.info("Before Clan Member Invite Log");
+    return {};
+})
+
+//afterInvite
+Hydra.clan.afterInvite(function(request, response){
+    Logger.info("After Clan Member Invite Log");
+    return {};
+})
+
+//beforeSuggest
+Hydra.clan.beforeSuggest(function(request, response){
+    Logger.info("Before Clan Member Suggest Log");
+    return {};
+})
+
+//afterSuggest
+Hydra.clan.afterSuggest(function(request, response){
+    Logger.info("After Clan Member Suggest Log");
+    return {};
+})
+
+//beforeApply
+Hydra.clan.beforeApply(function(request, response){
+    Logger.info("Before Clan Member Apply Log");
+    return {};
+})
+
+//afterApply
+Hydra.clan.afterApply(function(request, response){
+    Logger.info("After Clan Member Apply Log");
+    return {};
+})
+
+//beforeApprove
+Hydra.clan.beforeApprove(function(request, response){
+    Logger.info("Before Clan Member Approve Log");
+    return {};
+})
+
+//afterApprove
+Hydra.clan.afterApprove(function(request, response){
+    Logger.info("After Clan Member Approve Log");
+    return {};
+})
+
+//beforeDeny
+Hydra.clan.beforeDeny(function(request, response){
+    Logger.info("Before Clan Member Deny Log");
+    return {};
+})
+
+//afterDeny
+Hydra.clan.afterDeny(function(request, response){
+    Logger.info("After Clan Member Deny Log");
+    return {};
+})
+
+//beforeAccept
+Hydra.clan.beforeAccept(function(request, response){
+    Logger.info("Before Clan Member Accept Log");
+    return {};
+})
+
+//afterAccept
+Hydra.clan.afterAccept(function(request, response){
+    Logger.info("After Clan Member Accept Log");
+    return {};
+})
+
+//beforeReject
+Hydra.clan.beforeReject(function(request, response){
+    Logger.info("Before Clan Member Reject Log");
+    return {};
+})
+
+//afterReject
+Hydra.clan.afterReject(function(request, response){
+    Logger.info("After Clan Member Reject Log");
+    return {};
+}) 
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
 //Lobby Events
 /*beforeCreate
 afterCreate
