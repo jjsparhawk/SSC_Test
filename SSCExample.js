@@ -205,7 +205,7 @@ Hydra.clanMemberInvitation.beforeReject(function(request, response){
 })
 
 //afterReject
-Hydra.MemberInvitation.afterReject(function(request, response){
+Hydra.clanMemberInvitation.afterReject(function(request, response){
     Logger.info("After Clan Member Reject Log");
     return {};
 }) 
