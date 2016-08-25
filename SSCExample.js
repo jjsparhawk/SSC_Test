@@ -131,13 +131,13 @@ Hydra.clanMemberInvitation.beforeInvite(function(request, response){
     Logger.info("Before Clan Member Invite Log");
     return {};
 })
-/*
+
 //afterInvite
 Hydra.clanMemberInvitation.afterInvite(function(request, response){
     Logger.info("After Clan Member Invite Log");
     return {};
 })
-
+/*
 //beforeSuggest
 Hydra.clanMemberInvitation.beforeSuggest(function(request, response){
     Logger.info("Before Clan Member Suggest Log");
