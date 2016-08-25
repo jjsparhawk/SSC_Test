@@ -209,7 +209,7 @@ Hydra.clanMemberInvitation.afterReject(function(request, response){
     Logger.info("After Clan Member Reject Log");
     return {};
 }) 
-*/
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Lobby Events
