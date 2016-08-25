@@ -123,7 +123,7 @@ beforeRoleUpdate
 afterRoleUpdate*/
 
 //------------------------------------------------------------------------------------------------------------------------------------------
-/*
+
 //Clan Member Invitation Events
 
 //beforeInvite
@@ -209,7 +209,7 @@ Hydra.clan.afterReject(function(request, response){
     Logger.info("After Clan Member Reject Log");
     return {};
 }) 
-*/
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Lobby Events
