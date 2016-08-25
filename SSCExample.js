@@ -125,13 +125,13 @@ afterRoleUpdate*/
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Clan Member Invitation Events
-/*
+
 //beforeInvite
 Hydra.clanMemberInvitation.beforeInvite(function(request, response){
     Logger.info("Before Clan Member Invite Log");
     return {};
 })
-
+/*
 //afterInvite
 Hydra.clanMemberInvitation.afterInvite(function(request, response){
     Logger.info("After Clan Member Invite Log");
