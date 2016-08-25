@@ -137,7 +137,7 @@ Hydra.clanMemberInvitation.afterInvite(function(request, response){
     Logger.info("After Clan Member Invite Log");
     return {};
 })
-/*
+
 //beforeSuggest
 Hydra.clanMemberInvitation.beforeSuggest(function(request, response){
     Logger.info("Before Clan Member Suggest Log");
@@ -149,7 +149,7 @@ Hydra.clanMemberInvitation.afterSuggest(function(request, response){
     Logger.info("After Clan Member Suggest Log");
     return {};
 })
-
+/*
 //beforeApply
 Hydra.clanMemberInvitation.beforeApply(function(request, response){
     Logger.info("Before Clan Member Apply Log");
