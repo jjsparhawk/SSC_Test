@@ -22,13 +22,13 @@ Hydra.onLoad(function(response) {
 
 //beforeCreate
 Hydra.account.beforeCreate(function(request, response){
-    Logger.info("Before Profile Update Log");
+    Logger.info("Before Account Create Log");
     return {};
 })
 
 //afterCreate
 Hydra.account.afterCreate(function(request, response){
-    Logger.info("After Profile Update Log");
+    Logger.info("After Account Create Log");
     return {};
 })
 
@@ -293,6 +293,15 @@ Hydra.get('impossible_update', function(request, response){
         }
     })
 });
+
+//Custom endpoints that return invalid data. Shouldn't crash
+Hydra.get('custom_null_return', function(request, response) {
+    return null;
+})
+
+Hydra.get('custom_true_return', function(request, response) {
+    return true;
+})
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
