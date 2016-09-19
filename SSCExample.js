@@ -20,16 +20,16 @@ Hydra.onLoad(function(response) {
 
 //Account Events
 
-//beforeCreate
+//beforeCreate (with invalid return type)
 Hydra.account.beforeCreate(function(request, response){
     Logger.info("Before Account Create Log");
-    return {};
+    return true;
 })
 
-//afterCreate
+//afterCreate (with invalid return type)
 Hydra.account.afterCreate(function(request, response){
     Logger.info("After Account Create Log");
-    return {};
+    return null;
 })
 
 /*
@@ -293,15 +293,6 @@ Hydra.get('impossible_update', function(request, response){
         }
     })
 });
-
-//Custom endpoints that return invalid data. Shouldn't crash
-Hydra.get('custom_null_return', function(request, response) {
-    return null;
-})
-
-Hydra.get('custom_true_return', function(request, response) {
-    return true;
-})
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
