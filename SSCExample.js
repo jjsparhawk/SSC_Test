@@ -103,24 +103,123 @@ Hydra.clan.afterDelete(function(request, response){
     Logger.info("After Clan Delete Log");
     return {};
 })
-/*beforeCreate
-afterCreate
-beforeUpdate
+
+Hydra.clan.beforeCreate(function(request, response){
+    Logger.info("Before Clan Create Log");
+    return {};
+})
+
+Hydra.clan.afterCreate(function(request, response){
+    Logger.info("After Clan Create Log");
+    return {};
+})
+
+/*beforeUpdate
 afterUpdate*/
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Clan Member Events
-/*beforeJoin
-afterJoin
-beforeUpdate
-afterUpdate
-beforeLeave
-afterLeave
-beforeKick
-afterKick
-beforeRoleUpdate
-afterRoleUpdate*/
+
+Hydra.clanMember.beforeJoin(function(request, response){
+    Logger.info("Before Clan Member Join Log");
+    return {};
+})
+
+Hydra.clanMember.afterJoin(function(request, response){
+    Logger.info("After Clan Member Join Log");
+    return {};
+})
+
+Hydra.clanMember.beforeUpdate(function(request, response){
+    Logger.info("Before Clan Member Update Log");
+    return {};
+})
+
+Hydra.clanMember.afterUpdate(function(request, response){
+    Logger.info("After Clan Member Update Log");
+    return {};
+})
+
+Hydra.clanMember.beforeLeave(function(request, response){
+    Logger.info("Before Clan Member Leave Log");
+    return {};
+})
+
+Hydra.clanMember.afterLeave(function(request, response){
+    Logger.info("After Clan Member Leave Log");
+    return {};
+})
+
+Hydra.clanMember.beforeKick(function(request, response){
+    Logger.info("Before Clan Member Kick Log");
+    return {};
+})
+
+Hydra.clanMember.afterKick(function(request, response){
+    Logger.info("After Clan Member Kick Log");
+    return {};
+})
+
+Hydra.clanMember.beforeRoleUpdate(function(request, response){
+    Logger.info("Before Clan Member Role Update Log");
+    return {};
+})
+
+Hydra.clanMember.afterRoleUpdate(function(request, response){
+    Logger.info("After Clan Member Role Update Log");
+    return {};
+})
+
+Hydra.clanMember.beforeInvite(function(request, response){
+    Logger.info("Before Clan Member Invite Log");
+    return {};
+})
+
+Hydra.clanMember.afterInvite(function(request, response){
+    Logger.info("After Clan Member Invite Log");
+    return {};
+})
+
+Hydra.clanMember.beforeApply(function(request, response){
+    Logger.info("Before Clan Member Apply Log");
+    return {};
+})
+
+Hydra.clanMember.afterApply(function(request, response){
+    Logger.info("After Clan Member Apply Log");
+    return {};
+})
+
+Hydra.clanMember.beforeApprove(function(request, response){
+    Logger.info("Before Clan Member Approve Log");
+    return {};
+})
+
+Hydra.clanMember.afterApprove(function(request, response){
+    Logger.info("After Clan Member Approve Log");
+    return {};
+})
+
+Hydra.clanMember.beforeDecline(function(request, response){
+    Logger.info("Before Clan Member Decline Log");
+    return {};
+})
+
+Hydra.clanMember.afterDecline(function(request, response){
+    Logger.info("After Clan Member Decline Log");
+    return {};
+})
+
+Hydra.clanMember.beforeReject(function(request, response){
+    Logger.info("Before Clan Member Reject Log");
+    return {};
+})
+
+Hydra.clanMember.afterReject(function(request, response){
+    Logger.info("After Clan Member Reject Log");
+    return {};
+})
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
