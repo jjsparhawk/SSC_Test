@@ -222,10 +222,10 @@ Hydra.clanMember.afterReject(function(request, response){
     return {};
 })
 
-/*Hydra.clanMember.becameInactive(function(request, response){*/
-    //Logger.info("After Clan Member Reject Log");
-    //return {};
-//})
+Hydra.clanMember.becameInactive(function(request, response){
+    console.log("clan member became inactive")
+    return {};
+})
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------
