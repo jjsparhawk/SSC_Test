@@ -221,15 +221,6 @@ Hydra.clanMember.afterReject(function(request, response){
     return {};
 })
 
-//Clan types
-//------------------------------------------------------------------------------
-Hydra.clanType.afterCreate(function(request, response){
-    Logger.info("After clan type create");
-    return {};
-})
-
-
-
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Clan Member Invitation Events
