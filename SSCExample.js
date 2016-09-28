@@ -171,15 +171,15 @@ Hydra.clanMember.afterRoleUpdate(function(request, response){
     return {};
 })
 
-/*Hydra.clanMember.beforeInvite(function(request, response){*/
-    //Logger.info("Before Clan Member Invite Log");
-    //return {};
-//})
+Hydra.clanMember.beforeInvite(function(request, response){
+    Logger.info("Before Clan Member Invite Log");
+    return {};
+})
 
-//Hydra.clanMember.afterInvite(function(request, response){
-    //Logger.info("After Clan Member Invite Log");
-    //return {};
-//})
+Hydra.clanMember.afterInvite(function(request, response){
+    Logger.info("After Clan Member Invite Log");
+    return {};
+})
 
 Hydra.clanMember.beforeApply(function(request, response){
     Logger.info("Before Clan Member Apply Log");
@@ -220,6 +220,15 @@ Hydra.clanMember.afterReject(function(request, response){
     Logger.info("After Clan Member Reject Log");
     return {};
 })
+
+//Clan types
+//------------------------------------------------------------------------------
+Hydra.clanType.afterCreate(function(request, response){
+    Logger.info("After clan type create");
+    return {};
+})
+
+
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
