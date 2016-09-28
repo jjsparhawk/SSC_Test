@@ -111,7 +111,7 @@ Hydra.clan.beforeCreate(function(request, response){
 
 Hydra.clan.afterCreate(function(request, response){
     Logger.info("After Clan Create Log");
-    Console.log("created clan");
+    console.log("created clan");
     return {};
 })
 
