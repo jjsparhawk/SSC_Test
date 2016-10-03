@@ -115,6 +115,12 @@ Hydra.clan.afterCreate(function(request, response){
     return {};
 })
 
+Hydra.clan.clanMemberBecameInactive(function(request, response){
+    console.log("clan member became inactive");
+    console.log(request);
+    return {};
+})
+
 /*beforeUpdate
 afterUpdate*/
 
@@ -222,10 +228,6 @@ Hydra.clanMember.afterReject(function(request, response){
     return {};
 })
 
-Hydra.clanMember.becameInactive(function(request, response){
-    console.log("clan member became inactive")
-    return {};
-})
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------
