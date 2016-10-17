@@ -1,5 +1,6 @@
 //Set Logger Level to INFO
 Logger.level = Logger.INFO;
+var serverAuth = Hydra.Client.authServer();
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -7,7 +8,6 @@ Logger.level = Logger.INFO;
 
 
 Hydra.onLoad(function(response) {
-   var serverAuth = Hydra.Client.authServer();
 
    return Hydra.Client.get("/broadcast_channels/test/broadcast_messages", {auth: serverAuth})
    .then(function(result) {
