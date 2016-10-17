@@ -1,6 +1,5 @@
 //Set Logger Level to INFO
 Logger.level = Logger.INFO;
-var serverAuth = Hydra.Client.authServer();
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -8,6 +7,7 @@ var serverAuth = Hydra.Client.authServer();
 
 
 Hydra.onLoad(function(response) {
+   var serverAuth = Hydra.Client.authServer();
 
    return Hydra.Client.get("/broadcast_channels/test/broadcast_messages", {auth: serverAuth})
    .then(function(result) {
@@ -115,6 +115,8 @@ Hydra.clan.afterCreate(function(request, response){
 })
 
 Hydra.clan.beforeClanMembersInactive(function(request, response){
+    var serverAuth = Hydra.Client.authServer();
+    
     return Hydra.Client.get("/broadcast_channels/ClanMembersInactive/broadcast_messages", {auth: serverAuth})
    .then(function(result) {
       Global.set("onLoad", result.body);
