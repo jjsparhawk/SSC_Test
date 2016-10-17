@@ -114,6 +114,10 @@ Hydra.clan.afterCreate(function(request, response){
     return {};
 })
 
+Hydra.clan.beforeClanMembersInactive(function(request, response)){
+    Hydra.Client.get("/broadcast_channels/ClanMembersInactiveTest/broadcast_messages", {auth: serverAuth});
+})
+
 /*beforeUpdate
 afterUpdate*/
 
