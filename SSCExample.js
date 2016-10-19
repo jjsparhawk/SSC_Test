@@ -114,15 +114,15 @@ Hydra.clan.afterCreate(function(request, response){
     return {};
 })
 
-Hydra.clan.beforeClanMembersInactive(function(request, response){
+/*Hydra.clan.beforeClanMembersInactive(function(request, response){
     var serverAuth = Hydra.Client.authServer();
-    
+
     return Hydra.Client.get("/broadcast_channels/ClanMembersInactive/broadcast_messages", {auth: serverAuth})
    .then(function(result) {
       Global.set("onLoad", result.body);
       return true;
    })
-})
+})*/
 
 /*beforeUpdate
 afterUpdate*/
