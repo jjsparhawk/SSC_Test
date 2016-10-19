@@ -403,6 +403,11 @@ Hydra.get('impossible_update', function(request, response){
     })
 });
 
+Hydra.get('query_param_use', function(request) {
+    var speedy_return_value = request.userRequest.queryparams.TestInput;
+    return D.resolved(speedy_return_value);
+});
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Before Profile Update 
