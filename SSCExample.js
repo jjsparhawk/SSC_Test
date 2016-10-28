@@ -516,10 +516,26 @@ Hydra.lobby.afterDelete(function(request, response){
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Matchmaking Request Events
-/*beforeCreate
-afterCreate
-beforeCancel
-afterCancel*/
+
+Hydra.matchMakingRequest.beforeCreate(function(request, response){
+    Logger.info("Before Matchmaking Request Create Log");
+    return {};
+})
+
+Hydra.matchMakingRequest.afterCreate(function(request, response){
+    Logger.info("After Matchmaking Request Create Log");
+    return {};
+})
+
+Hydra.matchMakingRequest.beforeCancel(function(request, response){
+    Logger.info("Before Matchmaking Cancel Log");
+    return {};
+})
+
+Hydra.matchMakingRequest.afterCancel(function(request, response){
+    Logger.info("After Matchmaking Request Cancel Log");
+    return {};
+})
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
