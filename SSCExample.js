@@ -628,14 +628,46 @@ Hydra.userContentItem.afterDelete(function(request, response){
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //UGC Version Events
-/*beforeCreate
-afterCreate
-beforeFileCreate
-afterFileCreate
-beforeFileUpdate
-afterFileUpdate
-beforeFileDelete
-afterFileDelete*/
+
+Hydra.userContentVersion.beforeCreate(function(request, response){
+    Logger.info("Before UGC Version Create Log");
+    return {};
+})
+
+Hydra.userContentVersion.afterCreate(function(request, response){
+    Logger.info("After User Content Version Create Log");
+    return {};
+})
+
+Hydra.userContentVersion.beforeFileCreate(function(request, response){
+    Logger.info("Before UGC Version File Create Log");
+    return {};
+})
+
+Hydra.userContentVersion.afterFileCreate(function(request, response){
+    Logger.info("After User Content Version File Create Log");
+    return {};
+})
+
+Hydra.userContentVersion.beforeFileUpdate(function(request, response){
+    Logger.info("Before UGC Version File Update Log");
+    return {};
+})
+
+Hydra.userContentVersion.afterFileUpdate(function(request, response){
+    Logger.info("After User Content Version File Update Log");
+    return {};
+})
+
+Hydra.userContentVersion.beforeFileDelete(function(request, response){
+    Logger.info("Before UGC Version File Delete Log");
+    return {};
+})
+
+Hydra.userContentVersion.afterFileDelete(function(request, response){
+    Logger.info("After User Content Version File Delete Log");
+    return {};
+})
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
