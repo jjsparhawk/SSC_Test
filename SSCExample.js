@@ -705,8 +705,16 @@ Hydra.inventory.afterUpdate(function(request, response){
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Notification Events
-/*beforeConsume
-afterConsume*/
+
+Hydra.notification.beforeConsume(function(request, response){
+    Logger.info("Before Notification Consume Log");
+    return {};
+})
+
+Hydra.notification.afterConsume(function(request, response){
+    Logger.info("After Notification Consume Log");
+    return {};
+})
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
