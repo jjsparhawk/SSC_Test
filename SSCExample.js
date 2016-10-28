@@ -691,8 +691,16 @@ Hydra.purchase.afterCancel(function(request, response){
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Inventory Events
-/*beforeUpdate
-afterUpdate*/
+
+Hydra.inventory.beforeUpdate(function(request, response){
+    Logger.info("Before Inventory Update Log");
+    return {};
+})
+
+Hydra.inventory.afterUpdate(function(request, response){
+    Logger.info("After Inventory Update Log");
+    return {};
+})
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
