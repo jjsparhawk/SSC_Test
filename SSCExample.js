@@ -130,24 +130,96 @@ Hydra.profile.afterFileDelete(function(request, response){
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Match Events
-/*beforeCreate
-afterCreate
-beforeUpdate
-afterUpdate
-beforeJoin
-afterJoin
-beforeLeave
-afterLeave
-beforeComplete
-afterComplete
-beforeKick
-afterKick
-beforeInvite
-afterInvite
-beforeFluidCreate
-afterFluidCreate
-beforeFixedCreate
-afterFixedCreate*/
+
+Hydra.match.beforeCreate(function(request, response){
+    Logger.info("Before Match Create Log");
+    return {};
+})
+
+Hydra.match.afterCreate(function(request, response){
+    Logger.info("After Match Create Log");
+    return {};
+})
+
+Hydra.match.beforeUpdate(function(request, response){
+    Logger.info("Before Match Update Log");
+    return {};
+})
+
+Hydra.match.afterUpdate(function(request, response){
+    Logger.info("After Match Update Log");
+    return {};
+})
+
+Hydra.match.beforeJoin(function(request, response){
+    Logger.info("Before Match Join Log");
+    return {};
+})
+
+Hydra.match.afterJoin(function(request, response){
+    Logger.info("After Match Join Log");
+    return {};
+})
+
+Hydra.match.beforeLeave(function(request, response){
+    Logger.info("Before Match Leave Log");
+    return {};
+})
+
+Hydra.match.afterLeave(function(request, response){
+    Logger.info("After Match Leave Log");
+    return {};
+})
+
+Hydra.match.beforeComplete(function(request, response){
+    Logger.info("Before Match Complete Log");
+    return {};
+})
+
+Hydra.match.afterComplete(function(request, response){
+    Logger.info("After Match Complete Log");
+    return {};
+})
+
+Hydra.match.beforeKick(function(request, response){
+    Logger.info("Before Match Kick Log");
+    return {};
+})
+
+Hydra.match.afterKick(function(request, response){
+    Logger.info("After Match Kick Log");
+    return {};
+})
+
+Hydra.match.beforeInvite(function(request, response){
+    Logger.info("Before Match Invite Log");
+    return {};
+})
+
+Hydra.match.afterInvite(function(request, response){
+    Logger.info("After Match Invite Log");
+    return {};
+})
+
+Hydra.match.beforeFluidCreate(function(request, response){
+    Logger.info("Before Fluid Match Create Log");
+    return {};
+})
+
+Hydra.match.afterFluidCreate(function(request, response){
+    Logger.info("After Fluid Match Create Log");
+    return {};
+})
+
+Hydra.match.beforeFixedCreate(function(request, response){
+    Logger.info("Before Fixed Match Create Log");
+    return {};
+})
+
+Hydra.match.afterFixedCreate(function(request, response){
+    Logger.info("After Fixed Match Create Log");
+    return {};
+})
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
