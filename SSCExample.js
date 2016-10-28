@@ -82,11 +82,6 @@ Hydra.account.beforeAuth(function(request, response){
 
 //Profile Events
 
-Hydra.profile.beforeCreate(function(request, response){
-    Logger.info("Before Profile Create Log");
-    return {};
-})
-
 Hydra.profile.afterCreate(function(request, response){
     Logger.info("After Profile Create Log");
     return {};
