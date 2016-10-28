@@ -32,9 +32,13 @@ Hydra.account.afterCreate(function(request, response){
     return null;
 })
 
-/*
-beforeUpdate
-afterUpdate
+
+Hydra.account.beforeUpdate(function(request, response){
+    Logger.info("After Account Update Log");
+    return {};
+})
+
+/*afterUpdate
 beforeBan
 afterBan
 beforeUnban
