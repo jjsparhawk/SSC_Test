@@ -226,12 +226,14 @@ Hydra.match.afterFixedCreate(function(request, response){
 
 Hydra.object.beforeCreate(function(request, response){
     Logger.info("Before Generic Object Create Log");
-    return {};
+    response.success([['set', 'server_data.beforeCreateHookHit', "true"]]);
+    //return {};
 })
 
 Hydra.object.afterCreate(function(request, response){
     Logger.info("After Generic Object Create Log");
-    return {};
+    response.success([['set', 'server_data.afterCreateHookHit', "true"]]);
+    //return {};
 })
 
 Hydra.object.beforeUpdate(function(request, response){
@@ -813,20 +815,5 @@ Hydra.object.afterDelete(function(request, response) {
             response.failure([]);
         }
     })
-});
-
-//Test custom logger stuff
-Logger.level = Logger.WARNING;
-
-Hydra.get('custom_log', function(request, response) {
-    Logger.error("error message");
-    response.success({})
-});
-
-Hydra.get('custom_log_global_levels', function(request, response) {
-    Logger.info("info message");
-    Logger.warning("warning message");
-    Logger.error("error message");
-    response.success({})
 });
 */
