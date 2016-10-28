@@ -78,6 +78,11 @@ Hydra.account.beforeAuth(function(request, response){
     return {};
 })
 
+Hydra.account.afterAuth(function(request, response){
+    Logger.info("After Account Auth Log");
+    return {};
+})
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Profile Events
