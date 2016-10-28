@@ -383,16 +383,6 @@ Hydra.clanMember.afterApprove(function(request, response){
     return {};
 })
 
-Hydra.clanMember.beforeDecline(function(request, response){
-    Logger.info("Before Clan Member Decline Log");
-    return {};
-})
-
-Hydra.clanMember.afterDecline(function(request, response){
-    Logger.info("After Clan Member Decline Log");
-    return {};
-})
-
 Hydra.clanMember.beforeReject(function(request, response){
     Logger.info("Before Clan Member Reject Log");
     return {};
@@ -400,6 +390,16 @@ Hydra.clanMember.beforeReject(function(request, response){
 
 Hydra.clanMember.afterReject(function(request, response){
     Logger.info("After Clan Member Reject Log");
+    return {};
+})
+
+Hydra.clanMember.beforeDecline(function(request, response){
+    Logger.info("Before Clan Member Decline Log");
+    return {};
+})
+
+Hydra.clanMember.afterDecline(function(request, response){
+    Logger.info("After Clan Member Decline Log");
     return {};
 })
 
@@ -482,12 +482,36 @@ Hydra.clanMemberInvitation.afterReject(function(request, response){
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Lobby Events
-/*beforeCreate
-afterCreate
-beforeUpdate
-afterUpdate
-beforeDelete
-afterDelete*/
+
+Hydra.lobby.beforeCreate(function(request, response){
+    Logger.info("Before Lobby Create Log");
+    return {};
+})
+
+Hydra.lobby.afterCreate(function(request, response){
+    Logger.info("After Lobby Create Log");
+    return {};
+})
+
+Hydra.lobby.beforeUpdate(function(request, response){
+    Logger.info("Before Lobby Update Log");
+    return {};
+})
+
+Hydra.lobby.afterUpdate(function(request, response){
+    Logger.info("After Lobby Update Log");
+    return {};
+})
+
+Hydra.lobby.beforeDelete(function(request, response){
+    Logger.info("Before Lobby Delete Log");
+    return {};
+})
+
+Hydra.lobby.afterDelete(function(request, response){
+    Logger.info("After Lobby Delete Log");
+    return {};
+})
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
