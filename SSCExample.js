@@ -646,13 +646,22 @@ Hydra.notification.afterConsume(function(request, response){
 //Custom Ping/Pong endpoint
 Hydra.get('custom_ping', function(request, response) {
     response.success({"ret":"custom_pong"});
-    //return {"ret":"custom_pong"};
 });
 
 //Custom Endpoint with Query Parameter Use
 Hydra.get('query_param_use', function(request) {
     var speedy_return_value = request.userRequest.queryparams.TestInput;
     return D.resolved(speedy_return_value);
+});
+
+//Custom Endpoint Testing All Logger Levels
+Hydra.get('custom_test_all_logger_levels', function(request, response) {
+    Logger.level = Logger.INFO;
+
+    Logger.info("Here's the custom info message.");
+    Logger.warning("Here's the custom warning message.");
+    Logger.error("Here's the custom error message.");
+    response.success({})
 });
 
 //Attempt an Impossible Update, updating 'me' with Server Access
@@ -668,14 +677,9 @@ Hydra.get('impossible_update', function(request, response){
     })
 });
 
-//Test Custom Log Local Levels
-Hydra.get('custom_log_local_levels', function(request, response) {
-    Logger.level = Logger.INFO;
-
-    Logger.info("info message");
-    Logger.warning("warning message");
-    Logger.error("error message");
-    response.success({})
+//Promises Custom Endpoint Test
+Hydra.get('custom_promises', function(request, response) {
+    return D.resolved(123);
 });
 
 //------------------------------------------------------------------------------------------------------------------------------------------
