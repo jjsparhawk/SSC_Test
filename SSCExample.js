@@ -78,23 +78,59 @@ Hydra.account.beforeAuth(function(request, response){
     return {};
 })
 
-Hydra.account.afterAuth(function(request, response){
-    Logger.info("After Account Auth Log");
-    return {};
-})
-
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Profile Events
-/*afterCreate
-beforeUpdate
-afterUpdate
-beforeFileCreate
-afterFileCreate
-beforeFileUpdate
-afterFileUpdate
-beforeFileDelete
-afterFileDelete*/
+
+Hydra.profile.beforeCreate(function(request, response){
+    Logger.info("Before Profile Create Log");
+    return {};
+})
+
+Hydra.profile.afterCreate(function(request, response){
+    Logger.info("After Profile Create Log");
+    return {};
+})
+
+Hydra.profile.beforeUpdate(function(request, response){
+    Logger.info("Before Profile Update Log");
+    return {};
+})
+
+Hydra.profile.afterUpdate(function(request, response){
+    Logger.info("After Profile Update Log");
+    return {};
+})
+
+Hydra.profile.beforeFileCreate(function(request, response){
+    Logger.info("Before Profile File Create Log");
+    return {};
+})
+
+Hydra.profile.afterFileCreate(function(request, response){
+    Logger.info("After Profile File Create Log");
+    return {};
+})
+
+Hydra.profile.beforeFileUpdate(function(request, response){
+    Logger.info("Before Profile File Update Log");
+    return {};
+})
+
+Hydra.profile.afterFileUpdate(function(request, response){
+    Logger.info("After Profile File Update Log");
+    return {};
+})
+
+Hydra.profile.beforeFileDelete(function(request, response){
+    Logger.info("Before Profile File Delete Log");
+    return {};
+})
+
+Hydra.profile.afterFileDelete(function(request, response){
+    Logger.info("After Profile File Delete Log");
+    return {};
+})
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
