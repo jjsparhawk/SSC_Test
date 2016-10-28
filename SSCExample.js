@@ -540,26 +540,90 @@ Hydra.matchMakingRequest.afterCancel(function(request, response){
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Matchmaking Result Events
-/*beforeCreate
-afterCreate*/
+
+Hydra.matchMakingResult.beforeCreate(function(request, response){
+    Logger.info("Before Matchmaking Result Create Log");
+    return {};
+})
+
+Hydra.matchMakingResult.afterCreate(function(request, response){
+    Logger.info("After Matchmaking Result Create Log");
+    return {};
+})
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //UGC Item Events
-/*beforeCreate
-afterCreate
-beforeUpdate
-afterUpdate
-beforeShare
-afterShare
-beforeUnshare
-afterUnshare
-beforePublish
-afterPublish
-beforeUnpublish
-afterUnpublish
-beforeDelete
-afterDelete*/
+
+Hydra.userContentItem.beforeCreate(function(request, response){
+    Logger.info("Before UGC Item Create Log");
+    return {};
+})
+
+Hydra.userContentItem.afterCreate(function(request, response){
+    Logger.info("After User Content Item Create Log");
+    return {};
+})
+
+Hydra.userContentItem.beforeUpdate(function(request, response){
+    Logger.info("Before UGC Item Update Log");
+    return {};
+})
+
+Hydra.userContentItem.afterUpdate(function(request, response){
+    Logger.info("After User Content Item Update Log");
+    return {};
+})
+
+Hydra.userContentItem.beforeShare(function(request, response){
+    Logger.info("Before UGC Item Share Log");
+    return {};
+})
+
+Hydra.userContentItem.afterShare(function(request, response){
+    Logger.info("After User Content Item Share Log");
+    return {};
+})
+
+Hydra.userContentItem.beforeUnshare(function(request, response){
+    Logger.info("Before UGC Item Unshare Log");
+    return {};
+})
+
+Hydra.userContentItem.afterUnshare(function(request, response){
+    Logger.info("After User Content Item Unshare Log");
+    return {};
+})
+
+Hydra.userContentItem.beforePublish(function(request, response){
+    Logger.info("Before UGC Item Publish Log");
+    return {};
+})
+
+Hydra.userContentItem.afterPublish(function(request, response){
+    Logger.info("After User Content Item Publish Log");
+    return {};
+})
+
+Hydra.userContentItem.beforeUnpublish(function(request, response){
+    Logger.info("Before UGC Item Unpublish Log");
+    return {};
+})
+
+Hydra.userContentItem.afterUnpublish(function(request, response){
+    Logger.info("After User Content Item Unpublish Log");
+    return {};
+})
+
+Hydra.userContentItem.beforeDelete(function(request, response){
+    Logger.info("Before UGC Item Delete Log");
+    return {};
+})
+
+Hydra.userContentItem.afterDelete(function(request, response){
+    Logger.info("After User Content Item Delete Log");
+    return {};
+})
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -593,6 +657,60 @@ afterUpdate*/
 afterConsume*/
 
 //------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Custom Endpoints
 
