@@ -34,18 +34,49 @@ Hydra.account.afterCreate(function(request, response){
 
 
 Hydra.account.beforeUpdate(function(request, response){
+    Logger.info("Before Account Update Log");
+    return {};
+})
+
+Hydra.account.afterUpdate(function(request, response){
     Logger.info("After Account Update Log");
     return {};
 })
 
-/*afterUpdate
-beforeBan
-afterBan
-beforeUnban
-afterUnban
-beforeKick
-afterKick
-beforeAuth*/
+Hydra.account.beforeBan(function(request, response){
+    Logger.info("Before Account Ban Log");
+    return {};
+})
+
+Hydra.account.afterBan(function(request, response){
+    Logger.info("After Account Ban Log");
+    return {};
+})
+
+Hydra.account.beforeUnban(function(request, response){
+    Logger.info("Before Account Unban Log");
+    return {};
+})
+
+Hydra.account.afterUnban(function(request, response){
+    Logger.info("After Account Unban Log");
+    return {};
+})
+
+Hydra.account.beforeKick(function(request, response){
+    Logger.info("Before Account Kick Log");
+    return {};
+})
+
+Hydra.account.afterKick(function(request, response){
+    Logger.info("After Account Kick Log");
+    return {};
+})
+
+Hydra.account.beforeAuth(function(request, response){
+    Logger.info("Before Account Auth Log");
+    return {};
+})
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
