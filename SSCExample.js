@@ -672,9 +672,21 @@ Hydra.userContentVersion.afterFileDelete(function(request, response){
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Purchase Events
-/*beforeCreate
-afterFinalize
-afterCancel*/
+
+Hydra.purchase.beforeCreate(function(request, response){
+    Logger.info("Before Purchase Create Log");
+    return {};
+})
+
+Hydra.purchase.afterFinalize(function(request, response){
+    Logger.info("After Purchase Finalize Log");
+    return {};
+})
+
+Hydra.purchase.afterCancel(function(request, response){
+    Logger.info("After Purchase Cancel Log");
+    return {};
+})
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
