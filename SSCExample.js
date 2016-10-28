@@ -227,13 +227,11 @@ Hydra.match.afterFixedCreate(function(request, response){
 Hydra.object.beforeCreate(function(request, response){
     Logger.info("Before Generic Object Create Log");
     response.success([['set', 'server_data.beforeCreateHookHit', "true"]]);
-    //return {};
 })
 
 Hydra.object.afterCreate(function(request, response){
     Logger.info("After Generic Object Create Log");
-    response.success([['set', 'server_data.afterCreateHookHit', "true"]]);
-    //return {};
+    response.success([['set', 'data.afterCreateHookHit', "true"]]);
 })
 
 Hydra.object.beforeUpdate(function(request, response){
@@ -768,29 +766,8 @@ Hydra.notification.afterConsume(function(request, response) {
     })
 });*/
 
+
 /*
-//Generic Object Service Hooks
-
-//Before Generic Object creation 
-Hydra.object.beforeCreate(function(request, response) {
-  response.success([['set', 'server_data.beforeCreateHookHit', "true"]]);
-});
-
-//After Generic Object creation 
-Hydra.object.afterCreate(function(request, response) {
-  response.success([['set', 'server_data.afterCreateHookHit', "true"]]);
-});
-
-//Before Generic Object Update 
-Hydra.object.beforeUpdate(function(request, response) {
-  response.success([['inc', 'data.timesBeforeUpdateHit', 1]]);
-});
-
-//After Generic Object Update 
-Hydra.object.afterUpdate(function(request, response) {
-  response.success([['inc', 'data.timesAfterUpdateHit', 1]]);
-});
-
 //Before Generic Object Delete, Update Account
 Hydra.object.beforeDelete(function(request, response) {
     var serverAuth = Hydra.Client.authServer("3f3379d19374409a9c069e4a087329fe", "YjRlZDRiMzUtNjhmYy00YjQ1LWJhNjUtZmIzNmI3Nzk5Nzg4ODEyZmVjYzgtNmU4Mi00MTRjLTkyNTAtZTgwYjMxMzk4NGMx");
