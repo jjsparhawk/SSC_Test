@@ -5,7 +5,6 @@ Logger.level = Logger.INFO;
 
 //OnLoad event
 
-
 Hydra.onLoad(function(response) {
    var serverAuth = Hydra.Client.authServer();
 
@@ -642,66 +641,18 @@ Hydra.notification.afterConsume(function(request, response){
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //Custom Endpoints
 
 //Custom Ping/Pong endpoint
 Hydra.get('custom_ping', function(request, response) {
     response.success({"ret":"custom_pong"});
     //return {"ret":"custom_pong"};
+});
+
+//Custom Endpoint with Query Parameter Use
+Hydra.get('query_param_use', function(request) {
+    var speedy_return_value = request.userRequest.queryparams.TestInput;
+    return D.resolved(speedy_return_value);
 });
 
 //Attempt an Impossible Update, updating 'me' with Server Access
@@ -717,20 +668,71 @@ Hydra.get('impossible_update', function(request, response){
     })
 });
 
-Hydra.get('query_param_use', function(request) {
-    var speedy_return_value = request.userRequest.queryparams.TestInput;
-    return D.resolved(speedy_return_value);
+//Test Custom Log Local Levels
+Hydra.get('custom_log_local_levels', function(request, response) {
+    Logger.level = Logger.INFO;
+
+    Logger.info("info message");
+    Logger.warning("warning message");
+    Logger.error("error message");
+    response.success({})
 });
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-//Before Profile Update 
-/*Hydra.profile.beforeUpdate(function(request, response) {
-    response.success([['inc', 'server_data.times_profile_updated', 1]]);
-});*/
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
 
 //Notification Hooks
 
@@ -823,12 +825,4 @@ Hydra.get('custom_log_global_levels', function(request, response) {
     Logger.error("error message");
     response.success({})
 });
-
-Hydra.get('custom_log_local_levels', function(request, response) {
-    Logger.level = Logger.INFO;
-
-    Logger.info("info message");
-    Logger.warning("warning message");
-    Logger.error("error message");
-    response.success({})
-});*/
+*/
