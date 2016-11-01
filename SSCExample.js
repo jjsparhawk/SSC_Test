@@ -664,13 +664,13 @@ Hydra.get('bool_query_param', function(request) {
     else{
         Logger.info("if (invasionSelfMatchmaking != null) is false");
     }
-    if (invasionSelfMatchmaking == true) {
+    if (invasionSelfMatchmaking === "true") {
         Logger.info("if(invasionSelfMatchmaking == true) is true");
     }
     else{
         Logger.info("if(invasionSelfMatchmaking == true) is false");
     }
-    if (invasionSelfMatchmaking != null && invasionSelfMatchmaking == true) {
+    if (invasionSelfMatchmaking != null && invasionSelfMatchmaking === "true") {
         Logger.info("if (invasionSelfMatchmaking != null && invasionSelfMatchmaking == true) is true");
     }
     else{
