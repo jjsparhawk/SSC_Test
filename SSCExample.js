@@ -9,8 +9,11 @@ Logger.level = Logger.INFO;
 Hydra.onLoad(function(response) {
    var serverAuth = Hydra.Client.authServer();
 
-   return Hydra.Client.get("/broadcast_channels/test/broadcast_messages", {auth: serverAuth, headers: {will:"test"}})
+   console.log("in onload");
+   return Hydra.Client.get("/broadcast_channels/test/broadcast_messages", {auth: serverAuth})
    .then(function(result) {
+     console.log(result);
+     console.log("in callback");
       Global.set("onLoad", result.body);
       return true;
    })
