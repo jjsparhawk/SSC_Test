@@ -9,7 +9,7 @@ Logger.level = Logger.INFO;
 Hydra.onLoad(function(response) {
    var serverAuth = Hydra.Client.authServer();
 
-   return Hydra.Client.get("/broadcast_channels/test/broadcast_messages", {auth: serverAuth, headers: {'will':'test'}})
+   return Hydra.Client.get("/broadcast_channels/test/broadcast_messages", {auth: serverAuth, headers: {will:"test"}})
    .then(function(result) {
       Global.set("onLoad", result.body);
       return true;
