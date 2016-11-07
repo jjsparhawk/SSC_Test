@@ -10,7 +10,7 @@ Hydra.onLoad(function(response) {
    var serverAuth = Hydra.Client.authServer();
 
    console.log("in onload");
-   return Hydra.Client.get("/broadcast_channels/test/broadcast_messages", {auth: serverAuth})
+   return Hydra.Client.get("/broadcast_channels/test/broadcast_messages", {auth: serverAuth, headers: {will: 'hi'}})
    .then(function(result) {
      console.log(result);
      console.log("in callback");
