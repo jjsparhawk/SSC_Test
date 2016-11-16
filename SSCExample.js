@@ -685,7 +685,7 @@ Hydra.get('custom_promises', function(request, response) {
 //Custom Endpoint with Custom Header
 Hydra.get('custom_get_with_headers', function(request, response) {
     Hydra.Client.get("/profiles/123", {"headers": {"test_header_A": "test_A", "test_header_B": "test_B"}}, function(profileResponse, body) {
-        if(Object.keys(request.headers).indexOf('test_header') == -1){
+        if(Object.keys(request.headers).indexOf('test_header_A') == -1){
             throw new Error("Custom header not attached to request");
         }
         response.success(body);
