@@ -654,38 +654,6 @@ Hydra.get('query_param_use', function(request) {
     return D.resolved(speedy_return_value);
 });
 
-//Custom Endpoint with Boolean Query Parameter
-Hydra.get('bool_query_param', function(request) {
-    var invasionSelfMatchmaking = request.userRequest.queryparams.MMBool;
-
-    if (invasionSelfMatchmaking != null) {
-        Logger.info("if (invasionSelfMatchmaking != null) is true");
-    }
-    else{
-        Logger.info("if (invasionSelfMatchmaking != null) is false");
-    }
-    if (invasionSelfMatchmaking === "true") {
-        Logger.info("if(invasionSelfMatchmaking == true) is true");
-    }
-    else{
-        Logger.info("if(invasionSelfMatchmaking == true) is false");
-    }
-    if (invasionSelfMatchmaking != null && invasionSelfMatchmaking === "true") {
-        Logger.info("if (invasionSelfMatchmaking != null && invasionSelfMatchmaking == true) is true");
-    }
-    else{
-        Logger.info("if (invasionSelfMatchmaking != null && invasionSelfMatchmaking == true) is false");
-    }
-    if (invasionSelfMatchmaking) {
-        Logger.info("if (invasionSelfMatchmaking) is true");
-    }
-    else{
-        Logger.info("if (invasionSelfMatchmaking) is false");
-    }
-
-    return D.resolved(invasionSelfMatchmaking)
-});
-
 //Custom Endpoint Testing All Logger Levels
 Hydra.get('custom_test_all_logger_levels', function(request, response) {
     Logger.level = Logger.INFO;
@@ -712,6 +680,16 @@ Hydra.get('impossible_update', function(request, response){
 //Promises Custom Endpoint Test
 Hydra.get('custom_promises', function(request, response) {
     return D.resolved(123);
+});
+
+//Custom Endpoint with Custom Header
+Hydra.get('custom_get_with_headers', function(request, response) {
+    Hydra.Client.get("/profiles/123", {"headers": {"test_header_A": "test_A", "test_header_B": "test_B"}}, function(profileResponse, body) {
+        if(Object.keys(request.headers).indexOf('test_header') == -1){
+            throw new Error("Custom header not attached to request");
+        }
+        response.success(body);
+    })
 });
 
 //------------------------------------------------------------------------------------------------------------------------------------------
