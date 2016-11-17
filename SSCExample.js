@@ -92,7 +92,7 @@ Hydra.account.beforeAuth(function(request, response){
         ]
     };
 
-    return Hydra.Client.put("/profiles/" + account_id, tick_logins )
+    return Hydra.Client.put("/profiles/swiggitySwooty", tick_logins )
         .then(
             function ()
             {
