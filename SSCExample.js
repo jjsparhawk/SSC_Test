@@ -73,7 +73,7 @@ Hydra.account.afterKick(function(request, response){
 })
 
 Hydra.account.beforeAuth(function(request, response){
-    //Logger.info("Before Account Auth Log");
+    Logger.info("Before Account Auth Log");
     //return {};
 
 
