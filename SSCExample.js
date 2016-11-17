@@ -73,8 +73,33 @@ Hydra.account.afterKick(function(request, response){
 })
 
 Hydra.account.beforeAuth(function(request, response){
-    Logger.info("Before Account Auth Log");
-    return {};
+    //Logger.info("Before Account Auth Log");
+    //return {};
+    Logger.level = gLogLevel;
+    var account_id = request.headers.access.data.account_id;
+    var apikey = request.headers.apikey;
+
+    var tick_logins = {
+        json: true,
+        auth: GetServerAuth(apikey),
+        body: [
+            ["inc", "server_data.logons", 1]
+        ]
+    };
+
+    return Hydra.Client.put("/profiles/" + account_id, tick_logins )
+        .then(
+            function ()
+            {
+                Logger.info("User has signed in");
+
+                return D.resolved([[]]);
+            },
+            function()
+            {
+                return D.rejected([[]]);
+            }
+        );
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -683,19 +708,19 @@ Hydra.get('custom_promises', function(request, response) {
 });
 
 //Custom Endpoint with Custom Header
-Hydra.get('custom_get_with_headers', function(request, response) {
+/*Hydra.get('custom_get_with_headers', function(request, response) {
     var serverAuth = Hydra.Client.authServer();
 
     Hydra.Client.get("/profiles/123", {"headers": {"test_header_A": "test_A", "test_header_B": "test_B"}, function(profileResponse, body) {
     })
     .then(function(requestresponse){
-        if(requestresponse.response.request.getHeader('test-header') != 'test'){
+        if(requestresponse.response.request.getHeader('test-header_A') != 'test_A'){
             response.error(requestresponse.body);
         }else{
             response.success(requestresponse.body);
         }
     });
-});
+});*/
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
