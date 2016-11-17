@@ -74,38 +74,7 @@ Hydra.account.afterKick(function(request, response){
 
 Hydra.account.beforeAuth(function(request, response){
     Logger.info("Before Account Auth Log");
-    //return {};
-
-
-
-    var serverAuth = Hydra.Client.authServer();
-
-    //var account_id = request.headers.access.data.account_id;
-    //var apikey = request.headers.apikey;
-
-    var tick_logins = {
-        auth: serverAuth,
-        json: true,
-        //auth: GetServerAuth(apikey),
-        update: [
-        //body: [
-            ["inc", "server_data.logons", 1]
-        ]
-    };
-
-    return Hydra.Client.put("/profiles/swiggitySwooty", tick_logins )
-        .then(
-            function ()
-            {
-                Logger.info("User has signed in");
-
-                return D.resolved([[]]);
-            },
-            function()
-            {
-                return D.rejected([[]]);
-            }
-        );
+    return {};
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -714,10 +683,10 @@ Hydra.get('custom_promises', function(request, response) {
 });
 
 //Custom Endpoint with Custom Header
-/*Hydra.get('custom_get_with_headers', function(request, response) {
+Hydra.get('custom_get_with_headers', function(request, response) {
     var serverAuth = Hydra.Client.authServer();
 
-    Hydra.Client.get("/profiles/123", {"headers": {"test_header_A": "test_A", "test_header_B": "test_B"}, function(profileResponse, body) {
+    Hydra.Client.get("/profiles/123", {"headers": {"test_header_A": "test_A", "test_header_B": "test_B"}, auth:serverAuth}, function(profileResponse, body) {
     })
     .then(function(requestresponse){
         if(requestresponse.response.request.getHeader('test-header_A') != 'test_A'){
@@ -726,7 +695,7 @@ Hydra.get('custom_promises', function(request, response) {
             response.success(requestresponse.body);
         }
     });
-});*/
+});
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
