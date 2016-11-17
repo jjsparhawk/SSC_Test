@@ -689,11 +689,7 @@ Hydra.get('custom_get_without_headers', function(request, response) {
     Hydra.Client.get("/profiles/123", {"auth":serverAuth}, function(profileResponse, body) {
     })
     .then(function(requestresponse){
-        if(requestresponse.response.request.getHeader('test-header_A') != 'test_A'){
-            response.error(requestresponse.body);
-        }else{
-            response.success(requestresponse.body);
-        }
+        response.success(requestresponse.body);
     });
 });
 
