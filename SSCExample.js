@@ -686,12 +686,15 @@ Hydra.get('custom_promises', function(request, response) {
 Hydra.get('custom_get_with_headers', function(request, response) {
     var serverAuth = Hydra.Client.authServer();
 
-    Hydra.Client.get("/profiles/123", {"headers": {"test_header_A": "test_A", "test_header_B": "test_B"}, auth: serverAuth}, function(profileResponse, body) {
-        if(Object.keys(request.headers).indexOf('test_header_A') == -1){
-            throw new Error("Custom header not attached to request");
-        }
-        response.success(body);
+    Hydra.Client.get("/profiles/123", {"headers": {"test_header_A": "test_A", "test_header_B": "test_B"}, function(profileResponse, body) {
     })
+    .then(function(requestresponse){
+        if(requestresponse.response.request.getHeader('test-header') != 'test'){
+            response.error(requestresponse.body);
+        }else{
+            response.success(requestresponse.body);
+        }
+    });
 });
 
 //------------------------------------------------------------------------------------------------------------------------------------------
