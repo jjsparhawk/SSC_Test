@@ -682,11 +682,26 @@ Hydra.get('custom_promises', function(request, response) {
     return D.resolved(123);
 });
 
+//Custom Endpoint Without Headers
+Hydra.get('custom_get_without_headers', function(request, response) {
+    var serverAuth = Hydra.Client.authServer();
+
+    Hydra.Client.get("/profiles/123", {"auth":serverAuth}, function(profileResponse, body) {
+    })
+    .then(function(requestresponse){
+        if(requestresponse.response.request.getHeader('test-header_A') != 'test_A'){
+            response.error(requestresponse.body);
+        }else{
+            response.success(requestresponse.body);
+        }
+    });
+});
+
 //Custom Endpoint with Custom Header
 Hydra.get('custom_get_with_headers', function(request, response) {
     var serverAuth = Hydra.Client.authServer();
 
-    Hydra.Client.get("/profiles/123", {"headers": {"test_header_A": "test_A", "test_header_B": "test_B"}, auth:serverAuth}, function(profileResponse, body) {
+    Hydra.Client.get("/profiles/123", {"headers": {"test_header_A": "test_A", "test_header_B": "test_B"}, "auth":serverAuth}, function(profileResponse, body) {
     })
     .then(function(requestresponse){
         if(requestresponse.response.request.getHeader('test-header_A') != 'test_A'){
