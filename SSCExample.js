@@ -79,15 +79,16 @@ Hydra.account.beforeAuth(function(request, response){
 
 
     var serverAuth = Hydra.Client.authServer();
-    //Logger.level = gLogLevel;
-    var account_id = request.headers.access.data.account_id;
-    var apikey = request.headers.apikey;
+
+    //var account_id = request.headers.access.data.account_id;
+    //var apikey = request.headers.apikey;
 
     var tick_logins = {
         auth: serverAuth,
         json: true,
         //auth: GetServerAuth(apikey),
-        body: [
+        update: [
+        //body: [
             ["inc", "server_data.logons", 1]
         ]
     };
