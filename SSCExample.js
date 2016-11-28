@@ -701,13 +701,11 @@ Hydra.get('custom_get_with_headers', function(request, response) {
     })
     .then(function(requestresponse){
         response.success(requestresponse.body);
-        /*if(requestresponse.response.request.getHeader('test-header_A') != 'test_A'){
-            response.error(requestresponse.body);
-        }else{
-            response.success(requestresponse.body);
-        }*/
     });
 });
+
+//Custom Endpoint That Doesn't Return
+Hydra.get('custom_no_response', function(request, response) {});
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
