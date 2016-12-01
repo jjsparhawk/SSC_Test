@@ -288,10 +288,10 @@ Hydra.clan.afterDelete(function(request, response){
     return {};
 })
 
-Hydra.clan.beforeClanMembersInactive(function(request, response){
+Hydra.clan.beforeClanMembersIdle(function(request, response){
     var serverAuth = Hydra.Client.authServer();
 
-    return Hydra.Client.get("/broadcast_channels/ClanMembersInactive/broadcast_messages", {auth: serverAuth})
+    return Hydra.Client.get("/broadcast_channels/ClanMembersIdle/broadcast_messages", {auth: serverAuth})
    .then(function(result) {
       Global.set("onLoad", result.body);
       return true;
