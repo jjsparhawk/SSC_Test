@@ -704,20 +704,18 @@ Hydra.get('custom_get_with_headers', function(request, response) {
     });
 });
 
+//Custom Endpoint with Custom Client Header
+Hydra.get('custom_get_withcustom_client_header', function(request, response) {
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    Logger.info(myMap.get(Kristaps));
+    return {};
+});
+
 //Custom Endpoint That Doesn't Return
 Hydra.get('custom_no_response', function(request, response) {});
 
 //Custom 'StartsWith' Test
-
-//StartsWith Function
-//if (!String.prototype.startsWith) {
-    String.prototype.startsWith = function(searchString, position){
-      position = position || 0;
-      Logger.info("Used Nick's Prototype");
-      return this.substr(position, searchString.length) === searchString;
-  };
-//}
-
 Hydra.get('custom_starts_with_test', function(requst, response){
     var theString = "test123";
     if(theString.startsWith("test")){
