@@ -707,6 +707,14 @@ Hydra.get('custom_get_with_headers', function(request, response) {
 //Custom Endpoint That Doesn't Return
 Hydra.get('custom_no_response', function(request, response) {});
 
+//StartsWith Function
+if (!String.prototype.startsWith) {
+    String.prototype.startsWith = function(searchString, position){
+      position = position || 0;
+      return this.substr(position, searchString.length) === searchString;
+  };
+}
+
 //Custom 'StartsWith' Test
 Hydra.get('custom_starts_with_test', function(requst, response){
     var theString = 'test123';
