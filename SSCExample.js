@@ -708,7 +708,6 @@ Hydra.get('custom_get_with_headers', function(request, response) {
 Hydra.get('custom_get_with_custom_client_header', function(request, response) {
     var myMap = new Map();
     myMap = request.userRequest.headers;
-    Logger.info(myMap);
     Logger.info(myMap["http-kristaps"]);
     return {};
 });
