@@ -705,10 +705,10 @@ Hydra.get('custom_get_with_headers', function(request, response) {
 });
 
 //Custom Endpoint with Custom Client Header
-Hydra.get('custom_get_withcustom_client_header', function(request, response) {
+Hydra.get('custom_get_with_custom_client_header', function(request, response) {
     var myMap = new Map();
     myMap = request.userRequest.headers;
-    Logger.info(myMap.get(Kristaps));
+    Logger.info(myMap.get("Kristaps"));
     return {};
 });
 
