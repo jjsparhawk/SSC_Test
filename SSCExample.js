@@ -719,7 +719,7 @@ if (!String.prototype.startsWith) {
 
 Hydra.get('custom_starts_with_test', function(requst, response){
     var theString = "test123";
-    if(theString.startsWith("test")){
+    if(theString.startsWith("bro")){
         Logger.info("Yes, string starts with test.");
     }else if (theString.startsWith("SomethingElse")){
         Logger.info("No, string starts with something else.");
