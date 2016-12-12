@@ -710,7 +710,7 @@ Hydra.get('custom_no_response', function(request, response) {});
 //Custom 'StartsWith' Test
 Hydra.get('custom_starts_with_test', function(requst, response){
     var theString = "test123";
-    if(theString.StartsWith("test")){
+    if(theString.startsWith("test")){
         Logger.info("Yes, string starts with test.");
     }
     return {};
