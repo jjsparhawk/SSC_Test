@@ -707,6 +707,15 @@ Hydra.get('custom_get_with_headers', function(request, response) {
 //Custom Endpoint That Doesn't Return
 Hydra.get('custom_no_response', function(request, response) {});
 
+//Custom 'StartsWith' Test
+Hydra.get('custom_starts_with_test', function(requst, response){
+    var theString = "test123";
+    if(theString.StartsWith("test")){
+        Logger.info("Yes, string starts with test.");
+    }
+    return {};
+});
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 
