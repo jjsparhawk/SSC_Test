@@ -734,6 +734,11 @@ Hydra.get('custom_starts_with_test', function(requst, response){
     return {};
 });
 
+//Custom Endpoint to Get All Globals
+Hydra.get('custom_global_get_all', function(request, response) {
+    response.success({"ret": Global.getAll()})
+});
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 
