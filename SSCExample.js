@@ -77,6 +77,14 @@ Hydra.account.beforeAuth(function(request, response){
     return {};
 })
 
+Hydra.account.afterOnline(function(request, response){
+    response.success([['inc', 'server_data.timesWentOnline', 1]]);
+})
+
+Hydra.account.afterOffline(function(request, response){
+    response.success([['inc', 'server_data.timesWentOffline', 1]]);
+})
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Profile Events
