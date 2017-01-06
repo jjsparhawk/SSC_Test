@@ -741,7 +741,8 @@ Hydra.get('custom_global_get_all', function(request, response) {
 
 //Custom Endpoint to Invalidate SSC
 Hydra.get('custom_invalidate', function(request, response) {
-    client.invalidate();
+    Hydra.Client.invalidate();
+    return {};
 });
 //------------------------------------------------------------------------------------------------------------------------------------------
 
