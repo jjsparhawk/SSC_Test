@@ -74,7 +74,7 @@ Hydra.account.afterKick(function(request, response){
 
 Hydra.account.beforeAuth(function(request, response){
     Logger.info("Before Account Auth Log");
-    return None;
+    return {};
 })
 
 Hydra.account.afterOnline(function(request, response){
@@ -684,6 +684,37 @@ Hydra.get('impossible_update', function(request, response){
         }
     })
 });
+
+//Create an event chain, to test a list of parent Id's in the Log Viewer
+Hydra.get('chain_link_a', function(request, response){
+    var serverAuth = Hydra.Client.authServer();
+
+    Hydra.Client.get("/ssc/invoke/chain_link_b", {auth: serverAuth, body:[["set","data.ServerMe","Impossible"]]}, function(serverRequest, body) {
+        if(serverRequest.statusCode == 200) {
+            response.success({});
+        } else {
+            response.failure({});
+        }
+    })
+});
+
+Hydra.get('chain_link_b', function(request, response){
+    var serverAuth = Hydra.Client.authServer();
+
+    Hydra.Client.get("/ssc/invoke/chain_link_c", {auth: serverAuth, body:[["set","data.ServerMe","Impossible"]]}, function(serverRequest, body) {
+        if(serverRequest.statusCode == 200) {
+            response.success({});
+        } else {
+            response.failure({});
+        }
+    })
+});
+
+Hydra.get('chain_link_c', function(request, response){
+    response.success({"ret":"Chain_End_Found"});
+});
+
+
 
 //Promises Custom Endpoint Test
 Hydra.get('custom_promises', function(request, response) {
