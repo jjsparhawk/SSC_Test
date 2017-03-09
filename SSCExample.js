@@ -1,6 +1,6 @@
 //Set Logger Level to INFO
 Logger.level = Logger.INFO;
-
+"onLoadRetryMaxAttempts": 5;
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //OnLoad event
@@ -12,6 +12,8 @@ Hydra.onLoad(function(response) {
    .then(function(result) {
       Global.set("onLoad", result.body);
       //return true;
+      
+      //To test onLoad automatic re-try loop:
       response.failure({})
    })
 })
