@@ -5,16 +5,15 @@ Logger.level = Logger.INFO;
 //OnLoad event
 
 Hydra.onLoad(function(response) {
-   "onLoadRetryMaxAttempts": 5;
    var serverAuth = Hydra.Client.authServer();
 
    return Hydra.Client.get("/broadcast_channels/test/broadcast_messages", {auth: serverAuth})
    .then(function(result) {
       Global.set("onLoad", result.body);
-      //return true;
+      return true;
       
       //To test onLoad automatic re-try loop:
-      response.failure({})
+      //response.failure({})
    })
 })
 
