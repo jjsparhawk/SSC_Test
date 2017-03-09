@@ -1,11 +1,11 @@
 //Set Logger Level to INFO
 Logger.level = Logger.INFO;
-"onLoadRetryMaxAttempts": 5;
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //OnLoad event
 
 Hydra.onLoad(function(response) {
+   "onLoadRetryMaxAttempts": 5;
    var serverAuth = Hydra.Client.authServer();
 
    return Hydra.Client.get("/broadcast_channels/test/broadcast_messages", {auth: serverAuth})
