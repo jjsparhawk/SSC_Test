@@ -11,7 +11,8 @@ Hydra.onLoad(function(response) {
    return Hydra.Client.get("/broadcast_channels/test/broadcast_messages", {auth: serverAuth})
    .then(function(result) {
       Global.set("onLoad", result.body);
-      return true;
+      //return true;
+      response.failure({})
    })
 })
 
