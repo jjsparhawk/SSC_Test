@@ -771,6 +771,11 @@ Hydra.get('custom_starts_with_test', function(requst, response){
 Hydra.get('custom_global_get_all', function(request, response) {
     response.success({"ret": Global.getAll()})
 });
+
+//Custom Endpoint that creates an UUID
+Hydra.get('custom_create_uuid', function(request, response) {
+    response.success({"v1": UUID.v1(), "v4": UUID.v4()})
+});
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 
