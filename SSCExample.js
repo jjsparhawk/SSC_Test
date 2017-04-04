@@ -700,6 +700,32 @@ Hydra.get('notify_online', function(request, response){
     })
 });
 
+//Custom Endpoint that sends a notification to a specific player
+Hydra.get('notify_specific', function(request, response){
+    var serverAuth = Hydra.Client.authServer();
+
+    Hydra.Client.put("/profiles/58766d4df3efd0b60d176995", {auth: serverAuth, body:{
+  "operations": [
+    [
+      "set",
+      "data.kills",
+      23
+    ]
+  ],
+  "notification": {
+    "data": {"IntTest":42, "DoubleTest":3.14156926, "DateTimeTest":"2017-04-04T15:07:04+00:00", "StringTest":"HelloWorld"},
+    "template": "Hello"
+  },
+  "_model_update": true
+}, function(serverRequest, body) {
+        if(serverRequest.statusCode == 200) {
+            response.success({});
+        } else {
+            response.failure({});
+        }
+    })
+});
+
 //Create an event chain, to test a list of parent Id's in the Log Viewer
 Hydra.get('chain_link_a', function(request, response){
     var serverAuth = Hydra.Client.authServer();
