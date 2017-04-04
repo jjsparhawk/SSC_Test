@@ -687,6 +687,19 @@ Hydra.get('impossible_update', function(request, response){
     })
 });
 
+//Custom Endpoint that notifies all online players
+Hydra.get('notify_online', function(request, response){
+    var serverAuth = Hydra.Client.authServer();
+
+    Hydra.Client.put("/profiles/notify", {auth: serverAuth, body:{"target":{"presence_state":"online"}, "notification":{"template":"YoureOnline", "data":{"IntTest":42, "DoubleTest":3.14156926, "DateTimeTest":"2017-04-04T15:07:04+00:00", "StringTest":"HelloWorld"}}}}, function(serverRequest, body) {
+        if(serverRequest.statusCode == 200) {
+            response.success({});
+        } else {
+            response.failure({});
+        }
+    })
+});
+
 //Create an event chain, to test a list of parent Id's in the Log Viewer
 Hydra.get('chain_link_a', function(request, response){
     var serverAuth = Hydra.Client.authServer();
