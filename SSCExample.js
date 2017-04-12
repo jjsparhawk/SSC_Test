@@ -831,7 +831,7 @@ Hydra.post('decompress_this_map', function(request, response) {
   var decompressed = theCompressedData.decompressSync();
 
   decompressed['output'] = "HadoopScaleReduce";
-  Lobber.info("Decompressed Map:" + decompressed);
+  Logger.info("Decompressed Map:" + decompressed);
   response.success({"compressed": new Types.Compressed(decompressed)});
 });
 //------------------------------------------------------------------------------------------------------------------------------------------
