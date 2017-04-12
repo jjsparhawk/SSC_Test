@@ -821,6 +821,7 @@ Hydra.post('decompress_this_string', function(request, response) {
   var decompressed = theCompressedData.decompressSync();
 
   decompressed = "Your String Decompressed: " + decompressed;
+  Logger.info(decompressed);
   response.success({"compressed": new Types.Compressed(decompressed)});
 });
 
