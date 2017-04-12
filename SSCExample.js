@@ -809,6 +809,15 @@ Hydra.get('custom_global_get_all', function(request, response) {
 Hydra.get('custom_create_uuid', function(request, response) {
     response.success({"v1": UUID.v1(), "v4": UUID.v4()})
 });
+
+//Custom Endpoint to test Compressed Data
+Hydra.post('decompress_this', function(request, response) {
+  var theCompressedData = request.body['compressed'];
+  var decompressed = theCompressedData.decompressSync();
+
+  decompressed['output'] = "HadoopScaleReduce";
+  response.success({"compressed": new Types.Compressed(decompressed)});
+});
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 
