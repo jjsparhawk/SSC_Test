@@ -815,8 +815,18 @@ Hydra.put('send_and_receive', function(request, response) {
   response.success(request.body['data']);
 });
 
-//Custom Endpoint to test Compressed Data
-Hydra.post('decompress_this', function(request, response) {
+//Custom Endpoint to test decompressing a string
+Hydra.post('decompress_this_string', function(request, response) {
+  var theCompressedData = request.body['compressed'];
+  var decompressed = theCompressedData.decompressSync();
+
+  decompressed['output'] = "HadoopScaleReduce";
+  decompressed = "Your String Decompressed: " + decompressed;
+  response.success({"compressed": new Types.Compressed(decompressed)});
+});
+
+//Custom Endpoint to test decompressing a map
+Hydra.post('decompress_this_string', function(request, response) {
   var theCompressedData = request.body['compressed'];
   var decompressed = theCompressedData.decompressSync();
 
