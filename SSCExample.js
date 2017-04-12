@@ -810,6 +810,11 @@ Hydra.get('custom_create_uuid', function(request, response) {
     response.success({"v1": UUID.v1(), "v4": UUID.v4()})
 });
 
+//Custom Endpoint that returns body data
+Hydra.put('send_and_receive', function(request, response) {
+  response.success(request.body['data']);
+});
+
 //Custom Endpoint to test Compressed Data
 Hydra.post('decompress_this', function(request, response) {
   var theCompressedData = request.body['compressed'];
