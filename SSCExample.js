@@ -820,7 +820,6 @@ Hydra.post('decompress_this_string', function(request, response) {
   var theCompressedData = request.body['compressed'];
   var decompressed = theCompressedData.decompressSync();
 
-  decompressed['output'] = "HadoopScaleReduce";
   decompressed = "Your String Decompressed: " + decompressed;
   response.success({"compressed": new Types.Compressed(decompressed)});
 });
