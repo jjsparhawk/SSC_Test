@@ -826,7 +826,7 @@ Hydra.post('decompress_this_string', function(request, response) {
 });
 
 //Custom Endpoint to test decompressing a map
-Hydra.post('decompress_this_string', function(request, response) {
+Hydra.post('decompress_this_map', function(request, response) {
   var theCompressedData = request.body['compressed'];
   var decompressed = theCompressedData.decompressSync();
 
