@@ -839,7 +839,7 @@ Hydra.post('decompress_this_map', function(request, response) {
 //Endpoint to Compress a String
 Hydra.post('compress_this_string', function(request, response) {
   var theString = request.body['decompressed'];
-  var theCompressedString = Types.Compressed(theString);
+  var theCompressedString = new Types.Compressed(theString);
 
   Logger.info("The Compressed String: " + theCompressedString);
   response.success({"decompressed": theCompressedString.decompressSync()});
