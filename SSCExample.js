@@ -842,8 +842,25 @@ Hydra.post('compress_this_string', function(request, response) {
   var theCompressedString = new Types.Compressed(theString);
   theCompressedString.compressSync();
 
-  Logger.info("The Compressed String: " +  theCompressedString);
+  Logger.info("The Compressed String: " +  JSON.stringify(theCompressedString));
   response.success({"decompressed": theCompressedString.decompressSync()});
+});
+
+//Endpoint to Write compressed data to a profile with a raw url
+Hydra.put('raw_url_update_compressed', function(request, response){
+    var serverAuth = Hydra.Client.authServer();
+
+    var profileToUpdate = "/profiles/" + request.body['account_id'];
+
+    Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:{
+        [["set", "data.compressed", {"binary_content":{"_agType":"compressed", "_agValue":{"compression": "zlib", "compressed_data":"eJwz0Awuz0xPzyypVAguz88HUp7quQrO+bmZeekKbvlFCi6JJQpOIAk9AEY7Drs="}}}]]
+    }, function(serverRequest, body) {
+        if(serverRequest.statusCode == 200) {
+            response.success({});
+        } else {
+            response.failure({});
+        }
+    })
 });
 //------------------------------------------------------------------------------------------------------------------------------------------
 
