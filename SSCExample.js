@@ -99,7 +99,7 @@ Hydra.profile.afterCreate(function(request, response){
 //Edit compressed data on profile model
 Hydra.profile.beforeUpdate(function(request, response){
     Logger.info("Before Profile Update Log");
-    return response.success([['inc', 'server_data.timesBeforeProfileUpdateHit', 1], ['set', 'data.testingCompressedInSSCHook', {"binary_content":new Types.Compressed("eJwz0Awuz0xPzyypVAguz88HUp7quQrO+bmZeekKbvlFCi6JJQpOIAk9AEY7Drs=")}]]);;
+    return response.success([['inc', 'server_data.timesBeforeProfileUpdateHit', 1], ['set', 'data.testingCompressedInSSCHook', {"binary_content":new Types.Compressed("Compress This Data Yo.")}]]);;
 })
 
 Hydra.profile.afterUpdate(function(request, response){
@@ -834,6 +834,16 @@ Hydra.post('decompress_this_map', function(request, response) {
   decompressed['output'] = "HadoopScaleReduce";
   Logger.info("Decompressed Map:" + decompressed);
   response.success({"compressed": new Types.Compressed(decompressed)});
+});
+
+//Endpoint to Compress a String
+Hydra.post('compress_this_string', function(request, response) {
+  var theString = request.body['decompressed'];
+  var theCompressedString = Types.Compressed(theString);
+
+  theCompressedString = "Your String Compressed: " + theCompressedString;
+  Logger.info(theCompressedString);
+  response.success({"decompressed": theCompressedData.decompressSync});
 });
 //------------------------------------------------------------------------------------------------------------------------------------------
 
