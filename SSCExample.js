@@ -80,7 +80,7 @@ Hydra.account.beforeAuth(function(request, response){
 })
 
 Hydra.account.afterOnline(function(request, response){
-    response.success([['inc', 'server_data.timesWentOnline', 1], ["set", "data.testingCompressedInSSCHook", {"binary_content":{"_agType":"compressed", "_agValue":{"compression": "zlib", "compressed_data":"eJwz0Awuz0xPzyypVAguz88HUp7quQrO+bmZeekKbvlFCi6JJQpOIAk9AEY7Drs="}}}]]);
+    response.success([['inc', 'server_data.timesWentOnline', 1]]);
 })
 
 Hydra.account.afterOffline(function(request, response){
@@ -96,9 +96,10 @@ Hydra.profile.afterCreate(function(request, response){
     return {};
 })
 
+//Edit compressed data on profile model
 Hydra.profile.beforeUpdate(function(request, response){
     Logger.info("Before Profile Update Log");
-    return {};
+    return response.success([['inc', 'server_data.timesBeforeProfileUpdateHit', 1], ["set", "data.testingCompressedInSSCHook", {"binary_content":{"_agType":"compressed", "_agValue":{"compression": "zlib", "compressed_data":"eJwz0Awuz0xPzyypVAguz88HUp7quQrO+bmZeekKbvlFCi6JJQpOIAk9AEY7Drs="}}}]]);;
 })
 
 Hydra.profile.afterUpdate(function(request, response){
