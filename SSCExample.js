@@ -841,8 +841,7 @@ Hydra.post('compress_this_string', function(request, response) {
   var theString = request.body['decompressed'];
   var theCompressedString = Types.Compressed(theString);
 
-  theCompressedString = "Your String Compressed: " + theCompressedString;
-  Logger.info(theCompressedString);
+  Logger.info("The Compressed String: " + theCompressedString);
   response.success({"decompressed": theCompressedString.decompressSync});
 });
 //------------------------------------------------------------------------------------------------------------------------------------------
