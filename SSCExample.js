@@ -842,7 +842,7 @@ Hydra.post('compress_this_string', function(request, response) {
   var theCompressedString = new Types.Compressed(theString);
   theCompressedString.compressSync();
 
-  Logger.info("The Compressed String: " +  JSON.stringify(theCompressedString));
+  Logger.info("The Compressed String: " +  theCompressedString);
   response.success({"decompressed": theCompressedString.decompressSync()});
 });
 //------------------------------------------------------------------------------------------------------------------------------------------
