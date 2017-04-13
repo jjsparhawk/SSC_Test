@@ -852,9 +852,9 @@ Hydra.put('raw_url_update_compressed', function(request, response){
 
     var profileToUpdate = "/profiles/" + request.body['account_id'];
 
-    Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:{
+    Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
         [["set", "data.compressed", {"binary_content":{"_agType":"compressed", "_agValue":{"compression": "zlib", "compressed_data":"eJwz0Awuz0xPzyypVAguz88HUp7quQrO+bmZeekKbvlFCi6JJQpOIAk9AEY7Drs="}}}]]
-    }, function(serverRequest, body) {
+    , function(serverRequest, body) {
         if(serverRequest.statusCode == 200) {
             response.success({});
         } else {
@@ -862,6 +862,25 @@ Hydra.put('raw_url_update_compressed', function(request, response){
         }
     })
 });
+
+/*Hydra.get('notify_specific', function(request, response){
+    var serverAuth = Hydra.Client.authServer();
+
+    Hydra.Client.put("/profiles/58766d4df3efd0b60d176995", {auth: serverAuth, body:{
+  "operations": [["set","data.kills",23]],
+  "notification": {
+    "data": {"IntTest":42, "DoubleTest":3.14156926, "DateTimeTest":"2017-04-04T15:07:04+00:00", "StringTest":"HelloWorld"},
+    "template": "Hello"
+  },
+  "_model_update": true
+}}, function(serverRequest, body) {
+        if(serverRequest.statusCode == 200) {
+            response.success({});
+        } else {
+            response.failure({});
+        }
+    })
+});*/
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 
