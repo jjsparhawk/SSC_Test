@@ -80,7 +80,7 @@ Hydra.account.beforeAuth(function(request, response){
 })
 
 Hydra.account.afterOnline(function(request, response){
-    response.success([['inc', 'server_data.timesWentOnline', 1]]);
+    response.success([['inc', 'server_data.timesWentOnline', 1], ["set", "data.testingCompressedInSSCHook", {"binary_content":{"_agType":"compressed", "_agValue":{"compression": "zlib", "compressed_data":"eJwz0Awuz0xPzyypVAguz88HUp7quQrO+bmZeekKbvlFCi6JJQpOIAk9AEY7Drs="}}}]]);
 })
 
 Hydra.account.afterOffline(function(request, response){
