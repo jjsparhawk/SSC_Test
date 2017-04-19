@@ -97,10 +97,10 @@ Hydra.profile.afterCreate(function(request, response){
 })
 
 //Edit compressed data on profile model
-/*Hydra.profile.beforeUpdate(function(request, response){
+Hydra.profile.beforeUpdate(function(request, response){
     Logger.info("Before Profile Update Log");
     return response.success([['inc', 'server_data.timesBeforeProfileUpdateHit', 1], ['set', 'data.testingCompressedInSSCHook', new Types.Compressed("Compress This Data Yo.")]]);;
-})*/
+})
 
 Hydra.profile.afterUpdate(function(request, response){
     Logger.info("After Profile Update Log");
@@ -871,7 +871,6 @@ Hydra.put('decompress_profile_field', function(request, response){
 
     var profileToRetrieve = "/profiles/" + request.body['account_id'];
 
-    //return Hydra.Client.get(profileToRetrieve, {auth: serverAuth, autoUnCompress: true})
     return Hydra.Client.get(profileToRetrieve, {auth: serverAuth})
     .then(function(result) {
         var theCompressedData = result.body["data"][request.body['field_to_compress']];
@@ -880,17 +879,6 @@ Hydra.put('decompress_profile_field', function(request, response){
         return true;
     })
 });
-
-
-//Custom Endpoint to test decompressing a string
-/*Hydra.post('decompress_this_string', function(request, response) {
-  var theCompressedData = request.body['compressed'];
-  var decompressed = theCompressedData.decompressSync();
-
-  decompressed = "Your String Decompressed: " + decompressed;
-  Logger.info(decompressed);
-  response.success({"compressed": new Types.Compressed(decompressed)});
-});*/
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 
