@@ -829,7 +829,7 @@ Hydra.post('decompress_this_string', function(request, response) {
 //Custom Endpoint to test decompressing a map
 Hydra.post('decompress_this_map', function(request, response) {
   var theCompressedData = request.body['compressed'];
-  var decompressed = theCompressedData.decompressSync();
+  theCompressedData.decompressSync();
 
   decompressed['output'] = "HadoopScaleReduce";
   Logger.info("Decompressed Map:" + decompressed);
@@ -851,9 +851,11 @@ Hydra.put('update_profile_with_compressed', function(request, response){
     var serverAuth = Hydra.Client.authServer();
 
     var profileToUpdate = "/profiles/" + request.body['account_id'];
+    var theData = "Compress This Data For Me Please";
+    theData.compressSync();
 
     Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
-        [["set", "data.compressedByCustomEndpoint", new Types.Compressed("Compress This Data Yo.")]]}
+        [["set", "data.compressedByCustomEndpoint", theData]]}
     , function(serverRequest, body) {
         if(serverRequest.statusCode == 200) {
             response.success({});
