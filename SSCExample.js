@@ -97,11 +97,6 @@ Hydra.profile.afterCreate(function(request, response){
 })
 
 //Edit compressed data on profile model
-/*Hydra.profile.beforeUpdate(function(request, response){
-    Logger.info("Before Profile Update Log");
-    return response.success([['inc', 'server_data.timesBeforeProfileUpdateHit', 1], ['set', 'data.testingCompressedInSSCHook', {"binary_content":new Types.Compressed("Compress This Data Yo.")}]]);;
-})*/
-
 Hydra.profile.beforeUpdate(function(request, response){
     Logger.info("Before Profile Update Log");
     return response.success([['inc', 'server_data.timesBeforeProfileUpdateHit', 1], ['set', 'data.testingCompressedInSSCHook', new Types.Compressed("Compress This Data Yo.")]]);;
@@ -852,13 +847,13 @@ Hydra.post('compress_this_string', function(request, response) {
 });
 
 //Endpoint to Write compressed data to a profile with a raw url
-Hydra.put('raw_url_update_compressed', function(request, response){
+Hydra.put('update_profile_with_compressed', function(request, response){
     var serverAuth = Hydra.Client.authServer();
 
     var profileToUpdate = "/profiles/" + request.body['account_id'];
 
     Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
-        [["set", "data.compressed", {"binary_content":{"_agType":"compressed", "_agValue":{"compression": "zlib", "compressed_data":"eJwz0Awuz0xPzyypVAguz88HUp7quQrO+bmZeekKbvlFCi6JJQpOIAk9AEY7Drs="}}}]]}
+        [["set", "data.compressedByCustomEndpoint", new Types.Compressed("Compress This Data Yo.")]]}
     , function(serverRequest, body) {
         if(serverRequest.statusCode == 200) {
             response.success({});
