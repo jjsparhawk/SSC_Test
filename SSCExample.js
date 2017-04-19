@@ -873,13 +873,23 @@ Hydra.put('decompress_profile_field', function(request, response){
 
     return Hydra.Client.get(profileToRetrieve, {auth: serverAuth, autoUnCompress: true})
     .then(function(result) {
-        var theCompressedData = (result.body["data"][request.body['field_to_compress']]);
-        theCompressedData.compressSync();
-        Logger.info(JSON.stringify(theCompressedData));
-        //Logger.info(result.body["data"][request.body['field_to_compress']]);
+        var theCompressedData = result.body["data"][request.body['field_to_compress']];
+        theCompressedData.decompressSync();
+        Logger.info("The Decompressed String: " + theCompressedData));
         return true;
     })
 });
+
+
+//Custom Endpoint to test decompressing a string
+/*Hydra.post('decompress_this_string', function(request, response) {
+  var theCompressedData = request.body['compressed'];
+  var decompressed = theCompressedData.decompressSync();
+
+  decompressed = "Your String Decompressed: " + decompressed;
+  Logger.info(decompressed);
+  response.success({"compressed": new Types.Compressed(decompressed)});
+});*/
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 
