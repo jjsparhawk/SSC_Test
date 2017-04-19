@@ -866,16 +866,17 @@ Hydra.put('update_profile_with_compressed', function(request, response){
 });
 
 //Endpoint to decompress and read a compressed field on the player profile
-Hydra.put('decompress_profile_field', function(request, response){
+Hydra.put('compress_profile_field', function(request, response){
     var serverAuth = Hydra.Client.authServer();
 
-    var profileToUpdate = "/profiles/" + request.body['account_id'];
-    var theData = new Types.Compressed("Compress This Data For Me Please");
-    theData.compressSync();
+    var profileToRetrieve = "/profiles/" + request.body['account_id'];
 
-    return Hydra.Client.get(profileToUpdate, {auth: serverAuth})
+    return Hydra.Client.get(profileToRetrieve, {auth: serverAuth})
     .then(function(result) {
-        Logger.info(result.body["data"][request.body['field_to_decompress']]);
+
+
+
+        Logger.info(result.body["data"][request.body['field_to_decompress']["compressed_data"]]);
         return true;
     })
 });
