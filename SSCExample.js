@@ -873,7 +873,10 @@ Hydra.put('decompress_profile_field', function(request, response){
 
     return Hydra.Client.get(profileToRetrieve, {auth: serverAuth, autoUnCompress: true})
     .then(function(result) {
-        Logger.info(result.body["data"][request.body['field_to_compress']]);
+        var theCompressedData = new Types.Compressed(result.body["data"][request.body['field_to_compress']]);
+        theCompressedData.compressSync();
+        Logger.info(theCompressedData)
+        //Logger.info(result.body["data"][request.body['field_to_compress']]);
         return true;
     })
 });
