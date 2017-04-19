@@ -873,9 +873,9 @@ Hydra.put('decompress_profile_field', function(request, response){
     var theData = new Types.Compressed("Compress This Data For Me Please");
     theData.compressSync();
 
-    return Hydra.Client.put(profileToUpdate, {auth: serverAuth, body: [["set", "data.compressedByCustomEndpoint", theData]]})
+    return Hydra.Client.get(profileToUpdate, {auth: serverAuth})
     .then(function(result) {
-        Logger.info(result.body);
+        Logger.info(result.body["data"][request.body['field_to_decompress']]);
         return true;
     })
 });
