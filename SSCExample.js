@@ -851,7 +851,7 @@ Hydra.put('update_profile_with_compressed', function(request, response){
     var serverAuth = Hydra.Client.authServer();
 
     var profileToUpdate = "/profiles/" + request.body['account_id'];
-    var theData = "Compress This Data For Me Please";
+    var theData = new Types.Compressed("Compress This Data For Me Please");
     theData.compressSync();
 
     Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
