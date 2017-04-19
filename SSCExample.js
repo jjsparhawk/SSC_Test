@@ -876,7 +876,7 @@ Hydra.put('compress_profile_field', function(request, response){
 
 
 
-        Logger.info(result.body["data"][request.body['field_to_decompress']["compressed_data"]]);
+        Logger.info(result.body["data"][request.body['field_to_compress']]["compressed_data"]);
         return true;
     })
 });
