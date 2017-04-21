@@ -908,6 +908,18 @@ Hydra.put('decompress_profile_field', function(request, response){
         return true;
     })
 });
+
+//Custom endpoint to make a request with a hard-coded Server Key and Server Secret
+Hydra.get('use_raw_server_key', function(request, response){
+    var publicKey = request.body['server_key'];
+    var privateKey = request.body['server_secret'];
+    var serverAuth = Hydra.Client.authServer(publicKey, privateKey);
+
+    return Hydra.Client.get("/broadcast_channels/test/broadcast_messages", {auth: serverAuth})
+   .then(function(result) {
+      return true;
+   })
+});
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 
