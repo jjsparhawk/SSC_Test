@@ -11,7 +11,7 @@ Hydra.onLoad(function(response) {
    .then(function(result) {
       Global.set("onLoad", result.body);
       return true;
-      
+
       //To test onLoad automatic re-try loop:
       //response.failure({})
    })
@@ -859,6 +859,35 @@ Hydra.put('update_profile_with_compressed', function(request, response){
     , function(serverRequest, body) {
         if(serverRequest.statusCode == 200) {
             response.success({});
+        } else {
+            response.failure({});
+        }
+    })
+});
+
+//Endpoint to Write compressed data to a profile with a raw url
+Hydra.put('put_and_fetch_compressed', function(request, response){
+    var serverAuth = Hydra.Client.authServer();
+
+    var profileToUpdate = "/profiles/" + request.body['account_id'];
+    var theData = new Types.Compressed("Compress This Data For Me Please");
+    //theData.compressSync();
+
+    Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
+        [["set", "data.compressedByCustomEndpoint", theData]]}
+    , function(serverRequest, body) {
+        if(serverRequest.statusCode == 200) {
+            Hydra.Client.get(profileToUpdate, {"auth": serverAuth}, function(profileResponse, body) {
+              if(profileResponse.statusCode == 200) {
+                var theCompressedData = request.body['data']['compressedByCustomEndpoint'];
+                var decompressed = theCompressedData.decompressSync();
+
+                Logger.info("The Compressed String: " +  decompressed);
+                response.success({});
+              } else {
+                response.failure({})
+              }
+            });
         } else {
             response.failure({});
         }
