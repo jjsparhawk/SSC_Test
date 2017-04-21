@@ -927,7 +927,7 @@ Hydra.get('use_raw_server_key', function(request, response){
     var privateKey = "OTQ5NDNhYzQtNDRjYy00ZDNjLTgyMDMtNDg5NjI1MTFmNDcyNmM0N2NjY2YtYjcxYy00ZTZkLTkwYzktNWZjMWE3M2NiODA3";
     var serverAuth = Hydra.Client.authServer(publicKey, privateKey);
 
-    return Hydra.Client.get("/broadcast_channels/test/broadcast_messages", {auth: serverAuth})
+    return Hydra.Client.get("/broadcast_channels/thisChannelIsForTestingAndDoesntExist/broadcast_messages", {auth: serverAuth})
    .then(function(result) {
       return true;
    })
