@@ -865,13 +865,12 @@ Hydra.put('update_profile_with_compressed', function(request, response){
     })
 });
 
-//Endpoint to Write compressed data to a profile with a raw url
+// Make sure SSC can gunzip its own gzip
 Hydra.put('put_and_fetch_compressed', function(request, response){
     var serverAuth = Hydra.Client.authServer();
 
     var profileToUpdate = "/profiles/" + request.body['account_id'];
     var theData = new Types.Compressed("Compress This Data For Me Please");
-    //theData.compressSync();
 
     Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
         [["set", "data.compressedByCustomEndpoint", theData]]}
@@ -879,11 +878,11 @@ Hydra.put('put_and_fetch_compressed', function(request, response){
         if(serverRequest.statusCode == 200) {
             Hydra.Client.get(profileToUpdate, {"auth": serverAuth}, function(profileResponse, body) {
               if(profileResponse.statusCode == 200) {
-                var theCompressedData = request.body['data']['compressedByCustomEndpoint'];
+                var theCompressedData = body['data']['compressedByCustomEndpoint'];
                 var decompressed = theCompressedData.decompressSync();
 
                 Logger.info("The Compressed String: " +  decompressed);
-                response.success({});
+                response.success({'our_string': decompressed});
               } else {
                 response.failure({})
               }
