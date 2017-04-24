@@ -768,6 +768,14 @@ Hydra.get('custom_get_without_headers', function(request, response) {
     });
 });
 
+//Custom endpoint to test Profile Response Body
+Hydra.get('custom_test_profile_response_body', function(request, response) {
+    var serverAuth = Hydra.Client.authServer();
+    Hydra.Client.get("/profiles/123", {"auth":serverAuth}, function(profileResponse, body) {
+        response.success(profileResponse.response.body);
+    });
+});
+
 //Custom Endpoint with Custom Header
 Hydra.get('custom_get_with_headers', function(request, response) {
     var serverAuth = Hydra.Client.authServer();
