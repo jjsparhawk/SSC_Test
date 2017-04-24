@@ -883,6 +883,7 @@ Hydra.put('update_profile_with_compressed', function(request, response){
 //Endpoint to write a large integer to a profile
 Hydra.put('update_profile_with_large_number', function(request, response){
     var serverAuth = Hydra.Client.authServer();
+    var profileToUpdate = "/profiles/" + request.body['account_id'];
     Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
         [["set", "data.largeNumber", 9007199254740992]]}
     , function(serverRequest, body) {
