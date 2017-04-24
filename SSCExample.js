@@ -949,7 +949,7 @@ Hydra.get('use_raw_server_key', function(request, response){
 });
 
 Hydra.get('the_current_date', function(request, response) {
-    var currentDate = new Date;
+    var currentDate = new Date();
     response.success(currentDate);
 });
 //------------------------------------------------------------------------------------------------------------------------------------------
