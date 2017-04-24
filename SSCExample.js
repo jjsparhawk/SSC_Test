@@ -880,6 +880,20 @@ Hydra.put('update_profile_with_compressed', function(request, response){
     })
 });
 
+//Endpoint to write a large integer to a profile
+Hydra.put('update_profile_with_large_number', function(request, response){
+    var serverAuth = Hydra.Client.authServer();
+    Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
+        [["set", "data.largeNumber", 9007199254740992]]}
+    , function(serverRequest, body) {
+        if(serverRequest.statusCode == 200) {
+            response.success({});
+        } else {
+            response.failure({});
+        }
+    })
+});
+
 // Make sure SSC can gunzip its own gzip
 Hydra.put('put_and_fetch_compressed', function(request, response){
     var serverAuth = Hydra.Client.authServer();
