@@ -952,6 +952,10 @@ Hydra.get('the_current_date', function(request, response) {
     var currentDate = new Date();
     response.success(currentDate);
 });
+
+Hydra.get('return_large_number', function(request, response) {
+    response.success(9007199254740992);
+});
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 
