@@ -888,9 +888,9 @@ Hydra.put('update_profile_with_large_number', function(request, response){
         [["set", "data.largeNumber", 9007199254740992]]}
     , function(serverRequest, body) {
         if(serverRequest.statusCode == 200) {
-            response.success({});
+            response.success(body);
         } else {
-            response.failure({});
+            response.failure(body);
         }
     })
 });
