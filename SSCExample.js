@@ -99,7 +99,7 @@ Hydra.profile.afterCreate(function(request, response){
 //Edit compressed data on profile model
 Hydra.profile.beforeUpdate(function(request, response){
     Logger.info("Before Profile Update Log");
-    return response.success([['inc', 'server_data.timesBeforeProfileUpdateHit', 1], ['set', 'data.testingCompressedInSSCHook', new Types.Compressed("Compress This Data Yo.")]]);;
+    return response.success([['inc', 'server_data.timesBeforeProfileUpdateHit', 1], ['set', 'data.testingCompressedInSSCHook', new Hydra.Types.Compressed("Compress This Data Yo.")]]);;
 })
 
 Hydra.profile.afterUpdate(function(request, response){
@@ -840,7 +840,7 @@ Hydra.post('decompress_this_string', function(request, response) {
 
   decompressed = "Your String Decompressed: " + decompressed;
   Logger.info(decompressed);
-  response.success({"compressed": new Types.Compressed(decompressed)});
+  response.success({"compressed": new Hydra.Types.Compressed(decompressed)});
 });
 
 //Custom Endpoint to test decompressing a map
@@ -850,13 +850,13 @@ Hydra.post('decompress_this_map', function(request, response) {
 
   decompressed['output'] = "HadoopScaleReduce";
   Logger.info("Decompressed Map:" + decompressed);
-  response.success({"compressed": new Types.Compressed(decompressed)});
+  response.success({"compressed": new Hydra.Types.Compressed(decompressed)});
 });
 
 //Endpoint to Compress a String
 Hydra.post('compress_this_string', function(request, response) {
   var theString = request.body['decompressed'];
-  var theCompressedString = new Types.Compressed(theString);
+  var theCompressedString = new Hydra.Types.Compressed(theString);
   theCompressedString.compressSync();
 
   Logger.info("The Compressed String: " +  JSON.stringify(theCompressedString));
@@ -868,7 +868,7 @@ Hydra.put('update_profile_with_compressed', function(request, response){
     var serverAuth = Hydra.Client.authServer();
 
     var profileToUpdate = "/profiles/" + request.body['account_id'];
-    var theData = new Types.Compressed("Compress This Data For Me Please");
+    var theData = new Hydra.Types.Compressed("Compress This Data For Me Please");
     theData.compressSync();  // shouldn't be necessary, but is pending a bugfix
 
     Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
@@ -902,7 +902,7 @@ Hydra.put('put_and_fetch_compressed', function(request, response){
     var serverAuth = Hydra.Client.authServer();
 
     var profileToUpdate = "/profiles/" + request.body['account_id'];
-    var theData = new Types.Compressed("Compress This Data For Me Please");
+    var theData = new Hydra.Types.Compressed("Compress This Data For Me Please");
     theData.compressSync();  // shouldn't be necessary, but is pending a bugfix
 
     Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
