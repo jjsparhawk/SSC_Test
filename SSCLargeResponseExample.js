@@ -3,5 +3,5 @@ var largeData = {"m_OnlineDataContainerDiff": {"m_NewOnlineDataContainer": {"m_P
 
 
 Hydra.get("large_data", function() {
-  return largeData;
+  return new Types.Compressed(largeData);
 });
