@@ -940,7 +940,7 @@ Hydra.put('decompress_profile_field', function(request, response){
 });
 
 //Custom endpoint to make a request with a Server Key and Server Secret from the request
-Hydra.get('use_raw_server_key_from_request', function(request, response){
+Hydra.put('use_raw_server_key_from_request', function(request, response){
     var publicKey = request.body['server_key'];
     var privateKey = request.body['server_secret'];
     var serverAuth = Hydra.Client.authServer(publicKey, privateKey);
