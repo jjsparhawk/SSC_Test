@@ -702,7 +702,7 @@ Hydra.get('notify_online', function(request, response){
 });
 
 //Custom Endpoint that sends a notification to a specific player
-Hydra.get('notify_specific', function(request, response){
+Hydra.put('notify_specific', function(request, response){
     var serverAuth = Hydra.Client.authServer();
 
     var profileToRetrieve = "/profiles/" + request.body['account_id'];
