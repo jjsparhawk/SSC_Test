@@ -702,10 +702,12 @@ Hydra.get('notify_online', function(request, response){
 });
 
 //Custom Endpoint that sends a notification to a specific player
-Hydra.get('notify_specific', function(request, response){
+Hydra.put('notify_specific', function(request, response){
     var serverAuth = Hydra.Client.authServer();
 
-    Hydra.Client.put("/profiles/58766d4df3efd0b60d176995", {auth: serverAuth, body:{
+    var profileToRetrieve = "/profiles/" + request.body['account_id'];
+
+    Hydra.Client.put(profileToRetrieve, {auth: serverAuth, body:{
   "operations": [["set","data.kills",23]],
   "notification": {
     "data": {"IntTest":42, "DoubleTest":3.14156926, "DateTimeTest":"2017-04-04T15:07:04+00:00", "StringTest":"HelloWorld"},
