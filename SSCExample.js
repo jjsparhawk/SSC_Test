@@ -711,7 +711,7 @@ Hydra.put('notify_specific', function(request, response){
   "operations": [["set","data.kills",23]],
   "notification": {
     "data": {"IntTest":42, "DoubleTest":3.14156926, "DateTimeTest":"2017-04-04T15:07:04+00:00", "StringTest":"HelloWorld"},
-    "template": "Hello"
+    "template": "Sup"
   },
   "_model_update": true
 }}, function(serverRequest, body) {
