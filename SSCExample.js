@@ -5,16 +5,17 @@ Logger.level = Logger.INFO;
 //OnLoad event
 
 Hydra.onLoad(function(response) {
-   var serverAuth = Hydra.Client.authServer();
+    return true;
+   /*var serverAuth = Hydra.Client.authServer();
 
-   return Hydra.Client.get("/broadcast_channels/test/broadcast_messages", {auth: serverAuth})
+   return Hydra.Client.get("/broadcast_channels/test/OnLoadWasJustHit", {auth: serverAuth})
    .then(function(result) {
       Global.set("onLoad", result.body);
       return true;
 
       //To test onLoad automatic re-try loop:
       //response.failure({})
-   })
+   })*/
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
