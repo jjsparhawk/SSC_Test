@@ -206,12 +206,34 @@ Hydra.match.afterLeave(function(request, response){
 
 Hydra.match.beforeComplete(function(request, response){
     Logger.info("Before Match Complete Log");
-    return {};
+
+    var serverAuth = Hydra.Client.authServer();
+    return Hydra.Client.get("/broadcast_channels/test/BeforeMatchCompleteWasJustHit", {auth: serverAuth})
+    .then(function(result) {
+      Global.set("onLoad", result.body);
+      return true;
+
+      //To test onLoad automatic re-try loop:
+      //response.failure({})
+    })
+
+    //return {};
 })
 
 Hydra.match.afterComplete(function(request, response){
     Logger.info("After Match Complete Log");
-    return {};
+
+    var serverAuth = Hydra.Client.authServer();
+    return Hydra.Client.get("/broadcast_channels/test/AfterMatchCompleteWasJustHit", {auth: serverAuth})
+    .then(function(result) {
+      Global.set("onLoad", result.body);
+      return true;
+
+      //To test onLoad automatic re-try loop:
+      //response.failure({})
+    })
+
+    //return {};
 })
 
 Hydra.match.beforeKick(function(request, response){
