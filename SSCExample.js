@@ -174,12 +174,34 @@ Hydra.match.afterJoin(function(request, response){
 
 Hydra.match.beforeLeave(function(request, response){
     Logger.info("Before Match Leave Log");
-    return {};
+    
+    var serverAuth = Hydra.Client.authServer();
+    return Hydra.Client.get("/broadcast_channels/test/BeforeMatchLeaveWasJustHit", {auth: serverAuth})
+    .then(function(result) {
+      Global.set("onLoad", result.body);
+      return true;
+
+      //To test onLoad automatic re-try loop:
+      //response.failure({})
+    })
+
+    //return {};
 })
 
 Hydra.match.afterLeave(function(request, response){
     Logger.info("After Match Leave Log");
-    return {};
+
+    var serverAuth = Hydra.Client.authServer();
+    return Hydra.Client.get("/broadcast_channels/test/AfterMatchLeaveWasJustHit", {auth: serverAuth})
+    .then(function(result) {
+      Global.set("onLoad", result.body);
+      return true;
+
+      //To test onLoad automatic re-try loop:
+      //response.failure({})
+    })
+
+    //return {};
 })
 
 Hydra.match.beforeComplete(function(request, response){
