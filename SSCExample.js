@@ -17,6 +17,7 @@ Hydra.onLoad(function(response) {
       //response.failure({})
     })
 })
+
 /*
     For integration tests based on the custom Hooks, working idea is to
     have each hook update data on a specific object (called Log Object).
@@ -28,15 +29,7 @@ Hydra.onLoad(function(response) {
     The object itself will be created when the integration tests begin, and
     be deleted once the integration tests end.
 */
-
-//------------------------------------------------------------------------------------------------------------------------------------------
-
-//Account Events
-
-//beforeCreate (with invalid return type)
-Hydra.account.beforeCreate(function(request, response){
-    Logger.info("Before Account Create Log");
-
+function updateLogObject(){
     var serverAuth = Hydra.Client.authServer();
     var loggerObjectJSON = Hydra.Client.get("/objects/log-object/list", {auth: serverAuth}, function(serverRequest, body){
         var loggerObjectList = body;
@@ -55,6 +48,17 @@ Hydra.account.beforeCreate(function(request, response){
             response.failure({});
         }
     });
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//Account Events
+
+//beforeCreate (with invalid return type)
+Hydra.account.beforeCreate(function(request, response){
+    Logger.info("Before Account Create Log");
+    updateLogObject();
+    
 })
 
 //afterCreate (with invalid return type)
