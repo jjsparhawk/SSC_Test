@@ -35,16 +35,14 @@ Hydra.onLoad(function(response) {
 
 //beforeCreate (with invalid return type)
 Hydra.account.beforeCreate(function(request, response){
-    Logger.info("Before Account Create Logs");
+    Logger.info("Before Account Create Log");
 
     var serverAuth = Hydra.Client.authServer();
-    Logger.info("TEST");
-    var loggerObjectList = Hydra.Client.get("/objects/log-object/list", {auth: serverAuth});
-    Logger.info(loggerObjectList);
+    var loggerObjectJSON = Hydra.Client.get("/objects/log-object/list", {auth: serverAuth});
+    loggerObjectList = JSON.parse(loggerObjectJSON);
 
     if(loggerObjectList.size() > 0){
-        var logObject = loggerObjectList[0];
-        objectToUpdate = "/objects/log-object/" + logObject["id"];
+        objectToUpdate = "/objects/log-object/" + loggerObjectList.objects.id;
         Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["set", "data.BeforeAccountCreateHit", true]]});
     }
 
