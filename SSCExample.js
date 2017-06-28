@@ -29,14 +29,19 @@ Hydra.onLoad(function(response) {
     The object itself will be created when the integration tests begin, and
     be deleted once the integration tests end.
 */
-function updateLogObject(){
+
+/*
+    This function retreives a list of the log objects (there should only be 1)
+    It then updates the specified data field to true, confirming the hook was hit
+*/
+function updateLogObject(dataFieldToUpdate){
     var serverAuth = Hydra.Client.authServer();
     var loggerObjectJSON = Hydra.Client.get("/objects/log-object/list", {auth: serverAuth}, function(serverRequest, body){
         var loggerObjectList = body;
 
-        if(loggerObjectList.objects.length > 0){
+        if(loggerObjectList.objects.length > 0 && loggerObjectList.objects.length < 2){
             var objectToUpdate = "/objects/log-object/" + loggerObjectList.objects[0].id;
-            Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["set", "data.BeforeAccountCreateHit", true]]}, function(serverRequest2, body2){
+            Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["set", dataFieldToUpdate, true]]}, function(serverRequest2, body2){
                 if(serverRequest2.statusCode == 200) {
                     response.success({});
                 } else {
@@ -57,7 +62,7 @@ function updateLogObject(){
 //beforeCreate (with invalid return type)
 Hydra.account.beforeCreate(function(request, response){
     Logger.info("Before Account Create Log");
-    updateLogObject();
+    updateLogObject("data.BeforeAccountCreateHit");
     
 })
 
