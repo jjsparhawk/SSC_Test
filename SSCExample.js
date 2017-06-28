@@ -39,22 +39,19 @@ Hydra.account.beforeCreate(function(request, response){
 
     var serverAuth = Hydra.Client.authServer();
     var loggerObjectJSON = Hydra.Client.get("/objects/log-object/list", {auth: serverAuth}, function(serverRequest, body){
-        loggerObjectList = JSON.parse(loggerObjectJSON);
-        Logger.info(loggerObjectList["objects"]);
+        loggerObjectList = body;
 
-        if(loggerObjectList.size() > 0){
-            objectToUpdate = "/objects/log-object/" + loggerObjectList.objects.id;
-            Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["set", "data.BeforeAccountCreateHit", true]]}, function(serverRequest, body){
-                if(serverRequest.statusCode == 200) {
+        if(loggerObjectList.objects.size() > 0){
+            objectToUpdate = "/objects/log-object/" + loggerObjectList.objects[0].id;
+            Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["set", "data.BeforeAccountCreateHit", true]]}, function(serverRequest2, body2){
+                if(serverRequest2.statusCode == 200) {
                     response.success({});
                 } else {
                     response.failure({});
                 }
             });
         }
-        if(serverRequest.statusCode == 200) {
-            response.success({});
-        } else {
+        else {
             response.failure({});
         }
     });
