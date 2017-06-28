@@ -304,26 +304,31 @@ Hydra.object.beforeCreate(function(request, response){
 
 Hydra.object.afterCreate(function(request, response){
     Logger.info("After Generic Object Create Log");
+    updateLogObject("data.AfterObjCreateHit");
     response.success([['set', 'data.afterCreateHookHit', "true"]]);
 })
 
 Hydra.object.beforeUpdate(function(request, response){
     Logger.info("Before Generic Object Update Log");
+    updateLogObject("data.BeforeObjUpdateHit");
     return {};
 })
 
 Hydra.object.afterUpdate(function(request, response){
     Logger.info("After Generic Object Update Log");
+    updateLogObject("data.AfterObjUpdateHit");
     return {};
 })
 
 Hydra.object.beforeDelete(function(request, response){
     Logger.info("Before Generic Object Delete Log");
+    updateLogObject("data.BeforeObjDeleteHit");
     return {};
 })
 
 Hydra.object.afterDelete(function(request, response){
     Logger.info("After Generic Object Delete Log");
+    updateLogObject("data.AfterObjDeleteHit");
     return {};
 })
 
