@@ -45,7 +45,7 @@ Hydra.account.beforeCreate(function(request, response){
     if(loggerObjectList.size() > 0){
         var logObject = loggerObjectList[0];
         objectToUpdate = "/objects/log-object/" + logObject["id"];
-        Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["set", "data.BeforeAccountCreateHit", true]]}
+        Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["set", "data.BeforeAccountCreateHit", true]]});
     }
 
     return true;
