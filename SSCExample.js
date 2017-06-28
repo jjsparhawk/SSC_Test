@@ -40,6 +40,7 @@ Hydra.account.beforeCreate(function(request, response){
     var serverAuth = Hydra.Client.authServer();
     var loggerObjectJSON = Hydra.Client.get("/objects/log-object/list", {auth: serverAuth});
     loggerObjectList = JSON.parse(loggerObjectJSON);
+    Logger.info(loggerObjectList["objects"]);
 
     if(loggerObjectList.size() > 0){
         objectToUpdate = "/objects/log-object/" + loggerObjectList.objects.id;
