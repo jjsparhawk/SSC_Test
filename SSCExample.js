@@ -42,7 +42,7 @@ Hydra.account.beforeCreate(function(request, response){
         var loggerObjectList = body;
 
         if(loggerObjectList.objects.length > 0){
-            objectToUpdate = "/objects/log-object/" + loggerObjectList.objects[0].id;
+            var objectToUpdate = "/objects/log-object/" + loggerObjectList.objects[0].id;
             Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["set", "data.BeforeAccountCreateHit", true]]}, function(serverRequest2, body2){
                 if(serverRequest2.statusCode == 200) {
                     response.success({});
