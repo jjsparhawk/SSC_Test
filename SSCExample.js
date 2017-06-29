@@ -18,6 +18,31 @@ Hydra.onLoad(function(response) {
     })
 })
 
+/*
+    This function retreives a list of the log objects (there should only be 1)
+    It then updates the specified data field to true, confirming the hook was hit
+*/
+function updateLogObject(dataFieldToUpdate){
+    var serverAuth = Hydra.Client.authServer();
+    var loggerObjectJSON = Hydra.Client.get("/objects/log-object/list", {auth: serverAuth}, function(serverRequest, body){
+        var loggerObjectList = body;
+
+        if(loggerObjectList.objects.length > 0 && loggerObjectList.objects.length < 2){
+            var objectToUpdate = "/objects/log-object/" + loggerObjectList.objects[0].id;
+            Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["set", dataFieldToUpdate, true]]}, function(serverRequest2, body2){
+                if(serverRequest2.statusCode == 200) {
+                    response.success({});
+                } else {
+                    response.failure({});
+                }
+            });
+        }
+        else {
+            response.failure({});
+        }
+    });
+}
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Account Events
@@ -266,31 +291,28 @@ Hydra.object.beforeCreate(function(request, response){
 
 Hydra.object.afterCreate(function(request, response){
     Logger.info("After Generic Object Create Log");
-    //updateLogObject("data.AfterObjCreateHit");
-    response.success([['set', 'data.afterCreateHookHit', "true"]]);
+    response.success([["set", "data.AfterObjectCreateHit", true]]);
 })
 
 Hydra.object.beforeUpdate(function(request, response){
     Logger.info("Before Generic Object Update Log");
-    //updateLogObject("data.BeforeObjUpdateHit");
-    return {};
+    response.success([["set", "data.BeforeObjectUpdateHit", true]]);
 })
 
 Hydra.object.afterUpdate(function(request, response){
     Logger.info("After Generic Object Update Log");
-    //updateLogObject("data.AfterObjUpdateHit");
-    return {};
+    response.success([["set", "data.AfterObjectCreateHit", true]]);
 })
 
 Hydra.object.beforeDelete(function(request, response){
     Logger.info("Before Generic Object Delete Log");
-    //updateLogObject("data.BeforeObjDeleteHit");
+    updateLogObject("data.BeforeObjectDeleteHit");
     return {};
 })
 
 Hydra.object.afterDelete(function(request, response){
     Logger.info("After Generic Object Delete Log");
-    //updateLogObject("data.AfterObjDeleteHit");
+    updateLogObject("data.AfterObjectDeleteHit");
     return {};
 })
 
