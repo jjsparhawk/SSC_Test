@@ -29,7 +29,7 @@ function updateLogObject(dataFieldToUpdate){
 
         if(loggerObjectList.objects.length > 0 && loggerObjectList.objects.length < 2){
             var objectToUpdate = "/objects/log-object/" + loggerObjectList.objects[0].id;
-            Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["set", dataFieldToUpdate, true]]}, function(serverRequest2, body2){
+            Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["inc", dataFieldToUpdate, 1]]}, function(serverRequest2, body2){
                 if(serverRequest2.statusCode == 200) {
                     response.success({});
                 } else {
@@ -306,13 +306,13 @@ Hydra.object.afterUpdate(function(request, response){
 
 Hydra.object.beforeDelete(function(request, response){
     Logger.info("Before Generic Object Delete Log");
-    updateLogObject("data.BeforeObjectDeleteHit");
+    updateLogObject("data.NumTimesBeforeObjectDeleteHit");
     return {};
 })
 
 Hydra.object.afterDelete(function(request, response){
     Logger.info("After Generic Object Delete Log");
-    updateLogObject("data.AfterObjectDeleteHit");
+    updateLogObject("data.NumTimesAfterObjectDeleteHit");
     return {};
 })
 
