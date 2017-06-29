@@ -25,7 +25,7 @@ Hydra.onLoad(function(response) {
 //beforeCreate (with invalid return type)
 Hydra.account.beforeCreate(function(request, response){
     Logger.info("Before Account Create Log");
-    response.success([["set", "body.BeforeAccountCreateHit", true]]);
+    response.success([["set", "data.BeforeAccountCreateHit", true]]);
     
 })
 
@@ -261,8 +261,7 @@ Hydra.match.afterFixedCreate(function(request, response){
 
 Hydra.object.beforeCreate(function(request, response){
     Logger.info("Before Generic Object Create Log");
-    response.success([["set", "body.BeforeObjectCreateHit", true]]);
-    //return([['set', 'response.body', {"Before Object Create Hit": true}]]);
+    response.success([["set", "data.BeforeObjectCreateHit", true]]);
 })
 
 Hydra.object.afterCreate(function(request, response){
