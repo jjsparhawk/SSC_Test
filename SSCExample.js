@@ -272,7 +272,7 @@ Hydra.object.beforeCreate(function(request, response){
         response.success({"Before Object Create Hit": true});
     }
     else{
-        response.failure({"Before Object Create Hit": true});
+        response.failure();
     }
 })
 
