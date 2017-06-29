@@ -18,43 +18,6 @@ Hydra.onLoad(function(response) {
     })
 })
 
-/*
-    For integration tests based on the custom Hooks, working idea is to
-    have each hook update data on a specific object (called Log Object).
-
-    On the hooks, it will find a list of these objects (there should only
-    ever be 1) and take the first 1 from the list, then update the data for
-    that specific hook.
-
-    The object itself will be created when the integration tests begin, and
-    be deleted once the integration tests end.
-*/
-
-/*
-    This function retreives a list of the log objects (there should only be 1)
-    It then updates the specified data field to true, confirming the hook was hit
-*/
-function updateLogObject(dataFieldToUpdate){
-    var serverAuth = Hydra.Client.authServer();
-    var loggerObjectJSON = Hydra.Client.get("/objects/log-object/list", {auth: serverAuth}, function(serverRequest, body){
-        var loggerObjectList = body;
-
-        if(loggerObjectList.objects.length > 0 && loggerObjectList.objects.length < 2){
-            var objectToUpdate = "/objects/log-object/" + loggerObjectList.objects[0].id;
-            Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["set", dataFieldToUpdate, true]]}, function(serverRequest2, body2){
-                if(serverRequest2.statusCode == 200) {
-                    response.success({});
-                } else {
-                    response.failure({});
-                }
-            });
-        }
-        else {
-            response.failure({});
-        }
-    });
-}
-
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Account Events
@@ -62,9 +25,9 @@ function updateLogObject(dataFieldToUpdate){
 //beforeCreate (with invalid return type)
 Hydra.account.beforeCreate(function(request, response){
     Logger.info("Before Account Create Log");
-    //updateLogObject("data.BeforeAccountCreateHit");
-    response.success({"Before Account Create Hit": true})
-    response.failure({"Before Account Create Hit": true})
+    // Pass back that the hook was hit regardless of if the account was created or not
+    response.success({"Before Account Create Hit": true});
+    response.failure({"Before Account Create Hit": true});
     
 })
 
@@ -302,6 +265,8 @@ Hydra.object.beforeCreate(function(request, response){
     Logger.info("Before Generic Object Create Log");
     //updateLogObject("data.BeforeObjCreateHit");
     response.success([['set', 'server_data.beforeCreateHookHit', "true"]]);
+    response.success({"Before Object Create Hit": true});
+    response.failure({"Before Object Create Hit": true});
 })
 
 Hydra.object.afterCreate(function(request, response){
