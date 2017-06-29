@@ -262,7 +262,8 @@ Hydra.match.afterFixedCreate(function(request, response){
 
 Hydra.object.beforeCreate(function(request, response){
     Logger.info("Before Generic Object Create Log");
-    return([['set', 'response.body', {"Before Object Create Hit": true}]]);
+    response.eventEmit({"Before Object Create Hit": true})
+    //return([['set', 'response.body', {"Before Object Create Hit": true}]]);
 })
 
 Hydra.object.afterCreate(function(request, response){
