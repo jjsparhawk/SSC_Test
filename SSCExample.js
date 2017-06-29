@@ -63,6 +63,7 @@ function updateLogObject(dataFieldToUpdate){
 Hydra.account.beforeCreate(function(request, response){
     Logger.info("Before Account Create Log");
     //updateLogObject("data.BeforeAccountCreateHit");
+    response.success({"Before Account Create Hit": true})
     response.failure({"Before Account Create Hit": true})
     
 })
