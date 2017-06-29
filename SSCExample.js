@@ -656,7 +656,7 @@ Hydra.inventory.beforeUpdate(function(request, response){
 
 Hydra.inventory.afterUpdate(function(request, response){
     Logger.info("After Inventory Update Log");
-    return {};
+    return {"response": "Test Response"};
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
