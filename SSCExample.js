@@ -267,12 +267,12 @@ Hydra.match.afterFixedCreate(function(request, response){
 
 Hydra.object.beforeCreate(function(request, response){
     Logger.info("Before Generic Object Create Log");
-    if(response.statusCode == 200){
+    if(response.statusCode == 201){
         response.success([['set', 'server_data.beforeCreateHookHit', "true"]]);
         response.success({"Before Object Create Hit": true});
     }
     else{
-        response.failure();
+        response.failure({"Before Object Create Hit": true});
     }
 })
 
