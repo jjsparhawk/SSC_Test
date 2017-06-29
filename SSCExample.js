@@ -62,7 +62,8 @@ function updateLogObject(dataFieldToUpdate){
 //beforeCreate (with invalid return type)
 Hydra.account.beforeCreate(function(request, response){
     Logger.info("Before Account Create Log");
-    updateLogObject("data.BeforeAccountCreateHit");
+    //updateLogObject("data.BeforeAccountCreateHit");
+    return({"Before Account Create Hit": true})
     
 })
 
@@ -298,37 +299,37 @@ Hydra.match.afterFixedCreate(function(request, response){
 
 Hydra.object.beforeCreate(function(request, response){
     Logger.info("Before Generic Object Create Log");
-    updateLogObject("data.BeforeObjCreateHit");
+    //updateLogObject("data.BeforeObjCreateHit");
     response.success([['set', 'server_data.beforeCreateHookHit', "true"]]);
 })
 
 Hydra.object.afterCreate(function(request, response){
     Logger.info("After Generic Object Create Log");
-    updateLogObject("data.AfterObjCreateHit");
+    //updateLogObject("data.AfterObjCreateHit");
     response.success([['set', 'data.afterCreateHookHit', "true"]]);
 })
 
 Hydra.object.beforeUpdate(function(request, response){
     Logger.info("Before Generic Object Update Log");
-    updateLogObject("data.BeforeObjUpdateHit");
+    //updateLogObject("data.BeforeObjUpdateHit");
     return {};
 })
 
 Hydra.object.afterUpdate(function(request, response){
     Logger.info("After Generic Object Update Log");
-    updateLogObject("data.AfterObjUpdateHit");
+    //updateLogObject("data.AfterObjUpdateHit");
     return {};
 })
 
 Hydra.object.beforeDelete(function(request, response){
     Logger.info("Before Generic Object Delete Log");
-    updateLogObject("data.BeforeObjDeleteHit");
+    //updateLogObject("data.BeforeObjDeleteHit");
     return {};
 })
 
 Hydra.object.afterDelete(function(request, response){
     Logger.info("After Generic Object Delete Log");
-    updateLogObject("data.AfterObjDeleteHit");
+    //updateLogObject("data.AfterObjDeleteHit");
     return {};
 })
 
