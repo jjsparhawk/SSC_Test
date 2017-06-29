@@ -50,7 +50,8 @@ function updateLogObject(dataFieldToUpdate){
 //beforeCreate (with invalid return type)
 Hydra.account.beforeCreate(function(request, response){
     Logger.info("Before Account Create Log");
-    response.success([["set", "data.BeforeAccountCreateHit", true]]);
+    //response.success([["set", "data.BeforeAccountCreateHit", true]]);
+    response.success({"body":{"BeforeAccountCreateHit": true}});
     
 })
 
@@ -286,33 +287,37 @@ Hydra.match.afterFixedCreate(function(request, response){
 
 Hydra.object.beforeCreate(function(request, response){
     Logger.info("Before Generic Object Create Log");
-    response.success([["set", "data.BeforeObjectCreateHit", true]]);
+    //response.success([["set", "data.BeforeObjectCreateHit", true]]);
+    return{};
 })
 
 Hydra.object.afterCreate(function(request, response){
     Logger.info("After Generic Object Create Log");
-    response.success([["set", "data.AfterObjectCreateHit", true]]);
+    //response.success([["set", "data.AfterObjectCreateHit", true]]);
+    return{};
 })
 
 Hydra.object.beforeUpdate(function(request, response){
     Logger.info("Before Generic Object Update Log");
-    response.success([["set", "data.BeforeObjectUpdateHit", true]]);
+    //response.success([["set", "data.BeforeObjectUpdateHit", true]]);
+    return{};
 })
 
 Hydra.object.afterUpdate(function(request, response){
     Logger.info("After Generic Object Update Log");
-    response.success([["set", "data.AfterObjectCreateHit", true]]);
+    //response.success([["set", "data.AfterObjectCreateHit", true]]);
+    return{};
 })
 
 Hydra.object.beforeDelete(function(request, response){
     Logger.info("Before Generic Object Delete Log");
-    updateLogObject("data.BeforeObjectDeleteHit");
+    //updateLogObject("data.BeforeObjectDeleteHit");
     return {};
 })
 
 Hydra.object.afterDelete(function(request, response){
     Logger.info("After Generic Object Delete Log");
-    updateLogObject("data.AfterObjectDeleteHit");
+    //updateLogObject("data.AfterObjectDeleteHit");
     return {};
 })
 
