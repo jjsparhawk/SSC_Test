@@ -25,8 +25,7 @@ Hydra.onLoad(function(response) {
 //beforeCreate (with invalid return type)
 Hydra.account.beforeCreate(function(request, response){
     Logger.info("Before Account Create Log");
-    // Pass back that the hook was hit regardless of if the account was created or not
-    response.success({"Before Account Create Hit": true});
+    response.success([["set", "body.BeforeAccountCreateHit", true]]);
     
 })
 
@@ -262,7 +261,7 @@ Hydra.match.afterFixedCreate(function(request, response){
 
 Hydra.object.beforeCreate(function(request, response){
     Logger.info("Before Generic Object Create Log");
-    response.success({"Before Object Create Hit": true})
+    response.success([["set", "body.BeforeObjectCreateHit", true]]);
     //return([['set', 'response.body', {"Before Object Create Hit": true}]]);
 })
 
