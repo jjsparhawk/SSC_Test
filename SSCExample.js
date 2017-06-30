@@ -286,9 +286,9 @@ Hydra.match.afterFixedCreate(function(request, response){
 
 Hydra.object.beforeCreate(function(request, response){
     Logger.info("Before Generic Object Create Log");
-    if(request.headers.queryparams == "TestThisHook=True")
+    if(request.headers.queryparams == {"TestThisHook": "True"})
         response.success([["set", "data.BeforeObjectCreateHit", true]]);
-    else if(request.headers.queryparams == "TestThisHook=False")
+    else if(request.headers.queryparams == {"TestThisHook": "False"})
         return {};
 })
 
