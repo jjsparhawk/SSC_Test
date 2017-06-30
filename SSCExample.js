@@ -292,6 +292,8 @@ Hydra.object.beforeCreate(function(request, response){
         response.success([["set", "data.BeforeObjectCreateHit", true]]);
     else if(myMap["TestThisHook"] == "False")
         return {};
+    else
+        return {};
 })
 
 Hydra.object.afterCreate(function(request, response){
