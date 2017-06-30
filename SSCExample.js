@@ -320,32 +320,32 @@ Hydra.object.afterDelete(function(request, response){
 
 Hydra.clan.beforeCreate(function(request, response){
     Logger.info("Before Clan Create Log");
-    return {};
+    response.success([["set", "data.BeforeClanCreateHit", true]]);
 })
 
 Hydra.clan.afterCreate(function(request, response){
     Logger.info("After Clan Create Log");
-    return {};
+    response.success([["set", "data.AfterClanCreateHit", true]]);
 })
 
 Hydra.clan.beforeUpdate(function(request, response){
     Logger.info("Before Clan Update Log");
-    return {};
+    response.success([["set", "data.BeforeClanUpdateHit", true]]);
 })
 
 Hydra.clan.afterUpdate(function(request, response){
     Logger.info("After Clan Update Log");
-    return {};
+    response.success([["set", "data.AfterClanUpdateHit", true]]);
 })
 
 Hydra.clan.beforeDelete(function(request, response){
     Logger.info("Before Clan Delete Log");
-    return {};
+    updateLogObject("data.NumTimesBeforeClanDeleteHit");
 })
 
 Hydra.clan.afterDelete(function(request, response){
     Logger.info("After Clan Delete Log");
-    return {};
+    updateLogObject("data.NumTimesAfterClanDeleteHit");
 })
 
 Hydra.clan.beforeClanMembersIdle(function(request, response){
