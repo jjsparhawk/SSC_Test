@@ -289,9 +289,9 @@ Hydra.object.beforeCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     Logger.info(myMap);
-    if(myMap["TestThisHook"] == "True")
+    if(myMap["query-string"] == "TestThisHook=True")
         response.success([["set", "data.BeforeObjectCreateHit", true]]);
-    else if(myMap["TestThisHook"] == "False")
+    else if(myMap["query-string"] == "TestThisHook=False")
         return {};
     else
         return {};
