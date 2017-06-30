@@ -288,6 +288,8 @@ Hydra.object.beforeCreate(function(request, response){
     Logger.info("Before Generic Object Create Log");
     if(request.headers.queryparams == "TestThisHook=True")
         response.success([["set", "data.BeforeObjectCreateHit", true]]);
+    else if(request.headers.queryparams == "TestThisHook=False")
+        return {};
 })
 
 Hydra.object.afterCreate(function(request, response){
