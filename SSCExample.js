@@ -288,7 +288,7 @@ Hydra.object.beforeCreate(function(request, response){
     Logger.info("Before Generic Object Create Log");
     var myMap = new Map();
     myMap = request.userRequest.headers;
-    print myMap;
+    print myMap["queryparams"];
     if(myMap["TestThisHook"] == "True")
         response.success([["set", "data.BeforeObjectCreateHit", true]]);
     else if(myMap["TestThisHook"] == "False")
