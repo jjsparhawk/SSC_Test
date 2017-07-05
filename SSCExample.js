@@ -448,62 +448,134 @@ Hydra.clan.beforeClanMembersIdle(function(request, response){
 
 Hydra.clanMember.beforeJoin(function(request, response){
     Logger.info("Before Clan Member Join Log");
-    return {};
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeClanMemberJoinHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.afterJoin(function(request, response){
     Logger.info("After Clan Member Join Log");
-    return {};
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterClanMemberJoinHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.beforeUpdate(function(request, response){
     Logger.info("Before Clan Member Update Log");
-    return {};
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeClanMemberUpdateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.afterUpdate(function(request, response){
     Logger.info("After Clan Member Update Log");
-    return {};
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterClanMemberUpdateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.beforeLeave(function(request, response){
     Logger.info("Before Clan Member Leave Log");
-    return {};
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeClanMemberLeaveHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.afterLeave(function(request, response){
     Logger.info("After Clan Member Leave Log");
-    return {};
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterClanMemberLeaveHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.beforeKick(function(request, response){
     Logger.info("Before Clan Member Kick Log");
-    return {};
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeClanMemberKickHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.afterKick(function(request, response){
     Logger.info("After Clan Member Kick Log");
-    return {};
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterClanMemberKickHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.beforeRoleUpdate(function(request, response){
     Logger.info("Before Clan Member Role Update Log");
-    return {};
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeClanMemberRoleUpdateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.afterRoleUpdate(function(request, response){
     Logger.info("After Clan Member Role Update Log");
-    return {};
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterClanMemberRoleUpdateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.beforeInvite(function(request, response){
     Logger.info("Before Clan Member Invite Log");
-    return {};
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeClanMemberInviteHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.afterInvite(function(request, response){
     Logger.info("After Clan Member Invite Log");
-    return {};
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterClanMemberInviteHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.beforeApply(function(request, response){
@@ -532,32 +604,72 @@ Hydra.clanMember.afterApply(function(request, response){
 
 Hydra.clanMember.beforeApprove(function(request, response){
     Logger.info("Before Clan Member Approve Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeClanMemberApproveHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.afterApprove(function(request, response){
     Logger.info("After Clan Member Approve Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterClanMemberApproveHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.beforeReject(function(request, response){
     Logger.info("Before Clan Member Reject Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeClanMemberRejectHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.afterReject(function(request, response){
     Logger.info("After Clan Member Reject Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterClanMemberRejectHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.beforeDecline(function(request, response){
     Logger.info("Before Clan Member Decline Log");
-    return {};
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeClanMemberDeclineHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.afterDecline(function(request, response){
     Logger.info("After Clan Member Decline Log");
-    return {};
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterClanMemberDeclineHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
