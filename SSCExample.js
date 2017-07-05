@@ -288,7 +288,6 @@ Hydra.object.beforeCreate(function(request, response){
     Logger.info("Before Generic Object Create Log");
     var myMap = new Map();
     myMap = request.userRequest.headers;
-    Logger.info(myMap);
     if(myMap["query-string"] == "TestThisHook=True")
         response.success([["set", "data.BeforeObjectCreateHit", true]]);
     else if(myMap["query-string"] == "TestThisHook=False")
@@ -299,27 +298,62 @@ Hydra.object.beforeCreate(function(request, response){
 
 Hydra.object.afterCreate(function(request, response){
     Logger.info("After Generic Object Create Log");
-    response.success([["set", "data.AfterObjectCreateHit", true]]);
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterObjectCreateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.object.beforeUpdate(function(request, response){
     Logger.info("Before Generic Object Update Log");
-    response.success([["set", "data.BeforeObjectUpdateHit", true]]);
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeObjectUpdateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.object.afterUpdate(function(request, response){
     Logger.info("After Generic Object Update Log");
-    response.success([["set", "data.AfterObjectUpdateHit", true]]);
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterObjectUpdateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.object.beforeDelete(function(request, response){
     Logger.info("Before Generic Object Delete Log");
-    updateLogObject("data.NumTimesBeforeObjectDeleteHit");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesBeforeObjectDeleteHit");
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.object.afterDelete(function(request, response){
     Logger.info("After Generic Object Delete Log");
-    updateLogObject("data.NumTimesAfterObjectDeleteHit");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesAfterObjectDeleteHit");
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -328,32 +362,74 @@ Hydra.object.afterDelete(function(request, response){
 
 Hydra.clan.beforeCreate(function(request, response){
     Logger.info("Before Clan Create Log");
-    response.success([["set", "data.BeforeClanCreateHit", true]]);
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeClanCreateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clan.afterCreate(function(request, response){
     Logger.info("After Clan Create Log");
-    response.success([["set", "data.AfterClanCreateHit", true]]);
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterClanCreateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clan.beforeUpdate(function(request, response){
     Logger.info("Before Clan Update Log");
-    response.success([["set", "data.BeforeClanUpdateHit", true]]);
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeClanUpdateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clan.afterUpdate(function(request, response){
     Logger.info("After Clan Update Log");
-    response.success([["set", "data.AfterClanUpdateHit", true]]);
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterClanUpdateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clan.beforeDelete(function(request, response){
     Logger.info("Before Clan Delete Log");
-    updateLogObject("data.NumTimesBeforeClanDeleteHit");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesBeforeClanDeleteHit");
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clan.afterDelete(function(request, response){
     Logger.info("After Clan Delete Log");
-    updateLogObject("data.NumTimesAfterClanDeleteHit");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesAfterClanDeleteHit");
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clan.beforeClanMembersIdle(function(request, response){
