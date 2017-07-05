@@ -508,12 +508,26 @@ Hydra.clanMember.afterInvite(function(request, response){
 
 Hydra.clanMember.beforeApply(function(request, response){
     Logger.info("Before Clan Member Apply Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeClanMemberApplyHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.afterApply(function(request, response){
     Logger.info("After Clan Member Apply Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterClanMemberApplyHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.beforeApprove(function(request, response){
