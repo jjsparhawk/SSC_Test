@@ -484,6 +484,7 @@ Hydra.clanMember.beforeUpdate(function(request, response){
 
 Hydra.clanMember.afterUpdate(function(request, response){
     Logger.info("After Clan Member Update Log");
+    var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         response.success([["set", "data.AfterClanMemberUpdateHit", true]]);
