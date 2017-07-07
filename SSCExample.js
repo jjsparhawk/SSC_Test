@@ -904,7 +904,7 @@ Hydra.inventory.beforeUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True"){
-        response[0].data.BeforeInventoryUpdateHit = true
+        //response[0].data.BeforeInventoryUpdateHit = true
         response.success();
     }
     else if(myMap["query-string"] == "TestThisHook=False")
