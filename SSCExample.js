@@ -903,10 +903,8 @@ Hydra.inventory.beforeUpdate(function(request, response){
     Logger.info("Before Inventory Update Log");
     var myMap = new Map();
     myMap = request.userRequest.headers;
-    if(myMap["query-string"] == "TestThisHook=True"){
-        //response[0].data.BeforeInventoryUpdateHit = true
-        response.success();
-    }
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeInventoryUpdateHit", true]]);
     else if(myMap["query-string"] == "TestThisHook=False")
         return {};
     else
@@ -917,10 +915,8 @@ Hydra.inventory.afterUpdate(function(request, response){
     Logger.info("After Inventory Update Log");
     var myMap = new Map();
     myMap = request.userRequest.headers;
-    if(myMap["query-string"] == "TestThisHook=True"){
-        response[0].data.AfterInventoryUpdateHit = true
-        response.success({"response": "Test"});
-    }
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.body[0]([["set", "data.AfterInventoryUpdateHit", true]]);
     else if(myMap["query-string"] == "TestThisHook=False")
         return {};
     else
