@@ -919,7 +919,7 @@ Hydra.inventory.afterUpdate(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True"){
         response[0].data.AfterInventoryUpdateHit = true
-        response.success(response);
+        response.success({"response": "Test"});
     }
     else if(myMap["query-string"] == "TestThisHook=False")
         return {};
