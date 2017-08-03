@@ -872,22 +872,50 @@ Hydra.lobby.afterDelete(function(request, response){
 
 Hydra.matchMakingRequest.beforeCreate(function(request, response){
     Logger.info("Before Matchmaking Request Create Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeMatchmakingRequestCreateHit", true]])
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.matchMakingRequest.afterCreate(function(request, response){
     Logger.info("After Matchmaking Request Create Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterMatchmakingRequestCreateHit", true]])
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.matchMakingRequest.beforeCancel(function(request, response){
     Logger.info("Before Matchmaking Cancel Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeMatchmakingRequestCancelHit", true]])
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.matchMakingRequest.afterCancel(function(request, response){
     Logger.info("After Matchmaking Request Cancel Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterMatchmakingRequestCancelHit", true]])
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
