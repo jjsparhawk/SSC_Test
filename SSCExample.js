@@ -1056,13 +1056,13 @@ Hydra.userContentVersion.afterFileDelete(function(request, response){
 
 Hydra.purchase.beforeCreate(function(request, response){
     Logger.info("Before Purchase Create Log");
-    /*var myMap = new Map();
+    var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         response.success([["set", "data.BeforePurchaseCreateHit", true]])
     else if(myMap["query-string"] == "TestThisHook=False")
         return {};
-    else*/
+    else
         return {};
 })
 
