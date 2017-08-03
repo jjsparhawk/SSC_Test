@@ -1082,14 +1082,15 @@ Hydra.purchase.afterCancel(function(request, response){
 
 Hydra.inventory.beforeUpdate(function(request, response){
     Logger.info("Before Inventory Update Log");
-    var myMap = new Map();
+    /*var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         updateLogObject("data.NumTimesBeforeInventoryUpdateHit");
     else if(myMap["query-string"] == "TestThisHook=False")
         return {};
     else
-        return {};
+        return {};*/
+    return{};
 })
 // Will probably need to use log object for these endpoints
 Hydra.inventory.afterUpdate(function(request, response){
