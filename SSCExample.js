@@ -1064,17 +1064,30 @@ Hydra.purchase.beforeCreate(function(request, response){
         return {};
     else
         return {};
-    return {};
 })
 
 Hydra.purchase.afterFinalize(function(request, response){
     Logger.info("After Purchase Finalize Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.AfterPurchaseFinalizeHit");
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.purchase.afterCancel(function(request, response){
     Logger.info("After Purchase Cancel Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.AfterPurchaseCancelHit");
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
