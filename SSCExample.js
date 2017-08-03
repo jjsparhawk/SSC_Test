@@ -899,7 +899,7 @@ Hydra.matchMakingRequest.beforeCancel(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeMatchmakingRequestCancelHit", true]])
+        updateLogObject("data.NumTimesBeforeMatchmakingRequestCancelHit");
     else if(myMap["query-string"] == "TestThisHook=False")
         return {};
     else
@@ -911,7 +911,7 @@ Hydra.matchMakingRequest.afterCancel(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterMatchmakingRequestCancelHit", true]])
+        updateLogObject("data.NumTimesAfterMatchmakingRequestCancelHit");
     else if(myMap["query-string"] == "TestThisHook=False")
         return {};
     else
