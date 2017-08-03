@@ -938,7 +938,14 @@ Hydra.matchMakingResult.afterCreate(function(request, response){
 
 Hydra.userContentItem.beforeCreate(function(request, response){
     Logger.info("Before UGC Item Create Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeUserContentItemCreateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentItem.afterCreate(function(request, response){
