@@ -1059,7 +1059,7 @@ Hydra.purchase.beforeCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforePurchaseCreateHit", true]])
+        updateLogObject("data.BeforePurchaseCreateHit");
     else if(myMap["query-string"] == "TestThisHook=False")
         return {};
     else
