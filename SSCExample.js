@@ -950,7 +950,14 @@ Hydra.userContentItem.beforeCreate(function(request, response){
 
 Hydra.userContentItem.afterCreate(function(request, response){
     Logger.info("After User Content Item Create Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterUserContentItemCreateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentItem.beforeUpdate(function(request, response){
@@ -965,42 +972,98 @@ Hydra.userContentItem.afterUpdate(function(request, response){
 
 Hydra.userContentItem.beforeShare(function(request, response){
     Logger.info("Before UGC Item Share Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeUserContentItemShareHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentItem.afterShare(function(request, response){
     Logger.info("After User Content Item Share Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterUserContentItemShareHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentItem.beforeUnshare(function(request, response){
     Logger.info("Before UGC Item Unshare Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeUserContentItemUnshareHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentItem.afterUnshare(function(request, response){
     Logger.info("After User Content Item Unshare Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterUserContentItemUnshareHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentItem.beforePublish(function(request, response){
     Logger.info("Before UGC Item Publish Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeUserContentItemPublishHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentItem.afterPublish(function(request, response){
     Logger.info("After User Content Item Publish Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterUserContentItemPublishHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentItem.beforeUnpublish(function(request, response){
     Logger.info("Before UGC Item Unpublish Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeUserContentItemUnpublishHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentItem.afterUnpublish(function(request, response){
     Logger.info("After User Content Item Unpublish Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterUserContentItemUnpublishHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentItem.beforeDelete(function(request, response){
