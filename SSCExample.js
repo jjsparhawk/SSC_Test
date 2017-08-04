@@ -1161,7 +1161,7 @@ Hydra.userContentVersion.beforeFileUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeUserContentVersionUpdateHit", true]]);
+        response.success([["set", "data.BeforeUserContentVersionFileUpdateHit", true]]);
     else if(myMap["query-string"] == "TestThisHook=False")
         return {};
     else
@@ -1173,7 +1173,7 @@ Hydra.userContentVersion.afterFileUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterUserContentVersionUpdateHit", true]]);
+        response.success([["set", "data.AfterUserContentVersionFileUpdateHit", true]]);
     else if(myMap["query-string"] == "TestThisHook=False")
         return {};
     else
@@ -1185,7 +1185,7 @@ Hydra.userContentVersion.beforeFileDelete(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        updateLogObject("data.NumTimesBeforeUserContentVersionDeleteHit");
+        response.success([["set", "data.BeforeUserContentVersionFileDeleteHit", true]]);
     else if(myMap["query-string"] == "TestThisHook=False")
         return {};
     else
@@ -1197,7 +1197,7 @@ Hydra.userContentVersion.afterFileDelete(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        updateLogObject("data.NumTimesAfterUserContentVersionDeleteHit");
+        response.success([["set", "data.AfterUserContentVersionFileDeleteHit", true]]);
     else if(myMap["query-string"] == "TestThisHook=False")
         return {};
     else
