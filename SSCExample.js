@@ -962,12 +962,26 @@ Hydra.userContentItem.afterCreate(function(request, response){
 
 Hydra.userContentItem.beforeUpdate(function(request, response){
     Logger.info("Before UGC Item Update Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesBeforeUserContentItemUpdateHit");
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentItem.afterUpdate(function(request, response){
     Logger.info("After User Content Item Update Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesAfterUserContentItemUpdateHit");
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentItem.beforeShare(function(request, response){
@@ -1068,12 +1082,26 @@ Hydra.userContentItem.afterUnpublish(function(request, response){
 
 Hydra.userContentItem.beforeDelete(function(request, response){
     Logger.info("Before UGC Item Delete Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesBeforeUserContentItemDeleteHit");
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentItem.afterDelete(function(request, response){
     Logger.info("After User Content Item Delete Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesAfterUserContentItemDeleteHit");
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
