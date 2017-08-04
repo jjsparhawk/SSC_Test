@@ -965,7 +965,7 @@ Hydra.userContentItem.beforeUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        updateLogObject("data.NumTimesBeforeUserContentItemUpdateHit");
+        response.success([["set", "data.BeforeUserContentItemUpdateHit", true]]);
     else if(myMap["query-string"] == "TestThisHook=False")
         return {};
     else
@@ -977,7 +977,7 @@ Hydra.userContentItem.afterUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        updateLogObject("data.NumTimesAfterUserContentItemUpdateHit");
+        response.success([["set", "data.AfterUserContentItemUpdateHit", true]]);
     else if(myMap["query-string"] == "TestThisHook=False")
         return {};
     else
