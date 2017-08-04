@@ -1110,42 +1110,98 @@ Hydra.userContentItem.afterDelete(function(request, response){
 
 Hydra.userContentVersion.beforeCreate(function(request, response){
     Logger.info("Before UGC Version Create Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeUserContentVersionCreateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentVersion.afterCreate(function(request, response){
     Logger.info("After User Content Version Create Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterUserContentVersionCreateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentVersion.beforeFileCreate(function(request, response){
     Logger.info("Before UGC Version File Create Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeUserContentVersionFileCreateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentVersion.afterFileCreate(function(request, response){
     Logger.info("After User Content Version File Create Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterUserContentVersionFileCreateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentVersion.beforeFileUpdate(function(request, response){
     Logger.info("Before UGC Version File Update Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.BeforeUserContentVersionUpdateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentVersion.afterFileUpdate(function(request, response){
     Logger.info("After User Content Version File Update Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        response.success([["set", "data.AfterUserContentVersionUpdateHit", true]]);
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentVersion.beforeFileDelete(function(request, response){
     Logger.info("Before UGC Version File Delete Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesBeforeUserContentVersionDeleteHit");
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.userContentVersion.afterFileDelete(function(request, response){
     Logger.info("After User Content Version File Delete Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesAfterUserContentVersionDeleteHit");
+    else if(myMap["query-string"] == "TestThisHook=False")
+        return {};
+    else
+        return {};
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
