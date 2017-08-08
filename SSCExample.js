@@ -281,11 +281,11 @@ Hydra.match.afterPlayerOffline(function(request, response){
 })
 
 Hydra.match.afterExpire(function(request, response){
-    response.success([['Set', 'data.matchExpired', "Match Expired SSC Update"]])
+    response.success([['set', 'data.matchExpired', "Match Expired SSC Update"]])
 })
 
 Hydra.match.afterAbandon(function(request, response){
-    response.success([['Set', 'data.matchAbandoned', "Match Abandoned SSC Update"]])
+    response.success([['set', 'data.matchAbandoned', "Match Abandoned SSC Update"]])
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
