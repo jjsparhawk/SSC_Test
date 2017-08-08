@@ -276,6 +276,11 @@ Hydra.match.afterFixedCreate(function(request, response){
     return {};
 })
 
+Hydra.match.afterPlayerOffline(function(request, response){
+    Logger.info("After Match Player Went Offline Log");
+    response.success([['set', 'server_data.playerWentOffline', "true"]])
+})
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Generic Object Events
