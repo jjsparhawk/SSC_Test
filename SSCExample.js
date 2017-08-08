@@ -277,15 +277,25 @@ Hydra.match.afterFixedCreate(function(request, response){
 })
 
 Hydra.match.afterPlayerOffline(function(request, response){
-    response.success([['inc', 'data.matchPlayerWentOffline', 1]])
+    response.success([['inc', 'data.matchPlayerWentOffline', 1]]);
 })
 
 Hydra.match.afterExpire(function(request, response){
-    response.success([['set', 'data.matchExpired', "Match Expired SSC Update"]])
+    var serverAuth = Hydra.Client.authServer();
+
+    return Hydra.Client.get("/broadcast_channels/test/MatchExpired", {auth: serverAuth})
+    .then(function(result) {
+      response.success([['set', 'data.matchExpired', "Match Expired SSC Update"]]);
+    })
 })
 
 Hydra.match.afterAbandon(function(request, response){
-    response.success([['set', 'data.matchAbandoned', "Match Abandoned SSC Update"]])
+    var serverAuth = Hydra.Client.authServer();
+
+    return Hydra.Client.get("/broadcast_channels/test/MatchExpired", {auth: serverAuth})
+    .then(function(result) {
+      response.success([['set', 'data.matchAbandoned', "Match Abandoned SSC Update"]]);
+    })
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
