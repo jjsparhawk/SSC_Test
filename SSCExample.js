@@ -277,8 +277,7 @@ Hydra.match.afterFixedCreate(function(request, response){
 })
 
 Hydra.match.afterPlayerOffline(function(request, response){
-    Logger.info("After Match Player Went Offline Log");
-    response.success([['set', 'server_data.playerWentOffline', "true"]])
+    response.success([['set', 'data.playerWentOffline', "Match Player Went Offline"]])
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
