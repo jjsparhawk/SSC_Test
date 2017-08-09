@@ -292,7 +292,7 @@ Hydra.match.afterExpire(function(request, response){
 Hydra.match.afterAbandon(function(request, response){
     var serverAuth = Hydra.Client.authServer();
 
-    return Hydra.Client.get("/broadcast_channels/test/MatchExpired", {auth: serverAuth})
+    return Hydra.Client.get("/broadcast_channels/test/MatchAbandoned", {auth: serverAuth})
     .then(function(result) {
       response.success([['set', 'data.matchAbandoned', "Match Abandoned SSC Update"]]);
     })
