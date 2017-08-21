@@ -402,12 +402,12 @@ Hydra.clanMember.afterUpdate(function(request, response){
 
 Hydra.clanMember.beforeLeave(function(request, response){
     Logger.info("Before Clan Member Leave Log");
-    return {};
+    response.success([['inc', 'server_data.LeftClan', 1]]);
 })
 
 Hydra.clanMember.afterLeave(function(request, response){
     Logger.info("After Clan Member Leave Log");
-    return {};
+    response.success([['inc', 'server_data.LeftClan', 1]]);
 })
 
 Hydra.clanMember.beforeKick(function(request, response){
