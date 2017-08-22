@@ -1033,6 +1033,14 @@ Hydra.get('the_current_date', function(request, response) {
 Hydra.get('return_large_number', function(request, response) {
     response.success(9007199254740992);
 });
+
+Hydra.put('emit_external_event', function(request, response) {
+    Event.emit({'kind': 'CAT', 'name': 'pongo'}, {'id': 'pet'}).then(function() {
+        response.success({"ret": "here"});
+    });
+});
+
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 
