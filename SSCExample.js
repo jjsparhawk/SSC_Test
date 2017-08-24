@@ -319,7 +319,7 @@ Hydra.object.beforeUpdate(function(request, response){
 
 Hydra.object.afterUpdate(function(request, response){
     Logger.info("After Generic Object Update Log");
-    Logger.info(response["data"]);
+    Logger.info(response["body"]["data"]);
     return {};
 })
 
