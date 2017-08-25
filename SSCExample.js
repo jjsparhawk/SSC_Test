@@ -106,6 +106,7 @@ Hydra.profile.beforeUpdate(function(request, response){
 
 Hydra.profile.afterUpdate(function(request, response){
     Logger.info("After Profile Update Log");
+    Logger.info(request.model.data);
     return {};
 })
 
@@ -401,6 +402,7 @@ Hydra.clanMember.beforeUpdate(function(request, response){
 
 Hydra.clanMember.afterUpdate(function(request, response){
     Logger.info("After Clan Member Update Log");
+    Logger.info(request.model.data);
     return {};
 })
 
@@ -706,6 +708,7 @@ Hydra.inventory.beforeUpdate(function(request, response){
 
 Hydra.inventory.afterUpdate(function(request, response){
     Logger.info("After Inventory Update Log");
+    Logger.info(request.model.data);
     return {};
 })
 
