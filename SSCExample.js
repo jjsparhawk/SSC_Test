@@ -53,6 +53,7 @@ Hydra.account.beforeBan(function(request, response){
 
 Hydra.account.afterBan(function(request, response){
     Logger.info("After Account Ban Log");
+    Logger.info(request.model.data);
     return {};
 })
 
