@@ -42,6 +42,7 @@ Hydra.account.beforeUpdate(function(request, response){
 
 Hydra.account.afterUpdate(function(request, response){
     Logger.info("After Account Update Log");
+    Logger.info(request.model.data);
     return {};
 })
 
@@ -159,6 +160,7 @@ Hydra.match.beforeUpdate(function(request, response){
 
 Hydra.match.afterUpdate(function(request, response){
     Logger.info("After Match Update Log");
+    Logger.info(request.model.data);
     return {};
 })
 
@@ -354,6 +356,7 @@ Hydra.clan.beforeUpdate(function(request, response){
 
 Hydra.clan.afterUpdate(function(request, response){
     Logger.info("After Clan Update Log");
+    Logger.info(request.model.data);
     return {};
 })
 
@@ -502,6 +505,7 @@ Hydra.lobby.beforeUpdate(function(request, response){
 
 Hydra.lobby.afterUpdate(function(request, response){
     Logger.info("After Lobby Update Log");
+    Logger.info(request.model.data);
     return {};
 })
 
@@ -574,6 +578,7 @@ Hydra.userContentItem.beforeUpdate(function(request, response){
 
 Hydra.userContentItem.afterUpdate(function(request, response){
     Logger.info("After User Content Item Update Log");
+    Logger.info(request.model.data);
     return {};
 })
 
