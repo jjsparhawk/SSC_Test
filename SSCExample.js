@@ -102,7 +102,7 @@ Hydra.profile.afterCreate(function(request, response){
 //Edit compressed data on profile model
 Hydra.profile.beforeUpdate(function(request, response){
     Logger.info("Before Profile Update Log");
-    return response.success([['inc', 'server_data.timesBeforeProfileUpdateHit', 1], ['set', 'data.testingCompressedInSSCHook', new Hydra.Types.Compressed("Compress This Data Yo.")]]);;
+    //return response.success([['inc', 'server_data.timesBeforeProfileUpdateHit', 1], ['set', 'data.testingCompressedInSSCHook', new Hydra.Types.Compressed("Compress This Data Yo.")]]);;
 })
 
 Hydra.profile.afterUpdate(function(request, response){
