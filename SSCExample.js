@@ -1040,6 +1040,12 @@ Hydra.put('emit_external_event', function(request, response) {
     });
 });
 
+Hydra.put('emit_user_external_event', function(request, response) {
+    Event.emit("{'kind': 'CAT', 'name': 'pongo', 'uid': '1234'}", {'id': 'test_pet_owner_schema'}).then(function() {
+        response.success({"ret": "this"});
+    });
+});
+
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
