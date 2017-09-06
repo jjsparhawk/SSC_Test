@@ -721,17 +721,16 @@ Hydra.notification.afterConsume(function(request, response){
 
 //Custom Endpoints
 
-Hydra.get('chris_test', function(request, response)) {
-    //TODO - do we get the headers from the request here? Where does SSC insert them?
-    Hydra.Client.get("/profiles/me", {"headers": {"test-header": "test"}})
-    .then(function(requestresponse) {
-        if(requestresponse.response.request.getHeader('test-header') != 'test'){
-            response.failure(requestresponse.body);
-        }else{
-            response.success(requestresponse.body);
-        }
+//Custom Endpoint Without Headers
+Hydra.get('chris_test', function(request, response) {
+    var serverAuth = Hydra.Client.authServer();
+
+    Hydra.Client.get("/profiles/me", {"auth":serverAuth}, function(profileResponse, body) {
+    })
+    .then(function(requestresponse){
+        response.success(requestresponse.body);
     });
-}
+});
 
 //Custom Ping/Pong endpoint
 Hydra.get('custom_ping', function(request, response) {
