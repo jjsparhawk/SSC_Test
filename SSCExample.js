@@ -725,7 +725,7 @@ Hydra.notification.afterConsume(function(request, response){
 Hydra.get('chris_test', function(request, response) {
     var serverAuth = Hydra.Client.authServer();
 
-    var profileToRetrieve = "/profiles/" + request.body['account_id'];
+    var profileToRetrieve = "/profiles/" + request.userRequest.queryparams["account_id"];
 
     Hydra.Client.get(profileToRetrieve, {"auth":serverAuth}, function(profileResponse, body) {
     })
