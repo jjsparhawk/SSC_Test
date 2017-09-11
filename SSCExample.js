@@ -923,6 +923,16 @@ Hydra.post('compress_this_string', function(request, response) {
   response.success({"decompressed": theCompressedString.decompressSync()});
 });
 
+//Endpoint to Compress a map
+Hydra.post('compress_a_map', function(request, response) {
+  var theMap = ["hi", "hello", "sup"];
+  var theCompressedMap = new Hydra.Types.Compressed(theMap);
+  theCompressedString.compressSync();
+
+  Logger.info("The Compressed Map: " +  JSON.stringify(theCompressedString));
+  response.success({"decompressed": theCompressedMap.decompressSync()});
+});
+
 //Endpoint to Write compressed data to a profile with a raw url
 Hydra.put('update_profile_with_compressed', function(request, response){
     var serverAuth = Hydra.Client.authServer();
