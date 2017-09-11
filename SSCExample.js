@@ -925,7 +925,7 @@ Hydra.post('compress_this_string', function(request, response) {
 
 //Endpoint to Compress a map
 Hydra.post('compress_a_map', function(request, response) {
-  var theMap = ["hi", "hello", "sup"];
+  var theMap = ["a":"hi", "b":"hello", "c":"sup"];
   var theCompressedMap = new Hydra.Types.Compressed(theMap);
   theCompressedMap.compressSync();
 
