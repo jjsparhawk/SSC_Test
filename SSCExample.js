@@ -1510,11 +1510,11 @@ Hydra.put('update_profile_with_compressed_map', function(request, response){
         if(serverRequest.statusCode == 200) {
             Hydra.Client.get(profileToUpdate, {"auth": serverAuth}, function(profileResponse, body) {
               if(profileResponse.statusCode == 200) {
-                var theCompressedData = body['data']['field_to_compress'];
+                var theCompressedData = body['data']['compressedMapByCustomEndpoint'];
                 var decompressed = theCompressedData.decompressSync();
 
-                Logger.info("The Compressed String: " +  decompressed);
-                response.success({'our_string': JSON.stringify(decompressed)});
+                Logger.info("Decompressed Map: " +  JSON.stringify(decompressed));
+                response.success({'our_map': JSON.stringify(decompressed)});
               } else {
                 response.failure({})
               }
