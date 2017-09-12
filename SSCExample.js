@@ -1586,8 +1586,8 @@ Hydra.put('decompress_profile_field', function(request, response){
 
     return Hydra.Client.get(profileToRetrieve, {auth: serverAuth})
     .then(function(result) {
-        Logger.info(body);
-        Logger.info(body["data"]);
+        Logger.info(result.body);
+        Logger.info(result.body["data"]);
         var theCompressedData = result.body["data"][request.body['field_to_compress']];
         Logger.info(theCompressedData);
         if(theCompressedData != null){
