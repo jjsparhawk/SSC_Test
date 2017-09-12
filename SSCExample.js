@@ -1521,7 +1521,7 @@ Hydra.put('update_profile_with_compressed_map', function(request, response){
                 var decompressed = theCompressedData.decompressSync();
 
                 Logger.info("Decompressed Map: " +  JSON.stringify(decompressed));
-                response.success({"Test": "TEST"});
+                response.success(JSON.stringify(decompressed));
               } else {
                 response.failure({})
               }
