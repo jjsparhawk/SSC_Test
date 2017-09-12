@@ -1504,6 +1504,8 @@ Hydra.put('update_profile_with_compressed_map', function(request, response){
     var theMap = {"a":"hi", "b":"hello", "c":theCompressedString};
     var theCompressedMap = new Hydra.Types.Compressed(theMap);
 
+    Logger.info("BEFORE ANY PROFILE CHANGES");
+
     Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
         [["set", "data.compressedMapByCustomEndpoint", theCompressedMap]]}
     , function(serverRequest, body) {
