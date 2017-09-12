@@ -1492,6 +1492,29 @@ Hydra.post('compress_this_string', function(request, response) {
   response.success({"decompressed": theCompressedString.decompressSync()});
 });
 
+//Endpoint to Write compressed map data to a profile with a raw url
+Hydra.put('update_profile_with_compressed_map', function(request, response){
+    var serverAuth = Hydra.Client.authServer();
+
+    var profileToUpdate = "/profiles/" + request.body['account_id'];
+
+    var theString = request.body['decompressed_string'];
+    var theCompressedString = new Hydra.Types.Compressed(theString);
+
+    var theMap = {"a":"hi", "b":"hello", "c":theCompressedString};
+    var theCompressedMap = new Hydra.Types.Compressed(theMap);
+
+    Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
+        [["set", "data.compressedMapByCustomEndpoint", theCompressedMap]]}
+    , function(serverRequest, body) {
+        if(serverRequest.statusCode == 200) {
+            response.success({});
+        } else {
+            response.failure({});
+        }
+    })
+});
+
 //Endpoint to Write compressed data to a profile with a raw url
 Hydra.put('update_profile_with_compressed', function(request, response){
     var serverAuth = Hydra.Client.authServer();
@@ -1565,7 +1588,8 @@ Hydra.put('decompress_profile_field', function(request, response){
     .then(function(result) {
         var theCompressedData = result.body["data"][request.body['field_to_compress']];
         var decompressed = theCompressedData.decompressSync();
-        Logger.info("The Decompressed String: " + decompressed);
+        //Logger.info("The Decompressed String: " + decompressed);
+        Logger.info("The Decompressed String: " + JSON.stringify(decompressed))
         return true;
     })
 });
