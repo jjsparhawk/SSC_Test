@@ -1494,6 +1494,7 @@ Hydra.post('compress_this_string', function(request, response) {
 
 //Endpoint to Write compressed map data to a profile with a raw url
 Hydra.put('update_profile_with_compressed_map', function(request, response){
+    Logger.info("BEGINNING FUNCTION");
     var serverAuth = Hydra.Client.authServer();
 
     var profileToUpdate = "/profiles/" + request.body['account_id'];
