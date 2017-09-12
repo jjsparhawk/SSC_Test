@@ -1494,7 +1494,6 @@ Hydra.post('compress_this_string', function(request, response) {
 
 //Endpoint to Write compressed map data to a profile with a raw url
 Hydra.put('update_profile_with_compressed_map', function(request, response){
-    Logger.info("BEGINNING FUNCTION");
     var serverAuth = Hydra.Client.authServer();
 
     var profileToUpdate = "/profiles/" + request.body['account_id'];
@@ -1505,27 +1504,11 @@ Hydra.put('update_profile_with_compressed_map', function(request, response){
     var theMap = {"a":"hi", "b":"hello", "c":theCompressedString};
     var theCompressedMap = new Hydra.Types.Compressed(theMap);
 
-    Logger.info("BEFORE ANY PROFILE CHANGES");
-
     Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
         [["set", "data.compressedMapByCustomEndpoint", theCompressedMap]]}
     , function(serverRequest, body) {
         if(serverRequest.statusCode == 200) {
-            Logger.info("PROFILE PUT HAS HAPPENED");
-
-            Hydra.Client.get(profileToUpdate, {"auth": serverAuth}, function(profileResponse, body) {
-              if(profileResponse.statusCode == 200) {
-                Logger.info("PROFILE GET HAS HAPPENED");
-
-                var theCompressedData = body['data']['compressedMapByCustomEndpoint'];
-                var decompressed = theCompressedData.decompressSync();
-
-                Logger.info("Decompressed Map: " +  JSON.stringify(decompressed));
-                response.success({"Our Map: ": JSON.stringify(decompressed)});
-              } else {
-                response.failure({})
-              }
-            });
+            response.success({});
         } else {
             response.failure({});
         }
@@ -1605,8 +1588,9 @@ Hydra.put('decompress_profile_field', function(request, response){
         if(profileResponse.statusCode == 200){
             var theCompressedData = result.body["data"][request.body['field_to_compress']];
             var decompressed = theCompressedData.decompressSync();
-            Logger.info("The Decompressed String: " + JSON.stringify(decompressed));
-            response.success({"Our Map: ": JSON.stringify(decompressed)});
+
+            Logger.info("Decompressed Data: " +  JSON.stringify(decompressed));
+            response.success({"Our Data: ": JSON.stringify(decompressed)});
         } else {
             response.failure({})
         }
