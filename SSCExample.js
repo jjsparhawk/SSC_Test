@@ -1590,7 +1590,8 @@ Hydra.put('decompress_profile_field', function(request, response){
         var decompressed = theCompressedData.decompressSync();
         //Logger.info("The Decompressed String: " + decompressed);
         Logger.info("The Decompressed String: " + JSON.stringify(decompressed))
-        response.success(JSON.stringify(decompressed));
+        //response.success(JSON.stringify(decompressed));
+        return("Hello world");
     })
 });
 
