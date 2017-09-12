@@ -1584,13 +1584,15 @@ Hydra.put('decompress_profile_field', function(request, response){
 
     var profileToRetrieve = "/profiles/" + request.body['account_id'];
 
-    Hydra.Client.get(profileToRetrieve, {auth: serverAuth})
-    .then(function(profileResponse, body) {
-        var theCompressedData = result.body["data"][request.body['field_to_compress']];
-        var decompressed = theCompressedData.decompressSync();
-        //Logger.info("The Decompressed String: " + decompressed);
-        Logger.info("The Decompressed String: " + JSON.stringify(decompressed));
-        response.success({"Our Map: ": JSON.stringify(decompressed)});
+    Hydra.Client.get(profileToRetrieve, {auth: serverAuth},function (profileResponse, body) {
+        if(profileResponse.statusCode == 200){
+            var theCompressedData = result.body["data"][request.body['field_to_compress']];
+            var decompressed = theCompressedData.decompressSync();
+            Logger.info("The Decompressed String: " + JSON.stringify(decompressed));
+            response.success({"Our Map: ": JSON.stringify(decompressed)});
+        } else {
+            response.failure({})
+        }
     })
 });
 
