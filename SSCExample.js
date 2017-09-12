@@ -1508,8 +1508,12 @@ Hydra.put('update_profile_with_compressed_map', function(request, response){
         [["set", "data.compressedMapByCustomEndpoint", theCompressedMap]]}
     , function(serverRequest, body) {
         if(serverRequest.statusCode == 200) {
+            Logger.info("PROFILE PUT HAS HAPPENED");
+
             Hydra.Client.get(profileToUpdate, {"auth": serverAuth}, function(profileResponse, body) {
               if(profileResponse.statusCode == 200) {
+                Logger.info("PROFILE GET HAS HAPPENED");
+
                 var theCompressedData = body['data']['compressedMapByCustomEndpoint'];
                 var decompressed = theCompressedData.decompressSync();
 
