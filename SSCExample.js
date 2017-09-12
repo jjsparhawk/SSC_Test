@@ -1593,7 +1593,7 @@ Hydra.put('decompress_profile_field', function(request, response){
         //response.success(JSON.stringify(decompressed));
         //return true;
     })
-    return JSON.stringify(decompressed);
+    //return JSON.stringify(decompressed);
 });
 
 //Custom endpoint to make a request with a Server Key and Server Secret from the request
