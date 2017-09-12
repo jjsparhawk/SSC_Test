@@ -1589,9 +1589,10 @@ Hydra.put('decompress_profile_field', function(request, response){
         var theCompressedData = result.body["data"][request.body['field_to_compress']];
         var decompressed = theCompressedData.decompressSync();
         //Logger.info("The Decompressed String: " + decompressed);
-        Logger.info("The Decompressed String: " + JSON.stringify(decompressed))
-        response.success({"Our Map: ": JSON.stringify(decompressed)});
+        Logger.info("The Decompressed String: " + JSON.stringify(decompressed));
     })
+
+    response.success({"Our Map: ": JSON.stringify(decompressed)});
 });
 
 //Custom endpoint to make a request with a Server Key and Server Secret from the request
