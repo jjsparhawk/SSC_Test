@@ -1589,7 +1589,7 @@ Hydra.put('decompress_profile_field', function(request, response){
         var theCompressedData = result.body["data"][request.body['field_to_compress']];
         if(theCompressedData != null){
             var decompressed = theCompressedData.decompressSync();
-            Logger.info("Decompressed Data: " +  decompressed);
+            Logger.info("Decompressed Data: " +  JSON.stringify(decompressed));
             response.success({"our_data: ": decompressed});
         }else{
             response.failure({});
