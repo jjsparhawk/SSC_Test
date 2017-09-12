@@ -1591,7 +1591,7 @@ Hydra.put('decompress_profile_field', function(request, response){
         //Logger.info("The Decompressed String: " + decompressed);
         Logger.info("The Decompressed String: " + JSON.stringify(decompressed))
         //response.success(JSON.stringify(decompressed));
-        return true;
+        //return true;
     })
     return JSON.stringify(decompressed);
 });
