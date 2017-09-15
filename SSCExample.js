@@ -676,12 +676,12 @@ Hydra.userContentVersion.afterFileDelete(function(request, response){
 
 Hydra.purchase.beforeCreate(function(request, response){
     Logger.info("Before Purchase Create Log");
-    return {};
+    response.success([['set', 'server_data.beforePurchaseHookHit', "Yes"]]);
 })
 
 Hydra.purchase.afterFinalize(function(request, response){
     Logger.info("After Purchase Finalize Log");
-    return {};
+    response.success([['set', 'server_data.beforePurchaseHookHit', "Yes"]]);
 })
 
 Hydra.purchase.afterCancel(function(request, response){
