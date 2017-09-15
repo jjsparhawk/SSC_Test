@@ -681,7 +681,7 @@ Hydra.purchase.beforeCreate(function(request, response){
 
 Hydra.purchase.afterFinalize(function(request, response){
     Logger.info("After Purchase Finalize Log");
-    response.success([['set', 'server_data.beforePurchaseHookHit', "Yes"]]);
+    response.success([['set', 'server_data.afterPurchaseHookHit', "Yes"]]);
 })
 
 Hydra.purchase.afterCancel(function(request, response){
