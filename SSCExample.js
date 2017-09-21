@@ -80,6 +80,7 @@ Hydra.account.beforeAuth(function(request, response){
             return Hydra.Client.get("/broadcast_channels/test/BeforeMatchLeaveWasJustHit", {auth: serverAuth});
     Logger.info("Before Account Auth Log");
     return {};
+
 })
 
 Hydra.account.afterOnline(function(request, response){
