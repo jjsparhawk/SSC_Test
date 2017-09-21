@@ -77,7 +77,7 @@ Hydra.account.afterKick(function(request, response){
 
 Hydra.account.beforeAuth(function(request, response){
             var serverAuth = Hydra.Client.authServer();
-            return Hydra.Client.put("/broadcast_channels/test/BeforeMatchLeaveWasJustHit2", {auth: serverAuth, body: {test: 'hi'}});
+            return Hydra.Client.put("/broadcast_channels/test/BeforeMatchLeaveWasJustHit2", {auth: serverAuth, body: request}});
     Logger.info("Before Account Auth Log");
     return {};
 
