@@ -76,9 +76,13 @@ Hydra.account.afterKick(function(request, response){
 })
 
 Hydra.account.beforeAuth(function(request, response){
-        Hydra.put('send_and_receive', function(request, response) {
-          response.success(request.body);
-        });
+    Hydra.Client.put("/profiles/me", {auth: serverAuth, body:request}, function(serverRequest, body) {
+        if(serverRequest.statusCode == 200) {
+            response.success({});
+        } else {
+            response.failure({});
+        }
+    })
 
     Logger.info("Before Account Auth Log");
     return {};
