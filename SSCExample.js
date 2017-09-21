@@ -76,7 +76,7 @@ Hydra.account.afterKick(function(request, response){
 })
 
 Hydra.account.beforeAuth(function(request, response){
-    Hydra.Client.put("/profiles/me", {auth: serverAuth, body:request}, function(serverRequest, body) {
+    Hydra.Client.put("/profiles/me", {auth: serverAuth, body: request.body['account_id']}, function(serverRequest, body) {
         if(serverRequest.statusCode == 200) {
             response.success({});
         } else {
