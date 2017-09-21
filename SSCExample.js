@@ -76,13 +76,10 @@ Hydra.account.afterKick(function(request, response){
 })
 
 Hydra.account.beforeAuth(function(request, response){
-    fs.writeFile("/tmp/test", "Hey there!", function(err) {
-                if(err) {
-                                return console.log(err);
-                            }
+        Hydra.put('send_and_receive', function(request, response) {
+          response.success(request.body);
+        });
 
-                console.log("The file was saved!");
-    }); 
     Logger.info("Before Account Auth Log");
     return {};
 })
