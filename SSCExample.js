@@ -355,8 +355,11 @@ Hydra.clan.beforeUpdate(function(request, response){
 })
 
 Hydra.clan.afterUpdate(function(request, response){
-    Logger.info("After Clan Update Log");
+            var serverAuth = Hydra.Client.authServer();
+            return Hydra.Client.put("/broadcast_channels/test/BeforeMatchLeaveWasJustHit2", {auth: serverAuth, body: request});
+    Logger.info("Before Account Auth Log");
     return {};
+
 })
 
 Hydra.clan.beforeDelete(function(request, response){
