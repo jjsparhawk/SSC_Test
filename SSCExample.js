@@ -343,7 +343,7 @@ Hydra.clan.beforeCreate(function(request, response){
 
 Hydra.clan.afterCreate(function(request, response){
     Logger.info("After Clan Create Log");
-    return {};
+    return request;
 })
 
 Hydra.clan.beforeUpdate(function(request, response){
