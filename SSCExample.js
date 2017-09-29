@@ -50,7 +50,7 @@ function updateLogObject(dataFieldToUpdate){
 //beforeCreate (with invalid return type)
 Hydra.account.beforeCreate(function(request, response){
     Logger.info("Before Account Create Log");
-    response.success([["set", "data.BeforeAccountCreateHit", true]]);
+    return{};
     
 })
 
