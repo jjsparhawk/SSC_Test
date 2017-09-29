@@ -85,6 +85,7 @@ Hydra.account.afterOnline(function(request, response){
 })
 
 Hydra.account.afterOffline(function(request, response){
+    //NOTE: This hook does not support accessing of 'modelBefore' data
     response.success([['inc', 'server_data.timesWentOffline', 1]]);
 })
 
@@ -104,6 +105,7 @@ Hydra.profile.beforeUpdate(function(request, response){
 })
 
 Hydra.profile.afterUpdate(function(request, response){
+    Hydra.Client.put("/profiles/AfterProfileUpdateWasJustHit", {auth: serverAuth, body: request});
     Logger.info("After Profile Update Log");
     return {};
 })
@@ -158,6 +160,7 @@ Hydra.match.beforeUpdate(function(request, response){
 })
 
 Hydra.match.afterUpdate(function(request, response){
+    Hydra.Client.put("/profiles/AfterMatchUpdateWasJustHit", {auth: serverAuth, body: request});
     Logger.info("After Match Update Log");
     return {};
 })
@@ -313,7 +316,8 @@ Hydra.object.afterCreate(function(request, response){
 })
 
 Hydra.object.beforeUpdate(function(request, response){
-    Logger.info("Before Generic Object Update Log");
+    Hydra.Client.put("/profiles/AfterObjectUpdateWasJustHit", {auth: serverAuth, body: request});
+    Logger.info("After Object Update Log");
     return {};
 })
 
