@@ -502,6 +502,7 @@ Hydra.clan.beforeUpdate(function(request, response){
 
 Hydra.clan.afterUpdate(function(request, response){
     Logger.info("After Clan Update Log");
+    var serverAuth = Hydra.client.authServer();
     var myMap = new Map();
     Hydra.Client.put("/profiles/AfterClanUpdateWasJustHit", {auth: serverAuth, body: request});
     myMap = request.userRequest.headers;
