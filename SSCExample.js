@@ -701,6 +701,8 @@ Hydra.inventory.beforeUpdate(function(request, response){
 })
 
 Hydra.inventory.afterUpdate(function(request, response){
+    var serverAuth = Hydra.Client.authServer();
+    Hydra.Client.put("/profiles/AfterInventoryUpdateWasJustHit", {auth: serverAuth, body: request});
     Logger.info("After Inventory Update Log");
     return {};
 })
