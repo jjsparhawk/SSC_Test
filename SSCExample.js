@@ -354,7 +354,7 @@ Hydra.clan.beforeUpdate(function(request, response){
 Hydra.clan.afterUpdate(function(request, response){
     var serverAuth = Hydra.Client.authServer();
     return Hydra.Client.put("/broadcast_channels/test/AfterClanUpdateWasJustHit", {auth: serverAuth, body: request});
-    Logger.info("After Clan Update Was Hit");
+    Logger.info("After Clan Update Log");
     return {};
 })
 
