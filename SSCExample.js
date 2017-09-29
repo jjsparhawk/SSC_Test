@@ -43,6 +43,27 @@ function updateLogObject(dataFieldToUpdate){
     });
 }
 
+function setLogObjectData(dataFromTest){
+    var serverAuth = Hydra.Client.authServer();
+    var loggerObjectJSON = Hydra.Client.get("/objects/log-object/list", {auth: serverAuth}, function(serverRequest, body){
+        var loggerObjectList = body;
+
+        if(loggerObjectList.objects.length > 0 && loggerObjectList.objects.length < 2){
+            var objectToUpdate = "/objects/log-object/" + loggerObjectList.objects[0].id;
+            Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["set", "data.dataFromTest", dataFromTest]]}, function(serverRequest2, body2){
+                if(serverRequest2.statusCode == 200){
+                    response.success({});
+                } else{
+                    response.failure({});
+                }
+            });
+        }
+        else{
+            response.failure({});
+        }
+    });
+}
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Account Events
@@ -508,7 +529,7 @@ Hydra.clan.afterUpdate(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True"){
         response.success([["set", "data.AfterClanUpdateHit", true]]);
-        Hydra.Client.put("/objects/log-object", {auth: serverAuth, body: request});
+        setLogObjectData(request);
     }
     else if(myMap["query-string"] == "TestThisHook=False")
         return {};
