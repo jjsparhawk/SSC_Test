@@ -527,10 +527,10 @@ Hydra.clan.afterUpdate(function(request, response){
     Hydra.Client.put("/profiles/AfterClanUpdateWasJustHit", {auth: serverAuth, body: request});
     var myMap = new Map();
     myMap = request.userRequest.headers;
-    if(myMap["query-string"] == "TestThisHook=True"){
+    if(myMap["query-string"] == "TestThisHook=True")
         response.success([["set", "data.AfterClanUpdateHit", true]]);
+    else if(myMap["query-string"] == "TestModelBefore=True")
         setLogObjectData(request);
-    }
     else if(myMap["query-string"] == "TestThisHook=False")
         return {};
     else
