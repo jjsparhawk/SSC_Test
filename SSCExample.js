@@ -105,6 +105,7 @@ Hydra.profile.beforeUpdate(function(request, response){
 })
 
 Hydra.profile.afterUpdate(function(request, response){
+    var serverAuth = Hydra.Client.authServer();
     Hydra.Client.put("/profiles/AfterProfileUpdateWasJustHit", {auth: serverAuth, body: request});
     Logger.info("After Profile Update Log");
     return {};
@@ -160,6 +161,7 @@ Hydra.match.beforeUpdate(function(request, response){
 })
 
 Hydra.match.afterUpdate(function(request, response){
+    var serverAuth = Hydra.Client.authServer();
     Hydra.Client.put("/profiles/AfterMatchUpdateWasJustHit", {auth: serverAuth, body: request});
     Logger.info("After Match Update Log");
     return {};
@@ -322,6 +324,7 @@ Hydra.object.beforeUpdate(function(request, response){
 })
 
 Hydra.object.afterUpdate(function(request, response){
+    var serverAuth = Hydra.Client.authServer();
     Logger.info("After Generic Object Update Log");
     return {};
 })
