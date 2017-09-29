@@ -1287,10 +1287,14 @@ Hydra.inventory.beforeUpdate(function(request, response){
 // Will probably need to use log object for these endpoints
 Hydra.inventory.afterUpdate(function(request, response){
     Logger.info("After Inventory Update Log");
+    var serverAuth = Hydra.Client.authServer();
+    Hydra.Client.put("/profiles/AfterInventoryUpdateWasJustHit", {auth: serverAuth, body: request});
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         updateLogObject("data.NumTimesAfterInventoryUpdateHit");
+    else if(myMap["query-string"] == "TestModelBefore=True")
+        setLogObjectData(request);
     else if(myMap["query-string"] == "TestThisHook=False")
         return {};
     else
