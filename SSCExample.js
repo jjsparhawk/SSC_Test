@@ -639,9 +639,9 @@ Hydra.clanMember.afterLeave(function(request, response){
     Logger.info("After Clan Member Leave Log");
     var myMap = new Map();
     myMap = request.userRequest.headers;
-    if(myMap["query-string"] == "TestThisHook=True")
+    if(myMap["query-string"] == "TestAfterHook=True")
         response.success([["set", "data.AfterClanMemberLeaveHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
+    else if(myMap["query-string"] == "TestAfterHook=False")
         return {};
     else
         return {};
@@ -663,9 +663,9 @@ Hydra.clanMember.afterKick(function(request, response){
     Logger.info("After Clan Member Kick Log");
     var myMap = new Map();
     myMap = request.userRequest.headers;
-    if(myMap["query-string"] == "TestThisHook=True")
+    if(myMap["query-string"] == "TestAfterHook=True")
         response.success([["set", "data.AfterClanMemberKickHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
+    else if(myMap["query-string"] == "TestAfterHook=False")
         return {};
     else
         return {};
