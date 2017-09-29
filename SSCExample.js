@@ -318,13 +318,13 @@ Hydra.object.afterCreate(function(request, response){
 })
 
 Hydra.object.beforeUpdate(function(request, response){
-    Hydra.Client.put("/profiles/AfterObjectUpdateWasJustHit", {auth: serverAuth, body: request});
-    Logger.info("After Object Update Log");
+    Logger.info("Before Generic Object Update Log");
     return {};
 })
 
 Hydra.object.afterUpdate(function(request, response){
     var serverAuth = Hydra.Client.authServer();
+    Hydra.Client.put("/profiles/AfterObjectUpdateWasJustHit", {auth: serverAuth, body: request});
     Logger.info("After Generic Object Update Log");
     return {};
 })
