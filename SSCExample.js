@@ -1035,16 +1035,16 @@ Hydra.get('return_large_number', function(request, response) {
 });
 
 Hydra.put('emit_external_event', function(request, response) {
-    Event.emit("{'kind': 'CAT', 'name': 'pongo'}", {'id': 'test_pet_schema'}).then(function() {
-        return D.resolved({"ret": "here"});
+    return Event.emit("{'kind': 'CAT', 'name': 'pongo'}", {'id': 'test_pet_schema'}).then(function() {
+        return response.success({"ret": "here"});
     });
 });
 
 Hydra.put('emit_user_external_event', function(request, response) {
-    Event.emit({'kind': 'CAT', 'name': 'pongo', 'user_id': '1234-5678-9101112'}, {'id': 'test_pet_owner_schema'}).then(function() {
-        return D.resolved({"ret": "this"});
+    return Event.emit({'kind': 'CAT', 'name': 'pongo', 'user_id': '1234-5678-9101112'}, {'id': 'test_pet_owner_schema'}).then(function() {
+        return response.success({"ret": "this"});
     }, function() {
-        return D.rejected({"ret": "error"});
+        return response.failure({"ret": "error"});
     });
 });
 
