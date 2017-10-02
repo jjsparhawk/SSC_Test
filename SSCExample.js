@@ -1036,15 +1036,15 @@ Hydra.get('return_large_number', function(request, response) {
 
 Hydra.put('emit_external_event', function(request, response) {
     Event.emit("{'kind': 'CAT', 'name': 'pongo'}", {'id': 'test_pet_schema'}).then(function() {
-        return {"ret": "here"};
+        return D.resolved({"ret": "here"});
     });
 });
 
 Hydra.put('emit_user_external_event', function(request, response) {
     Event.emit({'kind': 'CAT', 'name': 'pongo', 'user_id': '1234-5678-9101112'}, {'id': 'test_pet_owner_schema'}).then(function() {
-        return {"ret": "this"};
+        return D.resolved({"ret": "this"});
     }, function() {
-        return {"ret": "error"};
+        return D.rejected({"ret": "error"});
     });
 });
 
