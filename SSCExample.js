@@ -1034,17 +1034,17 @@ Hydra.get('return_large_number', function(request, response) {
     response.success(9007199254740992);
 });
 
-Hydra.put('emit_external_event', function(request, response) {
-    Event.emit("{'kind': 'CAT', 'name': 'pongo'}", {'id': 'test_pet_schema'}).then(function() {
-        return D.resolved({"ret": "here"});
-    });
+
+Hydra.put('emit_external_event_and_continue', function(request, response) {
+    Event.emit(request['body']['data'], request['body']['options']);
+    return {'result': 'OK'};
 });
 
-Hydra.put('emit_user_external_event', function(request, response) {
-    Event.emit({'kind': 'CAT', 'name': 'pongo', 'user_id': '1234-5678-9101112'}, {'id': 'test_pet_owner_schema'}).then(function() {
-        return D.resolved({"ret": "this"});
-    }, function() {
-        return D.rejected({"ret": "error"});
+Hydra.put('emit_external_event_and_wait', function(request, response) {
+    return Event.emit(request['body']['data'], request['body']['options']).then(function(result) {
+        response.success({'result': 'OK'});
+    }, function(error) {
+        response.failure({'result': error}, 501);
     });
 });
 
