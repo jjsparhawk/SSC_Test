@@ -1077,30 +1077,6 @@ Hydra.get('the_current_date', function(request, response) {
 Hydra.get('return_large_number', function(request, response) {
     response.success(9007199254740992);
 });
-
-Hydra.put('emit_external_event', function(request, response) {
-    return Event.emit("{'kind': 'CAT', 'name': 'pongo'}", {'id': 'test_pet_schema'}).then(function() {
-        return response.success({"ret": "here"});
-    });
-});
-
-Hydra.put('emit_user_external_event', function(request, response) {
-    return Event.emit({'kind': request.body['kind'], 'name': request.body['name'], 'user_id': request.body['user_id']}, {'id': 'test_pet_owner_schema'}).then(function() {
-        return response.success({"ret": "this"});
-    }, function() {
-        return response.failure({"ret": "Error in SSC. Check for invalid schema."});
-    });
-});
-
-Hydra.put('emit_user_external_event_with_null', function(request, response) {
-    return Event.emit({'kind': null, 'name': request.body['name'], 'user_id': request.body['user_id']}, {'id': 'test_pet_owner_schema'}).then(function() {
-        return response.success({"ret": "this"});
-    }, function() {
-        return response.failure({"ret": "Error in SSC. Check for invalid schema."});
-    });
-});
-
-
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 
