@@ -1041,10 +1041,10 @@ Hydra.put('emit_external_event', function(request, response) {
 });
 
 Hydra.put('emit_user_external_event', function(request, response) {
-    return Event.emit({'kind': request.body['kind'], 'name': request.body['name'], 'user_id': request.body['user_id']}, {'id': 'test_pet_owner_schema_enum'}).then(function() {
+    return Event.emit({'kind': request.body['kind'], 'name': request.body['name'], 'user_id': request.body['user_id']}, {'id': 'test_pet_owner_schema'}).then(function() {
         return response.success({"ret": "this"});
     }, function() {
-        return response.failure({"ret": "error"});
+        return response.failure({"ret": "Error in SSC. Check for invalid schema."});
     });
 });
 
