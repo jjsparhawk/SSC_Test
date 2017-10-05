@@ -690,6 +690,7 @@ Hydra.purchase.beforeCreate(function(request, response){
 
 Hydra.purchase.afterFinalize(function(request, response){
     var returnString = "After Purchase Finalize Hit. Purchase Id: " + request.model.id;
+    Logger.info(returnString);
     //Logger.info("After Purchase Finalize Log");
     //Logger.info(request.model.id);
     response.success([['set', 'server_data.afterPurchaseHookHit', "Yes"]]);
