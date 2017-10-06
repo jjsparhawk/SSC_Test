@@ -1090,8 +1090,8 @@ Hydra.put('emit_external_event', function(request, response) {
 Hydra.put('emit_user_external_event', function(request, response) {
     return Event.emit({'kind': request.body['kind'], 'name': request.body['name'], 'user_id': request.body['user_id']}, {'id': 'test_pet_owner_schema'}).then(function() {
         return response.success({"ret": "this"});
-    }, function() {
-        return response.failure({"ret": "Error in SSC. Check for invalid schema."});
+    }, function(error) {
+        return response.failure({"ret": error});
     });
 });
 
@@ -1100,6 +1100,27 @@ Hydra.put('emit_user_external_event_with_null', function(request, response) {
         return response.success({"ret": "this"});
     }, function(error) {
         return response.failure({"ret": error});
+    });
+});
+
+Hydra.put('emit_many_external_events', function(request, response) {
+    var promises = [];
+    var num = parseInt(request.body['num_events']);
+
+    for(var i=0; i < num; i++){
+        promises.push(Event.emit({'kind': request.body['kind'], 'name': request.body['name'], 'user_id': request.body['user_id']}, {'id': 'test_pet_owner_schema'}));
+    }
+    
+    D.all(promises.map(function(promise){
+        return promise.then(function(){/*no-op*/}, function(error){ return error; })
+    }))
+    .then(function(results){
+        var errors = results.filter(function(x){return x != undefined;});
+        if(errors.length == 0) {
+            response.success({"events_emitted": num});
+        } else {
+            response.failure({"events_emitted": num - errors.length, "errors": errors});
+        }
     });
 });
 //------------------------------------------------------------------------------------------------------------------------------------------
