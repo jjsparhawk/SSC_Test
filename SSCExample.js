@@ -1096,11 +1096,7 @@ Hydra.put('emit_user_external_event', function(request, response) {
 });
 
 Hydra.put('emit_user_external_event_custom_account_id', function(request, response) {
-    return Event.emit({'kind': request.body['kind'], 'name': request.body['name'], 'user_id': request.body['user_id']}, {'id': 'test_pet_owner_schema'}, request.body['account_id']).then(function() {
-        return response.success({"ret": "this"});
-    }, function(error) {
-        return response.failure({"ret": error});
-    });
+    return Event.emit({'kind': request.body['kind'], 'name': request.body['name'], 'user_id': request.body['user_id']}, {'id': 'test_pet_owner_schema'}, request.body['account_id']);
 });
 
 Hydra.put('emit_user_external_event_with_null', function(request, response) {
