@@ -1140,7 +1140,7 @@ Hydra.get('unicode_search', function(request, response){
         if(serverRequest.statusCode == 200){
             response.success({});
         }else{
-            response.failure({});
+            response.failure({"body":body, "serverRequest":serverRequest});
         }
     })
 });
