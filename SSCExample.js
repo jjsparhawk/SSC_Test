@@ -1145,7 +1145,12 @@ Hydra.get('unicode_search', function(request, response){
     })
 });
 
-
+//Custom endpoint to convert from Unicode to utf-8 encoded strings
+Hydra.get('unicode_convert', function(request, response){
+    var theUnicodeString = request.body['unicodeString'];
+    Logger.info(Util.encodeURIComponent(theUnicodeString));
+    return {};
+});
 
 
 
