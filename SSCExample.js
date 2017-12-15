@@ -1137,7 +1137,7 @@ Hydra.put('emit_many_external_events', function(request, response) {
 Hydra.put('unicode_search', function(request, response){
     var serverAuth = Hydra.Client.authServer();
     var theUnicodeString = request.body['unicodeString'];
-    var theURL = "/profiles/search_queries/unicode_search/run?ucf=" + theUnicodeString;
+    var theURL = "/profiles/search_queries/unicode_search/run?ucf=" + Util.encodeURIComponent(theUnicodeString);
     Hydra.Client.get(theURL, {auth: serverAuth}, function(serverRequest, body) {
         if(serverRequest.statusCode == 200){
             response.success({});
