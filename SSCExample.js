@@ -1134,7 +1134,7 @@ Hydra.put('emit_many_external_events', function(request, response) {
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Custom Endpoint to search for profile with unicode character.
-Hydra.get('unicode_search', function(request, response){
+Hydra.put('unicode_search', function(request, response){
     var serverAuth = Hydra.Client.authServer();
     var theUnicodeString = request.body['unicodeString'];
     var theURL = "/profiles/search_queries/unicode_search/run?ucf=" + theUnicodeString;
