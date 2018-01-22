@@ -1087,12 +1087,8 @@ Hydra.put('emit_external_event', function(request, response) {
     });
 });
 
-Hydra.put('emit_external_event_with_huge_string', function(request, response) {
-    var theHugeString = "Cat";
-    for (var i = 0; i<25; i++){
-        theHugeString = theHugeString + theHugeString;
-    }
-    return Event.emit("{'kind': 'CAT', 'name': "+theHugeString+"}", {'id': 'test_pet_schema'}).then(function() {
+Hydra.put('emit_external_event_with_invalid_string', function(request, response) {
+    return Event.emit("{'kind': 'CAT', 'name':'ß'}", {'id': 'test_pet_schema'}).then(function() {
         return response.success({"ret": "here"});
     });
 }); 
