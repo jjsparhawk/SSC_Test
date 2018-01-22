@@ -1088,7 +1088,7 @@ Hydra.put('emit_external_event', function(request, response) {
 });
 
 Hydra.put('emit_external_event_with_invalid_string', function(request, response) {
-    return Event.emit("{'kind': 'CAT', 'name':'ß'}", {'id': 'test_pet_schema'}).then(function() {
+    return Event.emit("{'kind': 'CAT', 'name':'ß'}", {'id': 'test_pet_schema', 'testThing':'ß'}).then(function() {
         return response.success({"ret": "here"});
     });
 }); 
