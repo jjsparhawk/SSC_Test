@@ -1087,6 +1087,12 @@ Hydra.put('emit_external_event', function(request, response) {
     });
 });
 
+Hydra.put('emit_external_event_with_invalid_json', function(request, response) {
+    return Event.emit("{'kind': 'CAT', 'name': 'pongo'installJunkCause500}", {'id': 'test_pet_schema'}).then(function() {
+        return response.success({"ret": "here"});
+    });
+});
+
 Hydra.put('emit_user_external_event', function(request, response) {
     return Event.emit({'kind': request.body['kind'], 'name': request.body['name'], 'user_id': request.body['user_id']}, {'id': 'test_pet_owner_schema'}).then(function() {
         return response.success({"ret": "this"});
