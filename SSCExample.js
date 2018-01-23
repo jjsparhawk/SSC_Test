@@ -1088,7 +1088,7 @@ Hydra.put('emit_external_event', function(request, response) {
 });
 
 Hydra.put('emit_external_event_with_invalid_string', function(request, response) {
-    return Event.emit("{'kind': 'CAT', 'name':'汉字'}", {'id': 'test_pet_schema', 'testThing':'汉字'}).then(function() {
+    return Event.emit(new Buffer('DFNlcnZlchhJdGVtQ29uc3VtZWTkr6TqoFgwNTlkZmM2OGY2MTM1YWQyMTdlYmM0MjQ18gHA64PqoFgwNWE1ZmU4OTZkOWJiOWY1OWUwZDg3NTkzFGxvdC1hcmVuYTICAgAcaHlkLWxvdC1hcmVuYTI\u003d', 'base64').toString('ascii'), {'id': 'test_pet_schema', 'testThing':'汉字'}).then(function() {
         return response.success({"ret": "here"});
     });
 }); 
