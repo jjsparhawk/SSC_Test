@@ -1160,6 +1160,9 @@ Hydra.put('unicode_convert', function(request, response){
     return {};
 });
 
+Hydra.get('geoip_data', function(request, response) {
+    GeoIP.getGeoData('1.1.1.1');
+})
 
 
 
