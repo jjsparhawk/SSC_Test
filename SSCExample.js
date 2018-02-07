@@ -1087,6 +1087,16 @@ Hydra.put('emit_external_event', function(request, response) {
     });
 });
 
+Hydra.put('emit_external_event_huge_body', function(request, response) {
+    var hugeString = "BillyFucilloHuge";
+    for (var i = 0; i < 25; i++) {
+        hugeString = hugeString + hugeString;
+    }
+    return Event.emit("{'kind': 'CAT', 'name': "+hugeString+"}", {'id': 'test_pet_schema'}).then(function() {
+        return response.success({"ret": "here"});
+    });
+});
+
 Hydra.put('emit_external_event_with_invalid_string', function(request, response) {
     return Event.emit(new Buffer('DFNlcnZlchhJdGVtQ29uc3VtZWTkr6TqoFgwNTlkZmM2OGY2MTM1YWQyMTdlYmM0MjQ18gHA64PqoFgwNWE1ZmU4OTZkOWJiOWY1OWUwZDg3NTkzFGxvdC1hcmVuYTICAgAcaHlkLWxvdC1hcmVuYTI\u003d', 'base64').toString('ascii'), {'id': 'test_pet_schema', 'testThing':'汉字'}).then(function() {
         return response.success({"ret": "here"});
@@ -1159,6 +1169,18 @@ Hydra.put('unicode_convert', function(request, response){
     Logger.info(Util.encodeURIComponent(theUnicodeString));
     return {};
 });
+
+//Custom endpoint to get info on a hard coded geoip string
+Hydra.get('geoip_data', function(request, response) {
+    GeoIP.getGeoData('1.1.1.1')
+    .then(function(geoData) {
+        Logger.info(geoData);
+        response.success(geoData)
+    }, function(error) {
+        Logger.error(error);
+        response.failure({error: error})
+    })
+})
 
 
 
