@@ -1056,7 +1056,11 @@ Hydra.put('use_raw_server_key_from_request', function(request, response){
 
     return Hydra.Client.get("/broadcast_channels/test/broadcast_messages", {auth: serverAuth})
    .then(function(result) {
-      return true;
+      if(result.statusCode == 200) {
+            response.success({});
+        } else {
+            response.failure({});
+        }
    })
 });
 
