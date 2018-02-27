@@ -1059,7 +1059,7 @@ Hydra.put('use_raw_server_key_from_request', function(request, response){
       if(result.statusCode == 200) {
             response.success({});
         } else {
-            response.failure({});
+            response.failure(result);
         }
    })
 });
