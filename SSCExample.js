@@ -893,7 +893,7 @@ Hydra.get('make_request_on_other_environment', function(request, response) {
         json: true
     };
     Logger.info(myMap);
-    return Requests.get(myMap["http-otherenvironemnturl"] + "/broadcast_channels/test/requestFromOtherEnvironment", requestOptions).then(function (response) {
+    return Requests.get(myMap["http-otherenvironmenturl"] + "/broadcast_channels/test/requestFromOtherEnvironment", requestOptions).then(function (response) {
         // 
     });
 });
