@@ -880,6 +880,24 @@ Hydra.get('custom_get_with_custom_client_header', function(request, response) {
     return {};
 });
 
+//Make Request to 'other' environment
+Hydra.get('make_request_on_other_environment', function(request, response) {
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+
+    var requestOptions = {
+        headers: {
+            "X-Hydra-API-Key": myMap["otherEnvironmentKey"],
+            "X-Hydra-Server-Private-Key": myMap["otherEnvironmentSecret"],
+        },
+        json: true
+    };
+    return Requests.get(myMap["otherEnvironemntURL"] + "/broadcast_channels/test/requestFromOtherEnvironment", requestOptions).then(function (response) {
+        // 
+    });
+});
+
+
 //Custom Endpoint That Doesn't Return
 Hydra.get('custom_no_response', function(request, response) {});
 
