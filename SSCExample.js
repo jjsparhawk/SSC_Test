@@ -1066,8 +1066,8 @@ Hydra.put('use_raw_server_key_from_request', function(request, response){
 
 //Custom endpoint to make a request with a hard-coded Server Key and Server Secret
 Hydra.get('use_raw_server_key', function(request, response){
-    var publicKey = "adf11703e8744000a23db77813c6a87a";
-    var privateKey = "OTQ5NDNhYzQtNDRjYy00ZDNjLTgyMDMtNDg5NjI1MTFmNDcyNmM0N2NjY2YtYjcxYy00ZTZkLTkwYzktNWZjMWE3M2NiODA3";
+    var publicKey = "0d8d4c816a6a487fb67b7c35c7006d75";
+    var privateKey = "YzQzODE2ZDgtYmQwMC00NzJiLWIyODYtNmYzYjc1MTE1MmRmYmU3NzZmMjUtYWZhMC00MTBhLWJjMDItMjRhMDQ4ODVkM2M3";
     var serverAuth = Hydra.Client.authServer(publicKey, privateKey);
 
     return Hydra.Client.get("/broadcast_channels/thisChannelIsForTestingAndDoesntExist/broadcast_messages", {auth: serverAuth})
