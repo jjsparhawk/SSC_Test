@@ -887,12 +887,12 @@ Hydra.get('make_request_on_other_environment', function(request, response) {
 
     var requestOptions = {
         headers: {
-            "X-Hydra-API-Key": myMap["otherEnvironmentKey"],
-            "X-Hydra-Server-Private-Key": myMap["otherEnvironmentSecret"],
+            "X-Hydra-API-Key": myMap["http-otherenvironmentkey"],
+            "X-Hydra-Server-Private-Key": myMap["http-otherenvironmentsecret"],
         },
         json: true
     };
-    return Requests.get(myMap["otherEnvironemntURL"] + "/broadcast_channels/test/requestFromOtherEnvironment", requestOptions).then(function (response) {
+    return Requests.get(myMap["http-otherenvironemnturl"] + "/broadcast_channels/test/requestFromOtherEnvironment", requestOptions).then(function (response) {
         // 
     });
 });
