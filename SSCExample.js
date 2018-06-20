@@ -8,14 +8,18 @@ Hydra.onLoad(function(response) {
     //return true;
     var serverAuth = Hydra.Client.authServer();
 
-    return Hydra.Client.get("/broadcast_channels/test/OnLoadWasJustHit", {auth: serverAuth})
+    /*return Hydra.Client.get("/broadcast_channels/test/OnLoadWasJustHit", {auth: serverAuth})
     .then(function(result) {
       Global.set("onLoad", result.body);
       return true;
 
       //To test onLoad automatic re-try loop:
       //response.failure({})
-    })
+    })*/
+
+    //Testing with Deferred promises that are never fulfilled
+    var deferred = D.defer();
+    return deferred.promise;
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
