@@ -740,10 +740,66 @@ Hydra.notification.afterConsume(function(request, response){
 //GameServer Events
 
 Hydra.gameServerInstance.beforeCreate(function(request, response){
-    Logger.info("Before Notification Consume Log");
-    
+    Logger.info("Before Game Server Instance Create Log");
+
     var serverAuth = Hydra.Client.authServer();
-    return Hydra.Client.get("/broadcast_channels/test/BeforeMatchCompleteWasJustHit", {auth: serverAuth})
+    return Hydra.Client.get("/broadcast_channels/test/BeforeGameServerInstanceCreateWasJustHit", {auth: serverAuth})
+    .then(function(result) {
+      Global.set("onLoad", result.body);
+      return true;
+
+      //To test onLoad automatic re-try loop:
+      //response.failure({})
+    })
+})
+
+Hydra.gameServerInstance.afterCreate(function(request, response){
+    Logger.info("After Game Server Instance Create Log");
+
+    var serverAuth = Hydra.Client.authServer();
+    return Hydra.Client.get("/broadcast_channels/test/AfterGameServerInstanceCreateWasJustHit", {auth: serverAuth})
+    .then(function(result) {
+      Global.set("onLoad", result.body);
+      return true;
+
+      //To test onLoad automatic re-try loop:
+      //response.failure({})
+    })
+})
+
+Hydra.gameServerInstance.afterReady(function(request, response){
+    Logger.info("After Game Server Instance Ready Log");
+
+    var serverAuth = Hydra.Client.authServer();
+    return Hydra.Client.get("/broadcast_channels/test/AfterGameServerInstanceReadyWasJustHit", {auth: serverAuth})
+    .then(function(result) {
+      Global.set("onLoad", result.body);
+      return true;
+
+      //To test onLoad automatic re-try loop:
+      //response.failure({})
+    })
+})
+
+Hydra.gameServerInstance.afterStopped(function(request, response){
+    Logger.info("After Game Server Instance Stopped Log");
+
+    var serverAuth = Hydra.Client.authServer();
+    return Hydra.Client.get("/broadcast_channels/test/AfterGameServerInstanceStoppedWasJustHit", {auth: serverAuth})
+    .then(function(result) {
+      Global.set("onLoad", result.body);
+      return true;
+
+      //To test onLoad automatic re-try loop:
+      //response.failure({})
+    })
+})
+
+Hydra.gameServerInstance.afterError(function(request, response){
+    Logger.info("After Game Server Instance Stopped Log");
+
+    var serverAuth = Hydra.Client.authServer();
+    return Hydra.Client.get("/broadcast_channels/test/AfterGameServerInstanceErrorWasJustHit", {auth: serverAuth})
     .then(function(result) {
       Global.set("onLoad", result.body);
       return true;
