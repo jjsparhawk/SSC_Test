@@ -1105,7 +1105,7 @@ Hydra.get('return_large_number', function(request, response) {
 });
 
 Hydra.put('emit_external_event', function(request, response) {
-    return Event.emit("{'kind': 'CAT', 'name': 'pongo'}", {'id': 'test_pet_schema'}).then(function() {
+    return Event.emit({'kind': 'CAT', 'name': 'pongo'}, {'id': 'test_pet_schema'}).then(function() {
         return response.success({"ret": "here"});
     });
 });
