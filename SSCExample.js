@@ -6,7 +6,7 @@ Logger.level = Logger.INFO;
 
 Hydra.onLoad(function(response) {
     //return true;
-    /*var serverAuth = Hydra.Client.authServer();
+    var serverAuth = Hydra.Client.authServer();
 
     return Hydra.Client.get("/broadcast_channels/test/OnLoadWasJustHit", {auth: serverAuth})
     .then(function(result) {
@@ -15,11 +15,11 @@ Hydra.onLoad(function(response) {
 
       //To test onLoad automatic re-try loop:
       //response.failure({})
-    })*/
+    })/**/
 
-    //Testing with Deferred promises that are never fulfilled
+    /*//Testing with Deferred promises that are never fulfilled
     var deferred = D.defer();
-    return deferred.promise;/**/
+    return deferred.promise;*/
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
