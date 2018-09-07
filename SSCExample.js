@@ -1101,6 +1101,21 @@ Hydra.put('update_profile_with_large_number', function(request, response){
     })
 });
 
+//Endpoint to write a map with integers as strings as the keys
+Hydra.put('update_profile_with_map_of_key_string_numbers', function(request, response){
+    var serverAuth = Hydra.Client.authServer();
+    var profileToUpdate = "/profiles/" + request.body['account_id'];
+    Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
+        [["set", "data.mapOfNumberKeys", {"1": "juan", "2": "due", "3": "twa", "4": "quat", "5": "cinc"}]]}
+    , function(serverRequest, body) {
+        if(serverRequest.statusCode == 200) {
+            response.success(body);
+        } else {
+            response.failure(body);
+        }
+    })
+});
+
 // Make sure SSC can gunzip its own gzip
 Hydra.put('put_and_fetch_compressed', function(request, response){
     var serverAuth = Hydra.Client.authServer();
