@@ -1298,7 +1298,24 @@ Hydra.get('geoip_data', function(request, response) {
     })
 })
 
-
+//Custom endpoint to test SSC deferring resolution order
+Hydra.get('test_resolve_all_in_correct_order', function(request, response) {
+    let deferred_one = D.defer();
+    let deferred_two = D.defer();
+    let deferred_three = D.defer();
+    let deferred_four = D.defer();
+    let deferred_five = D.defer();
+    let deferred_six = D.defer();
+    deferred_five.resolve('resolved FIVE');
+    deferred_six.resolve('resolved SIX');
+    deferred_three.resolve('resolved THREE');
+    deferred_one.resolve('resolved ONE');
+    deferred_four.resolve('resolved FOUR');
+    deferred_two.reject('rejected TWO');
+    D.resolveAll([deferred_one.promise, deferred_two.promise, deferred_three.promise, deferred_four.promise, deferred_five.promise, deferred_six.promise]).then(function(results) {
+        response.success(results);
+    });
+});
 
 
 
