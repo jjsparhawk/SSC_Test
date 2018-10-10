@@ -99,7 +99,7 @@ Hydra.account.afterOffline(function(request, response){
 
 Hydra.profile.afterCreate(function(request, response){
     Logger.info("After Profile Create Log");
-    return {};
+    return D.resolved(request);
 })
 
 //Edit compressed data on profile model
