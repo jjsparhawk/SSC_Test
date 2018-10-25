@@ -27,6 +27,7 @@ function updateLogObject(dataFieldToUpdate){
     return Hydra.Client.get("/objects/log-object/list", {auth: serverAuth})
         .then(function (myReq){
             var loggerObjectList = myReq.body;
+            Logger.info("Logger Object List: " + loggerObjectList)
             Logger.info("LoopA")
             if(loggerObjectList.objects.length > 0 && loggerObjectList.objects.length < 2){
                 Logger.info("loopB");
@@ -42,8 +43,8 @@ function updateLogObject(dataFieldToUpdate){
                         })
             }
             else {
-                Logger.info("hello");
-                return D.resolved();
+                Logger.info("Number of Logging Objects: " + loggerObjectList.objects.length);
+                return D.rejected();
             }
         })
 }
@@ -878,7 +879,7 @@ Hydra.lobby.beforeDelete(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         return updateLogObject("data.NumTimesBeforeLobbyDeleteHit");
-    return D.rejected();
+    return D.resolved();
 })
 
 Hydra.lobby.afterDelete(function(request, response){
@@ -887,9 +888,7 @@ Hydra.lobby.afterDelete(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         updateLogObject("data.NumTimesAfterLobbyDeleteHit");
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    return {};
+    return D.resolved();
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
