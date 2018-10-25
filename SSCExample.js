@@ -877,7 +877,8 @@ Hydra.lobby.beforeDelete(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        return {updateLogObject("data.NumTimesBeforeLobbyDeleteHit");}
+        updateLogObject("data.NumTimesBeforeLobbyDeleteHit");
+        return D.resolved();
     return D.resolved();
 })
 
