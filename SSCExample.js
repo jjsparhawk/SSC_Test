@@ -1104,10 +1104,8 @@ Hydra.userContentItem.beforeDelete(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         updateLogObject("data.NumTimesBeforeUserContentItemDeleteHit");
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return D.resolved({});
+    return D.resolved({});
 })
 
 Hydra.userContentItem.afterDelete(function(request, response){
@@ -1116,10 +1114,8 @@ Hydra.userContentItem.afterDelete(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         updateLogObject("data.NumTimesAfterUserContentItemDeleteHit");
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return D.resolved({});
+    return D.resolved({});
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
