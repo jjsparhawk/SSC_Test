@@ -29,16 +29,17 @@ function updateLogObject(dataFieldToUpdate){
 
         if(loggerObjectList.objects.length > 0 && loggerObjectList.objects.length < 2){
             var objectToUpdate = "/objects/log-object/" + loggerObjectList.objects[0].id;
-            Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["inc", dataFieldToUpdate, 1]]}, function(serverRequest2, body2){
-                if(serverRequest2.statusCode == 200) {
-                    response.success({});
-                } else {
-                    response.failure({});
-                }
-            });
+            return Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["inc", dataFieldToUpdate, 1]]})
+                    .then(function (reqResp){
+                        if(serverRequest2.statusCode == 200) {
+                            return D.resolved();
+                        } else {
+                            return D.rejected();
+                        }
+                    })
         }
         else {
-            response.failure({});
+            return D.rejected();
         }
     });
 }
@@ -872,10 +873,8 @@ Hydra.lobby.beforeDelete(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        updateLogObject("data.NumTimesBeforeLobbyDeleteHit");
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    return {};
+        return updateLogObject("data.NumTimesBeforeLobbyDeleteHit");
+    return D.rejected();
 })
 
 Hydra.lobby.afterDelete(function(request, response){
