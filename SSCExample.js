@@ -43,7 +43,7 @@ function updateLogObject(dataFieldToUpdate){
             }
             else {
                 Logger.info("hello");
-                return D.rejected();
+                return D.resolved();
             }
         })
 }
