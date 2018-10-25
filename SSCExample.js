@@ -468,10 +468,8 @@ Hydra.object.beforeDelete(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         updateLogObject("data.NumTimesBeforeObjectDeleteHit");
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return D.resolved({});
+    return D.resolved({});
 })
 
 Hydra.object.afterDelete(function(request, response){
@@ -480,10 +478,8 @@ Hydra.object.afterDelete(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         updateLogObject("data.NumTimesAfterObjectDeleteHit");
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return D.resolved({});
+    return D.resolved({});
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
