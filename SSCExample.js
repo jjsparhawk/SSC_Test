@@ -1228,10 +1228,8 @@ Hydra.purchase.beforeCreate(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         updateLogObject("data.BeforePurchaseCreateHit");
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return D.resolved({});
+    return D.resolved({});
 })
 
 Hydra.purchase.afterFinalize(function(request, response){
@@ -1240,10 +1238,8 @@ Hydra.purchase.afterFinalize(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         updateLogObject("data.AfterPurchaseFinalizeHit");
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return D.resolved({});
+    return D.resolved({});
 })
 
 Hydra.purchase.afterCancel(function(request, response){
@@ -1252,10 +1248,8 @@ Hydra.purchase.afterCancel(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         updateLogObject("data.AfterPurchaseCancelHit");
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return D.resolved({});
+    return D.resolved({});
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
