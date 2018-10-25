@@ -33,8 +33,8 @@ function updateLogObject(dataFieldToUpdate){
                 var objectToUpdate = "/objects/log-object/" + loggerObjectList.objects[0].id;
                 return Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["inc", dataFieldToUpdate, 1]]})
                         .then(function (reqResp){
-                            Logger.info("reqResp Status Code: " + reqResp.statusCode);
-                            if(reqResp.statusCode == 200) {
+                            Logger.info("reqResp Status Code: " + reqResp.response.statusCode);
+                            if(reqResp.response.statusCode == 200) {
                                 return D.resolved();
                             } else {
                                 return D.rejected();
