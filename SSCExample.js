@@ -27,11 +27,13 @@ function updateLogObject(dataFieldToUpdate){
     return Hydra.Client.get("/objects/log-object/list", {auth: serverAuth})
         .then(function (myReq){
             var loggerObjectList = myReq.body;
-
+            Logger.info("LoopA")
             if(loggerObjectList.objects.length > 0 && loggerObjectList.objects.length < 2){
+                Logger.info("loopB");
                 var objectToUpdate = "/objects/log-object/" + loggerObjectList.objects[0].id;
                 return Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["inc", dataFieldToUpdate, 1]]})
                         .then(function (reqResp){
+                            Logger.info("LoopC");
                             if(serverRequest2.statusCode == 200) {
                                 return D.resolved();
                             } else {
