@@ -878,8 +878,8 @@ Hydra.lobby.beforeDelete(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         updateLogObject("data.NumTimesBeforeLobbyDeleteHit");
-        return D.resolved();
-    return D.resolved();
+        return D.resolved({});
+    return D.resolved({});
 })
 
 Hydra.lobby.afterDelete(function(request, response){
@@ -888,7 +888,7 @@ Hydra.lobby.afterDelete(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         updateLogObject("data.NumTimesAfterLobbyDeleteHit");
-    return D.resolved();
+    return D.resolved({});
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
