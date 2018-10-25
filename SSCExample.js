@@ -815,13 +815,19 @@ Hydra.gameServerInstance.afterError(function(request, response){
 
 //Custom Ping/Pong endpoint
 Hydra.get('custom_ping', function(request, response) {
-    response.success({"ret":"custom_pong"});
+    return D.resolved({"ret":"custom_pong"});
 });
 
 //Custom Endpoint with Query Parameter Use
 Hydra.get('query_param_use', function(request) {
     var speedy_return_value = request.userRequest.queryparams.TestInput;
     return D.resolved(speedy_return_value);
+});
+
+//Custom Endpoint with User Request Body Use
+Hydra.put('user_request_body_use', function(request) {
+    var userRequestBody = request.userRequest.body;
+    return D.resolved(userRequestBody);
 });
 
 //Custom Endpoint Testing All Logger Levels
@@ -831,31 +837,46 @@ Hydra.get('custom_test_all_logger_levels', function(request, response) {
     Logger.info("Here's the custom info message.");
     Logger.warning("Here's the custom warning message.");
     Logger.error("Here's the custom error message.");
-    response.success({})
+    return D.resolved();
+});
+
+//Custom Endpoint that makes subsequent request via client access
+Hydra.get('make_request_client_access', function(request, response){
+    var thePromise = Hydra.Client.post("/objects/account-owned-non-unique", {});
+    return thePromise.then(function(theReq){
+        if(theReq.response.statusCode == 201){
+            return {body:"Object Created", code:200};
+        }else{
+            return {body:"Object Creation Failed", code:200};
+        }
+    })
 });
 
 //Attempt an Impossible Update, updating 'me' with Server Access
 Hydra.get('impossible_update', function(request, response){
     var serverAuth = Hydra.Client.authServer();
 
-    Hydra.Client.put("/profiles/me", {auth: serverAuth, body:[["set","data.ServerMe","Impossible"]]}, function(serverRequest, body) {
-        if(serverRequest.statusCode == 200) {
-            response.success({});
+    var thePromise = Hydra.Client.put("/profiles/me", {auth: serverAuth, body:[["set","data.ServerMe","Impossible"]]});
+    return thePromise.then(function(theReq){
+        if(theReq.response.statusCode == 200) {
+            return D.resolved({});
         } else {
-            response.failure({});
+            return D.rejected({});
         }
     })
+
 });
 
 //Custom Endpoint that notifies all online players
 Hydra.get('notify_online', function(request, response){
     var serverAuth = Hydra.Client.authServer();
 
-    Hydra.Client.put("/profiles/notify", {auth: serverAuth, body:{"target":{"presence_state":"online"}, "notification":{"template":"YoureOnline", "data":{"IntTest":42, "DoubleTest":3.14156926, "DateTimeTest":"2017-04-04T15:07:04+00:00", "StringTest":"HelloWorld"}}}}, function(serverRequest, body) {
-        if(serverRequest.statusCode == 200) {
-            response.success({});
+    var thePromise = Hydra.Client.put("/profiles/notify", {auth: serverAuth, body:{"target":{"presence_state":"online"}, "notification":{"template":"YoureOnline", "data":{"IntTest":42, "DoubleTest":3.14156926, "DateTimeTest":"2017-04-04T15:07:04+00:00", "StringTest":"HelloWorld"}}}});
+    return thePromise.then(function(theReq) {
+        if(theReq.response.statusCode == 200) {
+            return D.resolved({});
         } else {
-            response.failure({});
+            return D.rejected({});
         }
     })
 });
@@ -866,18 +887,18 @@ Hydra.put('notify_specific', function(request, response){
 
     var profileToRetrieve = "/profiles/" + request.body['account_id'];
 
-    Hydra.Client.put(profileToRetrieve, {auth: serverAuth, body:{
-  "operations": [["set","data.kills",23]],
-  "notification": {
-    "data": {"IntTest":42, "DoubleTest":3.14156926, "DateTimeTest":"2017-04-04T15:07:04+00:00", "StringTest":"HelloWorld"},
-    "template": "Hello"
-  },
-  "_model_update": true
-}}, function(serverRequest, body) {
-        if(serverRequest.statusCode == 200) {
-            response.success({});
+    var thePromise = Hydra.Client.put(profileToRetrieve, {auth: serverAuth, body:{
+      "operations": [["set","data.kills",23]],
+      "notification": {
+        "data": {"IntTest":42, "DoubleTest":3.14156926, "DateTimeTest":"2017-04-04T15:07:04+00:00", "StringTest":"HelloWorld"},
+        "template": "Hello"
+      },
+      "_model_update": true}});
+   return thePromise.then(function(theReq) {
+        if(theReq.response.statusCode == 200) {
+            return D.resolved({});
         } else {
-            response.failure({});
+            return D.rejected({});
         }
     })
 });
@@ -886,11 +907,12 @@ Hydra.put('notify_specific', function(request, response){
 Hydra.get('chain_link_a', function(request, response){
     var serverAuth = Hydra.Client.authServer();
 
-    Hydra.Client.get("/ssc/invoke/chain_link_b", {auth: serverAuth, body:[["set","data.ServerMe","Impossible"]]}, function(serverRequest, body) {
-        if(serverRequest.statusCode == 200) {
-            response.success({});
+    var thePromise = Hydra.Client.get("/ssc/invoke/chain_link_b", {auth: serverAuth, body:[["set","data.ServerMe","Impossible"]]})
+    return thePromise.then(function(theReq) {
+        if(theReq.response.statusCode == 200) {
+            return D.resolved({});
         } else {
-            response.failure({});
+            return D.rejected({});
         }
     })
 });
@@ -898,17 +920,18 @@ Hydra.get('chain_link_a', function(request, response){
 Hydra.get('chain_link_b', function(request, response){
     var serverAuth = Hydra.Client.authServer();
 
-    Hydra.Client.get("/ssc/invoke/chain_link_c", {auth: serverAuth, body:[["set","data.ServerMe","Impossible"]]}, function(serverRequest, body) {
-        if(serverRequest.statusCode == 200) {
-            response.success({});
+    var thePromise = Hydra.Client.get("/ssc/invoke/chain_link_c", {auth: serverAuth, body:[["set","data.ServerMe","Impossible"]]});
+    return thePromise.then(function(theReq) {
+        if(theReq.response.statusCode == 200) {
+            return D.resolved({});
         } else {
-            response.failure({});
+            return D.rejected({});
         }
     })
 });
 
 Hydra.get('chain_link_c', function(request, response){
-    response.success({"ret":"Chain_End_Found"});
+    return D.resolved ({"ret":"Chain_End_Found"});
 });
 
 
@@ -922,10 +945,9 @@ Hydra.get('custom_promises', function(request, response) {
 Hydra.get('custom_get_without_headers', function(request, response) {
     var serverAuth = Hydra.Client.authServer();
 
-    Hydra.Client.get("/profiles/123", {"auth":serverAuth}, function(profileResponse, body) {
-    })
-    .then(function(requestresponse){
-        response.success(requestresponse.body);
+    var thePromise = Hydra.Client.get("/profiles/123", {"auth":serverAuth});
+    return thePromise.then(function (reqResp){
+        return {body:reqResp.response.body, code:200};
     });
 });
 
@@ -935,7 +957,7 @@ Hydra.put('custom_test_profile_response_body', function(request) {
     var profileToRetrieve = "/profiles/" + request.body['account_id'];
     return Hydra.Client.get(profileToRetrieve, {"auth":serverAuth})
         .then(function (profile) {
-            return D.resolved(profile.response.body)
+            return D.resolved(profile.response.body);
         });
 });
 
@@ -943,10 +965,9 @@ Hydra.put('custom_test_profile_response_body', function(request) {
 Hydra.get('custom_get_with_headers', function(request, response) {
     var serverAuth = Hydra.Client.authServer();
 
-    Hydra.Client.get("/profiles/123", {"headers": {"test_header_A": "test_A", "test_header_B": "test_B"}, "auth":serverAuth}, function(profileResponse, body) {
-    })
-    .then(function(requestresponse){
-        response.success(requestresponse.body);
+    var thePromise = Hydra.Client.get("/profiles/123", {"headers": {"test_header_A": "test_A", "test_header_B": "test_B"}, "auth":serverAuth});
+    return thePromise.then(function (reqResp){
+        return {body:reqResp.response.body, code:200};
     });
 });
 
@@ -970,9 +991,10 @@ Hydra.get('make_request_on_other_environment', function(request, response) {
         },
         json: true
     };
-    Logger.info(myMap);
-    return Requests.get(myMap["http-otherenvironmenturl"] + "/broadcast_channels/test/requestFromOtherEnvironment", requestOptions).then(function (response) {
-        // 
+
+    var thePromise = Hydra.Client.get(myMap["http-otherenvironmenturl"] + "/broadcast_channels/test/requestFromOtherEnvironment", requestOptions);
+    return thePromise.then(function (reqResp){
+        return {body:reqResp.response.body, code:200};
     });
 });
 
@@ -991,37 +1013,41 @@ Hydra.get('custom_starts_with_test', function(requst, response){
     return {};
 });
 
-//Custom Endpoint to Get All Globals
+//Custom Endpoint to Get All Global Data
 Hydra.get('custom_global_get_all', function(request, response) {
-    response.success({"ret": Global.getAll()})
+    var allGlobalData = Global.getAll();
+    return {allGlobalData};
 });
 
-//Custom Endpoint that creates an UUID
+//Custom Endpoint that creates a v1 UUID and a v4 UUID
 Hydra.get('custom_create_uuid', function(request, response) {
-    response.success({"v1": UUID.v1(), "v4": UUID.v4()})
+   var v1UUID = UUID.v1();
+   var v4UUID = UUID.v4();
+   return {"v1": v1UUID, "v4": v4UUID};
 });
 
 //Custom Endpoint that returns body data
 Hydra.put('send_and_receive', function(request, response) {
-  response.success(request.body['data']);
+    var requestBodyData = request.body['data'];
+    return requestBodyData;
 });
 
 //Custom Endpoint to test decompressing a string
 Hydra.post('decompress_this_string', function(request, response) {
-  var theCompressedData = request.body['compressed'];
-  var decompressed = theCompressedData.decompressSync();
+    var theCompressedData = request.body['compressed'];
+    var decompressed = theCompressedData.decompressSync();
 
-  decompressed = "Your String Decompressed: " + decompressed;
-  Logger.info(decompressed);
-  response.success({"compressed": new Hydra.Types.Compressed(decompressed)});
+    decompressed = "Your String Decompressed: " + decompressed;
+    Logger.info(decompressed);
+    return {"compressed": new Hydra.Types.Compressed(decompressed)};
 });
 
 //Custom Endpoint to test decompressing a map
 Hydra.post('decompress_this_map', function(request, response) {
-  var theCompressedData = request.body['compressed'];
-  theCompressedData.decompressSync();
-  Logger.info("Decompressed Map:" + theCompressedData.data);
-  response.success({"compressed": theCompressedData.data});
+    var theCompressedData = request.body['compressed'];
+    theCompressedData.decompressSync();
+    Logger.info("Decompressed Map:" + theCompressedData.data);
+    return {"compressed": theCompressedData.data};
 });
 
 //Endpoint to Compress a String
@@ -1031,7 +1057,7 @@ Hydra.post('compress_this_string', function(request, response) {
   theCompressedString.compressSync();
 
   Logger.info("The Compressed String: " +  JSON.stringify(theCompressedString));
-  response.success({"decompressed": theCompressedString.decompressSync()});
+  return {"decompressed": theCompressedString.decompressSync()};
 });
 
 //Endpoint to Compress a map
@@ -1041,7 +1067,7 @@ Hydra.post('compress_a_map', function(request, response) {
   theCompressedMap.compressSync();
 
   Logger.info("The Compressed Map: " +  JSON.stringify(theCompressedMap));
-  response.success({"decompressed": theCompressedMap.decompressSync()});
+  return {"decompressed": theCompressedMap.decompressSync()};
 });
 
 //Endpoint to Write compressed map data to a profile with a raw url
@@ -1056,13 +1082,13 @@ Hydra.put('update_profile_with_compressed_map', function(request, response){
     var theMap = {"a":"hi", "b":"hello", "c":theCompressedString};
     var theCompressedMap = new Hydra.Types.Compressed(theMap);
 
-    Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
-        [["set", "data.compressedMapByCustomEndpoint", theCompressedMap]]}
-    , function(serverRequest, body) {
-        if(serverRequest.statusCode == 200) {
-            response.success({});
+    var thePromise = Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
+        [["set", "data.compressedMapByCustomEndpoint", theCompressedMap]]});
+    return thePromise.then(function(theReq) {
+        if(theReq.response.statusCode == 200) {
+            return D.resolved({});
         } else {
-            response.failure({});
+            return D.rejected({});
         }
     })
 });
@@ -1074,14 +1100,13 @@ Hydra.put('update_profile_with_compressed', function(request, response){
     var profileToUpdate = "/profiles/" + request.body['account_id'];
     var theData = new Hydra.Types.Compressed("Compress This Data For Me Please");
     theData.compressSync();  // shouldn't be necessary, but is pending a bugfix
-
-    Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
-        [["set", "data.compressedByCustomEndpoint", theData]]}
-    , function(serverRequest, body) {
-        if(serverRequest.statusCode == 200) {
-            response.success({});
+    var thePromise = Hydra.Client.put(profileToUpdate, {"auth":serverAuth, body:
+        [["set", "data.compressedByCustomEndpoint", theData]]});
+    return thePromise.then(function(theReq) {
+        if(theReq.response.statusCode == 200) {
+            return D.resolved({});
         } else {
-            response.failure({});
+            return D.rejected({});
         }
     })
 });
@@ -1090,13 +1115,14 @@ Hydra.put('update_profile_with_compressed', function(request, response){
 Hydra.put('update_profile_with_large_number', function(request, response){
     var serverAuth = Hydra.Client.authServer();
     var profileToUpdate = "/profiles/" + request.body['account_id'];
-    Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
-        [["set", "data.largeNumber", 9007199254740992]]}
-    , function(serverRequest, body) {
-        if(serverRequest.statusCode == 200) {
-            response.success(body);
+
+    var thePromise = Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
+        [["set", "data.largeNumber", 9007199254740992]]});
+    return thePromise.then(function(theReq) {
+        if(theReq.response.statusCode == 200) {
+            return D.resolved(theReq.response.body);
         } else {
-            response.failure(body);
+            return D.rejected(theReq.response.body);
         }
     })
 });
@@ -1105,13 +1131,14 @@ Hydra.put('update_profile_with_large_number', function(request, response){
 Hydra.put('update_profile_with_map_of_key_string_numbers', function(request, response){
     var serverAuth = Hydra.Client.authServer();
     var profileToUpdate = "/profiles/" + request.body['account_id'];
-    Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
-        [["set", "data.mapOfNumberKeys", {"1": "juan", "2": "due", "3": "twa", "4": "quat", "5": "cinc"}]]}
-    , function(serverRequest, body) {
-        if(serverRequest.statusCode == 200) {
-            response.success(body);
+    
+    var thePromise = Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
+        [["set", "data.mapOfNumberKeys", {"1": "juan", "2": "due", "3": "twa", "4": "quat", "5": "cinc"}]]});
+    return thePromise.then(function(theReq) {
+        if(theReq.response.statusCode == 200) {
+            return D.resolved(theReq.response.body);
         } else {
-            response.failure(body);
+            return D.rejected(theReq.response.body);
         }
     })
 });
@@ -1124,23 +1151,23 @@ Hydra.put('put_and_fetch_compressed', function(request, response){
     var theData = new Hydra.Types.Compressed("Compress This Data For Me Please");
     theData.compressSync();  // shouldn't be necessary, but is pending a bugfix
 
-    Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
-        [["set", "data.compressedByCustomEndpoint", theData]]}
-    , function(serverRequest, body) {
-        if(serverRequest.statusCode == 200) {
-            Hydra.Client.get(profileToUpdate, {"auth": serverAuth}, function(profileResponse, body) {
-              if(profileResponse.statusCode == 200) {
-                var theCompressedData = body['data']['compressedByCustomEndpoint'];
-                var decompressed = theCompressedData.decompressSync();
-
-                Logger.info("The Compressed String: " +  decompressed);
-                response.success({'our_string': decompressed});
-              } else {
-                response.failure({})
-              }
-            });
+    var thePromise = Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
+        [["set", "data.compressedByCustomEndpoint", theData]]});
+    return thePromise.then(function(theReq, body) {
+        if(theReq.response.statusCode == 200) {
+            var theSecondPromise = Hydra.Client.get(profileToUpdate, {"auth": serverAuth});
+            return theSecondPromise.then(function(theSecReq) {
+                if(theSecReq.response.statusCode == 200) {
+                    var theCompressedData = theSecReq.response.body['data']['compressedByCustomEndpoint'];
+                    var decompressed = theCompressedData.decompressSync();
+                    Logger.info("The Compressed String: " +  decompressed);
+                    return D.resolved({'our_string': decompressed});
+                } else {
+                    return D.rejected({});
+                }
+            })
         } else {
-            response.failure({});
+            return D.rejected({});
         }
     })
 });
@@ -1167,13 +1194,9 @@ Hydra.put('use_raw_server_key_from_request', function(request, response){
     var serverAuth = Hydra.Client.authServer(publicKey, privateKey);
 
     return Hydra.Client.get("/broadcast_channels/test/broadcast_messages", {auth: serverAuth})
-   .then(function(result) {
-      if(result.statusCode == 200) {
-            response.success({});
-        } else {
-            response.failure(result);
-        }
-   })
+    .then(function(reqResp) {
+        return true;
+    })
 });
 
 //Custom endpoint to make a request with a hard-coded Server Key and Server Secret
@@ -1183,23 +1206,25 @@ Hydra.get('use_raw_server_key', function(request, response){
     var serverAuth = Hydra.Client.authServer(publicKey, privateKey);
 
     return Hydra.Client.get("/broadcast_channels/thisChannelIsForTestingAndDoesntExist/broadcast_messages", {auth: serverAuth})
-   .then(function(result) {
+    .then(function(result) {
       return true;
-   })
+    })
 });
 
 Hydra.get('the_current_date', function(request, response) {
     var currentDate = new Date();
-    response.success(currentDate);
+    return currentDate;
 });
 
+//The largest number possible is one less than the variable saved below.
 Hydra.get('return_large_number', function(request, response) {
-    response.success(9007199254740992);
+    var largeNumber = 9007199254740992;
+    return largeNumber;
 });
 
 Hydra.put('emit_external_event', function(request, response) {
     return Event.emit("{'kind': 'CAT', 'name': 'pongo'}", {'id': 'test_pet_schema'}).then(function() {
-        return response.success({"ret": "here"});
+        return {"ret": "here"};
     });
 });
 
@@ -1209,37 +1234,37 @@ Hydra.put('emit_external_event_huge_body', function(request, response) {
         hugeString = hugeString + hugeString;
     }
     return Event.emit("{'kind': 'CAT', 'name': "+hugeString+"}", {'id': 'test_pet_schema'}).then(function() {
-        return response.success({"ret": "here"});
+        return {"ret": "here"};
     });
 });
 
 Hydra.put('emit_external_event_with_invalid_string', function(request, response) {
     return Event.emit(new Buffer('DFNlcnZlchhJdGVtQ29uc3VtZWTkr6TqoFgwNTlkZmM2OGY2MTM1YWQyMTdlYmM0MjQ18gHA64PqoFgwNWE1ZmU4OTZkOWJiOWY1OWUwZDg3NTkzFGxvdC1hcmVuYTICAgAcaHlkLWxvdC1hcmVuYTI\u003d', 'base64').toString('ascii'), {'id': 'test_pet_schema', 'testThing':'汉字'}).then(function() {
-        return response.success({"ret": "here"});
+        return {"ret": "here"};
     });
 });  
 
 Hydra.put('emit_user_external_event', function(request, response) {
     return Event.emit({'kind': request.body['kind'], 'name': request.body['name'], 'user_id': request.body['user_id']}, {'id': 'test_pet_owner_schema'}).then(function() {
-        return response.success({"ret": "this"});
+        return {"ret": "this"};
     }, function(error) {
-        return response.failure({"ret": error});
+        return {"ret": error};
     });
 });
 
 Hydra.put('emit_user_external_event_custom_account_id', function(request, response) {
     return Event.emit({'kind': request.body['kind'], 'name': request.body['name'], 'user_id': request.body['user_id']}, {'id': 'test_pet_owner_schema'}, request.body['account_id']).then(function() {
-        return response.success({"Hello": "World"});
+        return {"Hello": "World"};
     }, function(error) {
-        return response.failure({"ret": error});
+        return {"ret": error};
     });
 });
 
 Hydra.put('emit_user_external_event_with_null', function(request, response) {
     return Event.emit({'kind': null, 'name': request.body['name'], 'user_id': request.body['user_id']}, {'id': 'test_pet_owner_schema'}).then(function() {
-        return response.success({"ret": "this"});
+        return {"ret": "this"};
     }, function(error) {
-        return response.failure({"ret": error});
+        return {"ret": error};
     });
 });
 
@@ -1251,15 +1276,15 @@ Hydra.put('emit_many_external_events', function(request, response) {
         promises.push(Event.emit({'kind': request.body['kind'], 'name': request.body['name'], 'user_id': request.body['user_id']}, {'id': 'test_pet_owner_schema'}));
     }
     
-    D.all(promises.map(function(promise){
+    return D.all(promises.map(function(promise){
         return promise.then(function(){/*no-op*/}, function(error){ return error; })
     }))
     .then(function(results){
         var errors = results.filter(function(x){return x != undefined;});
         if(errors.length == 0) {
-            response.success({"events_emitted": num});
+            return {"events_emitted": num};
         } else {
-            response.failure({"events_emitted": num - errors.length, "errors": errors});
+            return {"events_emitted": num - errors.length, "errors": errors};
         }
     });
 });
@@ -1270,11 +1295,12 @@ Hydra.put('unicode_search', function(request, response){
     var serverAuth = Hydra.Client.authServer();
     var theUnicodeString = request.body['unicodeString'];
     var theURL = "/profiles/search_queries/unicode-search/run?ucf=" + Util.encodeURIComponent(theUnicodeString);
-    Hydra.Client.get(theURL, {auth: serverAuth}, function(serverRequest, body) {
-        if(serverRequest.statusCode == 200){
-            response.success({});
-        }else{
-            response.failure({"body":body, "serverRequest":serverRequest});
+    var thePromise = Hydra.Client.get(theURL, {auth: serverAuth});
+    return thePromise.then(function(theReq, body) {
+        if(theReq.response.statusCode == 200) {
+            return D.resolved({});
+        } else {
+            return D.rejected({"body":body, "serverRequest":theReq});
         }
     })
 });
@@ -1283,18 +1309,18 @@ Hydra.put('unicode_search', function(request, response){
 Hydra.put('unicode_convert', function(request, response){
     var theUnicodeString = request.body['unicodeString'];
     Logger.info(Util.encodeURIComponent(theUnicodeString));
-    return {};
+    return Util.encodeURIComponent(theUnicodeString);
 });
 
 //Custom endpoint to get info on a hard coded geoip string
 Hydra.get('geoip_data', function(request, response) {
-    GeoIP.getGeoData('1.1.1.1')
+    return GeoIP.getGeoData('1.1.1.1')
     .then(function(geoData) {
         Logger.info(geoData);
-        response.success(geoData)
+        return geoData;
     }, function(error) {
         Logger.error(error);
-        response.failure({error: error})
+        return {error: error};
     })
 })
 
@@ -1420,4 +1446,10 @@ Hydra.object.afterDelete(function(request, response) {
     })
 });
 */
+
+
+
+
+
+
 
