@@ -548,10 +548,8 @@ Hydra.clan.beforeDelete(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         updateLogObject("data.NumTimesBeforeClanDeleteHit");
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return D.resolved({});
+    return D.resolved({});
 })
 
 Hydra.clan.afterDelete(function(request, response){
@@ -560,10 +558,8 @@ Hydra.clan.afterDelete(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         updateLogObject("data.NumTimesAfterClanDeleteHit");
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return D.resolved({});
+    return D.resolved({});
 })
 
 Hydra.clan.beforeClanMembersIdle(function(request, response){
