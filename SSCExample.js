@@ -12,9 +12,6 @@ Hydra.onLoad(function(response) {
     .then(function(result) {
       Global.set("onLoad", result.body);
       return true;
-
-      //To test onLoad automatic re-try loop:
-      //response.failure({})
     })
 })
 
@@ -443,11 +440,8 @@ Hydra.object.beforeUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeObjectUpdateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeObjectUpdateHit", true]];
+    return {};
 })
 
 Hydra.object.afterUpdate(function(request, response){
