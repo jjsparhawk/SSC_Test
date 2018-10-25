@@ -318,19 +318,19 @@ Hydra.object.beforeCreate(function(request, response){
 
 Hydra.object.afterCreate(function(request, response){
     Logger.info("After Generic Object Create Log");
-    response.success([['set', 'data.afterCreateHookHit', "true"]]);
+    return [['set', 'data.afterCreateHookHit', "true"]];
 })
 
 Hydra.object.beforeUpdate(function(request, response){
     Logger.info("Before Generic Object Update Log");
-    return {};
+    return [['set', 'server_data.beforeObjectUpdateHit', "true"]];
 })
 
 Hydra.object.afterUpdate(function(request, response){
     var serverAuth = Hydra.Client.authServer();
     Hydra.Client.put("/profiles/AfterObjectUpdateWasJustHit", {auth: serverAuth, body: request});
     Logger.info("After Generic Object Update Log");
-    return {};
+    return [['set', 'server_data.afterObjectUpdateHit', "true"]];
 })
 
 Hydra.object.beforeDelete(function(request, response){
