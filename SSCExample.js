@@ -335,12 +335,12 @@ Hydra.object.afterUpdate(function(request, response){
 
 Hydra.object.beforeDelete(function(request, response){
     Logger.info("Before Generic Object Delete Log");
-    return {};
+    return [['inc', 'data.numTimesBeforeObjectDeleteHit', 1]];
 })
 
 Hydra.object.afterDelete(function(request, response){
     Logger.info("After Generic Object Delete Log");
-    return {};
+    return [['inc', 'data.numTimesAfterObjectDeleteHit', 1]];
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
