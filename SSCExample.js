@@ -34,7 +34,7 @@ function updateLogObject(dataFieldToUpdate){
                 return Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["inc", dataFieldToUpdate, 1]]})
                         .then(function (reqResp){
                             Logger.info("LoopC");
-                            if(serverRequest2.statusCode == 200) {
+                            if(reqResp.statusCode == 200) {
                                 return D.resolved();
                             } else {
                                 return D.rejected();
