@@ -27,8 +27,7 @@ function updateLogObject(dataFieldToUpdate){
     return Hydra.Client.get("/objects/log-object/list", {auth: serverAuth})
         .then(function (myReq){
             var loggerObjectList = myReq.body;
-            Logger.info("Logger Object List: " + loggerObjectList)
-            Logger.info("LoopA")
+            Logger.info("Logger Object List: " + loggerObjectList.objects)
             if(loggerObjectList.objects.length > 0 && loggerObjectList.objects.length < 2){
                 Logger.info("loopB");
                 var objectToUpdate = "/objects/log-object/" + loggerObjectList.objects[0].id;
