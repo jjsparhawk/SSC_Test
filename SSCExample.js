@@ -24,24 +24,25 @@ Hydra.onLoad(function(response) {
 */
 function updateLogObject(dataFieldToUpdate){
     var serverAuth = Hydra.Client.authServer();
-    var loggerObjectJSON = Hydra.Client.get("/objects/log-object/list", {auth: serverAuth}, function(serverRequest, body){
-        var loggerObjectList = body;
+    return Hydra.Client.get("/objects/log-object/list", {auth: serverAuth})
+        .then(function (myReq){
+            var loggerObjectList = body;
 
-        if(loggerObjectList.objects.length > 0 && loggerObjectList.objects.length < 2){
-            var objectToUpdate = "/objects/log-object/" + loggerObjectList.objects[0].id;
-            return Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["inc", dataFieldToUpdate, 1]]})
-                    .then(function (reqResp){
-                        if(serverRequest2.statusCode == 200) {
-                            return D.resolved();
-                        } else {
-                            return D.rejected();
-                        }
-                    })
-        }
-        else {
-            return D.rejected();
-        }
-    });
+            if(loggerObjectList.objects.length > 0 && loggerObjectList.objects.length < 2){
+                var objectToUpdate = "/objects/log-object/" + loggerObjectList.objects[0].id;
+                return Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["inc", dataFieldToUpdate, 1]]})
+                        .then(function (reqResp){
+                            if(serverRequest2.statusCode == 200) {
+                                return D.resolved();
+                            } else {
+                                return D.rejected();
+                            }
+                        })
+            }
+            else {
+                return D.rejected();
+            }
+        })
 }
 
 function setLogObjectData(dataFromTest){
