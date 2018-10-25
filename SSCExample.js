@@ -313,7 +313,7 @@ Hydra.match.afterAbandon(function(request, response){
 
 Hydra.object.beforeCreate(function(request, response){
     Logger.info("Before Generic Object Create Log");
-    response.success([['set', 'server_data.beforeCreateHookHit', "true"]]);
+    return [['set', 'server_data.beforeCreateHookHit', "true"]];
 })
 
 Hydra.object.afterCreate(function(request, response){
