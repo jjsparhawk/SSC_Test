@@ -1268,10 +1268,8 @@ Hydra.inventory.beforeUpdate(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         updateLogObject("data.NumTimesBeforeInventoryUpdateHit");
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return D.resolved({});
+    return D.resolved({});
 })
 // Will probably need to use log object for these endpoints
 Hydra.inventory.afterUpdate(function(request, response){
@@ -1282,12 +1280,8 @@ Hydra.inventory.afterUpdate(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         updateLogObject("data.NumTimesAfterInventoryUpdateHit");
-    else if(myMap["query-string"] == "TestModelBefore=True")
-        setLogObjectData(request);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return D.resolved({});
+    return D.resolved({});
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
