@@ -1063,6 +1063,20 @@ Hydra.inventory.afterUpdate(function(request, response){
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
+//Inventory Events
+
+Hydra.gameServerInstance.beforeCreate(function(request, response){
+    Logger.info("Before Clan Member Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeGameServerInstanceUpdateHit", true]];
+    return {};
+})
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
 //Notification Events
 
 Hydra.notification.beforeConsume(function(request, response){
