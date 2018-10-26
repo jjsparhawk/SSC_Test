@@ -85,12 +85,12 @@ Hydra.account.beforeAuth(function(request, response){
 })
 
 Hydra.account.afterOnline(function(request, response){
-    response.success([['inc', 'server_data.timesWentOnline', 1]]);
+    return [['inc', 'server_data.timesWentOnline', 1]];
 })
 
 Hydra.account.afterOffline(function(request, response){
     //NOTE: This hook does not support accessing of 'modelBefore' data
-    response.success([['inc', 'server_data.timesWentOffline', 1]]);
+    return [['inc', 'server_data.timesWentOffline', 1]];
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -105,7 +105,7 @@ Hydra.profile.afterCreate(function(request, response){
 //Edit compressed data on profile model
 Hydra.profile.beforeUpdate(function(request, response){
     Logger.info("Before Profile Update Log");
-    return response.success([['inc', 'server_data.timesBeforeProfileUpdateHit', 1], ['set', 'data.testingCompressedInSSCHook', new Hydra.Types.Compressed("Compress This Data Yo.")]]);;
+    return return [['inc', 'server_data.timesBeforeProfileUpdateHit', 1], ['set', 'data.testingCompressedInSSCHook', new Hydra.Types.Compressed("Compress This Data Yo.")]];;
 })
 
 Hydra.profile.afterUpdate(function(request, response){
@@ -286,7 +286,7 @@ Hydra.match.afterFixedCreate(function(request, response){
 })
 
 Hydra.match.afterPlayerOffline(function(request, response){
-    response.success([['inc', 'data.matchPlayerWentOffline', 1]]);
+    return [['inc', 'data.matchPlayerWentOffline', 1]];
 })
 
 Hydra.match.afterExpire(function(request, response){
@@ -294,7 +294,7 @@ Hydra.match.afterExpire(function(request, response){
 
     return Hydra.Client.get("/broadcast_channels/test/MatchExpired", {auth: serverAuth})
     .then(function(result) {
-      response.success([['set', 'data.matchExpired', "Match Expired SSC Update"]]);
+      return [['set', 'data.matchExpired', "Match Expired SSC Update"]];
     })
 })
 
@@ -303,7 +303,7 @@ Hydra.match.afterAbandon(function(request, response){
 
     return Hydra.Client.get("/broadcast_channels/test/MatchAbandoned", {auth: serverAuth})
     .then(function(result) {
-      response.success([['set', 'data.matchAbandoned', "Match Abandoned SSC Update"]]);
+      return [['set', 'data.matchAbandoned', "Match Abandoned SSC Update"]];
     })
 })
 
@@ -313,12 +313,12 @@ Hydra.match.afterAbandon(function(request, response){
 
 Hydra.object.beforeCreate(function(request, response){
     Logger.info("Before Generic Object Create Log");
-    response.success([['set', 'server_data.beforeCreateHookHit', "true"]]);
+    return [['set', 'server_data.beforeCreateHookHit', "true"]];
 })
 
 Hydra.object.afterCreate(function(request, response){
     Logger.info("After Generic Object Create Log");
-    response.success([['set', 'data.afterCreateHookHit', "true"]]);
+    return [['set', 'data.afterCreateHookHit', "true"]];
 })
 
 Hydra.object.beforeUpdate(function(request, response){
@@ -415,12 +415,12 @@ Hydra.clanMember.afterUpdate(function(request, response){
 
 Hydra.clanMember.beforeLeave(function(request, response){
     Logger.info("Before Clan Member Leave Log");
-    response.success([['inc', 'server_data.LeftClan', 1]]);
+    return [['inc', 'server_data.LeftClan', 1]];
 })
 
 Hydra.clanMember.afterLeave(function(request, response){
     Logger.info("After Clan Member Leave Log");
-    response.success([['inc', 'server_data.LeftClan', 1]]);
+    return [['inc', 'server_data.LeftClan', 1]];
 })
 
 Hydra.clanMember.beforeKick(function(request, response){
@@ -689,7 +689,7 @@ Hydra.userContentVersion.afterFileDelete(function(request, response){
 
 Hydra.purchase.beforeCreate(function(request, response){
     Logger.info("Before Purchase Create Log");
-    response.success([['set', 'server_data.beforePurchaseHookHit', "Yes"]]);
+    return [['set', 'server_data.beforePurchaseHookHit', "Yes"]];
 })
 
 Hydra.purchase.afterFinalize(function(request, response){
@@ -697,7 +697,7 @@ Hydra.purchase.afterFinalize(function(request, response){
     Logger.info(returnString);
     //Logger.info("After Purchase Finalize Log");
     //Logger.info(request.model.id);
-    response.success([['set', 'server_data.afterPurchaseHookHit', "Yes"]]);
+    return [['set', 'server_data.afterPurchaseHookHit', "Yes"]];
 })
 
 Hydra.purchase.afterCancel(function(request, response){
@@ -1339,7 +1339,7 @@ Hydra.get('test_resolve_all_in_correct_order', function(request, response) {
     deferred_four.resolve('resolved FOUR');
     deferred_two.reject('rejected TWO');
     D.resolveAll([deferred_one.promise, deferred_two.promise, deferred_three.promise, deferred_four.promise, deferred_five.promise, deferred_six.promise]).then(function(results) {
-        response.success(results);
+        return results;
     });
 });
 
