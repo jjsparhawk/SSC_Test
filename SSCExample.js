@@ -130,11 +130,11 @@ Hydra.account.beforeAuth(function(request, response){
 })
 
 Hydra.account.afterOnline(function(request, response){
-    response.success([['inc', 'server_data.timesWentOnline', 1]]);
+    return [['inc', 'server_data.timesWentOnline', 1]];
 })
 
 Hydra.account.afterOffline(function(request, response){
-    response.success([['inc', 'server_data.timesWentOffline', 1]]);
+    return [['inc', 'server_data.timesWentOffline', 1]];
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -149,7 +149,7 @@ Hydra.profile.afterCreate(function(request, response){
 //Edit compressed data on profile model
 Hydra.profile.beforeUpdate(function(request, response){
     Logger.info("Before Profile Update Log");
-    return response.success([['inc', 'server_data.timesBeforeProfileUpdateHit', 1], ['set', 'data.testingCompressedInSSCHook', new Hydra.Types.Compressed("Compress This Data Yo.")]]);;
+    return [['inc', 'server_data.timesBeforeProfileUpdateHit', 1], ['set', 'data.testingCompressedInSSCHook', new Hydra.Types.Compressed("Compress This Data Yo.")]];;
 })
 
 Hydra.profile.afterUpdate(function(request, response){
@@ -196,11 +196,8 @@ Hydra.match.beforeCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeMatchCreateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeMatchCreateHit", true]];
+    return {};
 })
 
 Hydra.match.afterCreate(function(request, response){
@@ -208,11 +205,8 @@ Hydra.match.afterCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterMatchCreateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterMatchCreateHit", true]];
+    return {};
 })
 
 Hydra.match.beforeUpdate(function(request, response){
@@ -220,11 +214,8 @@ Hydra.match.beforeUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeMatchUpdateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeMatchUpdateHit", true]];
+    return {};
 })
 
 Hydra.match.afterUpdate(function(request, response){
@@ -232,11 +223,8 @@ Hydra.match.afterUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterMatchUpdateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterMatchUpdateHit", true]];
+    return {};
 })
 
 Hydra.match.beforeJoin(function(request, response){
@@ -244,11 +232,8 @@ Hydra.match.beforeJoin(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeMatchJoinHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeMatchJoinHit", true]];
+    return {};
 })
 
 Hydra.match.afterJoin(function(request, response){
@@ -256,11 +241,8 @@ Hydra.match.afterJoin(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterMatchJoinHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterMatchJoinHit", true]];
+    return {};
 })
 
 Hydra.match.beforeLeave(function(request, response){
@@ -268,11 +250,8 @@ Hydra.match.beforeLeave(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeMatchLeaveHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeMatchLeaveHit", true]];
+    return {};
 })
 
 Hydra.match.afterLeave(function(request, response){
@@ -280,11 +259,8 @@ Hydra.match.afterLeave(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterMatchLeaveHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterMatchLeaveHit", true]];
+    return {};
 })
 
 Hydra.match.beforeComplete(function(request, response){
@@ -292,11 +268,8 @@ Hydra.match.beforeComplete(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeMatchCompleteHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeMatchCompleteHit", true]];
+    return {};
 })
 
 Hydra.match.afterComplete(function(request, response){
@@ -304,11 +277,8 @@ Hydra.match.afterComplete(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterMatchCompleteHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterMatchCompleteHit", true]];
+    return {};
 })
 
 Hydra.match.beforeKick(function(request, response){
@@ -316,11 +286,8 @@ Hydra.match.beforeKick(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeMatchKickHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeMatchKickHit", true]];
+    return {};
 })
 
 Hydra.match.afterKick(function(request, response){
@@ -328,11 +295,8 @@ Hydra.match.afterKick(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterMatchKickHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterMatchKickHit", true]];
+    return {};
 })
 
 Hydra.match.beforeInvite(function(request, response){
@@ -340,11 +304,8 @@ Hydra.match.beforeInvite(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeMatchInviteHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeMatchInviteHit", true]];
+    return {};
 })
 
 Hydra.match.afterInvite(function(request, response){
@@ -352,11 +313,8 @@ Hydra.match.afterInvite(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterMatchInviteHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterMatchInviteHit", true]];
+    return {};
 })
 
 Hydra.match.beforeFluidCreate(function(request, response){
@@ -364,11 +322,8 @@ Hydra.match.beforeFluidCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeFluidMatchCreateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeFluidMatchCreateHit", true]];
+    return {};
 })
 
 Hydra.match.afterFluidCreate(function(request, response){
@@ -376,11 +331,8 @@ Hydra.match.afterFluidCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterFluidMatchCreateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterFluidMatchCreateHit", true]];
+    return {};
 })
 
 Hydra.match.beforeFixedCreate(function(request, response){
@@ -388,11 +340,8 @@ Hydra.match.beforeFixedCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeFixedMatchCreateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeFixedMatchCreateHit", true]];
+    return {};
 })
 
 Hydra.match.afterFixedCreate(function(request, response){
@@ -400,11 +349,8 @@ Hydra.match.afterFixedCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterFixedMatchCreateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterFixedMatchCreateHit", true]]);
+    return {};
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -416,11 +362,8 @@ Hydra.object.beforeCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeObjectCreateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        resturn [["set", "data.BeforeObjectCreateHit", true]];
+    return {};
 })
 
 Hydra.object.afterCreate(function(request, response){
@@ -428,11 +371,8 @@ Hydra.object.afterCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterObjectCreateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterObjectCreateHit", true]];
+    return {};
 })
 
 Hydra.object.beforeUpdate(function(request, response){
@@ -449,11 +389,8 @@ Hydra.object.afterUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterObjectUpdateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterObjectUpdateHit", true]];
+    return {};
 })
 
 Hydra.object.beforeDelete(function(request, response){
@@ -485,11 +422,8 @@ Hydra.clan.beforeCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeClanCreateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeClanCreateHit", true]];
+    return {};
 })
 
 Hydra.clan.afterCreate(function(request, response){
@@ -497,11 +431,8 @@ Hydra.clan.afterCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterClanCreateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterClanCreateHit", true]];
+    return {};
 })
 
 Hydra.clan.beforeUpdate(function(request, response){
@@ -509,11 +440,8 @@ Hydra.clan.beforeUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeClanUpdateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeClanUpdateHit", true]];
+    return {};
 })
 
 Hydra.clan.afterUpdate(function(request, response){
@@ -523,13 +451,10 @@ Hydra.clan.afterUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterClanUpdateHit", true]]);
+        return [["set", "data.AfterClanUpdateHit", true]];
     else if(myMap["query-string"] == "TestModelBefore=True")
         setLogObjectData(request);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+    return {};
 })
 
 Hydra.clan.beforeDelete(function(request, response){
@@ -571,11 +496,8 @@ Hydra.clanMember.beforeJoin(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeClanMemberJoinHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeClanMemberJoinHit", true]];
+    return {};
 })
 
 Hydra.clanMember.afterJoin(function(request, response){
@@ -583,11 +505,8 @@ Hydra.clanMember.afterJoin(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterClanMemberJoinHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterClanMemberJoinHit", true]];
+    return {};
 })
 
 Hydra.clanMember.beforeUpdate(function(request, response){
@@ -595,11 +514,8 @@ Hydra.clanMember.beforeUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeClanMemberUpdateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeClanMemberUpdateHit", true]];
+    return {};
 })
 
 Hydra.clanMember.afterUpdate(function(request, response){
@@ -607,11 +523,8 @@ Hydra.clanMember.afterUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterClanMemberUpdateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterClanMemberUpdateHit", true]];
+    return {};
 })
 
 Hydra.clanMember.beforeLeave(function(request, response){
@@ -619,11 +532,8 @@ Hydra.clanMember.beforeLeave(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeClanMemberLeaveHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeClanMemberLeaveHit", true]];
+    return {};
 })
 
 Hydra.clanMember.afterLeave(function(request, response){
@@ -631,7 +541,7 @@ Hydra.clanMember.afterLeave(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestAfterHook=True")
-        response.success([["set", "data.AfterClanMemberLeaveHit", true]]);
+        return [["set", "data.AfterClanMemberLeaveHit", true]];
     else if(myMap["query-string"] == "TestAfterHook=False")
         return {};
     else
@@ -643,11 +553,8 @@ Hydra.clanMember.beforeKick(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeClanMemberKickHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeClanMemberKickHit", true]];
+    return {};
 })
 
 Hydra.clanMember.afterKick(function(request, response){
@@ -655,7 +562,7 @@ Hydra.clanMember.afterKick(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestAfterHook=True")
-        response.success([["set", "data.AfterClanMemberKickHit", true]]);
+        return [["set", "data.AfterClanMemberKickHit", true]];
     else if(myMap["query-string"] == "TestAfterHook=False")
         return {};
     else
@@ -667,11 +574,8 @@ Hydra.clanMember.beforeRoleUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeClanMemberRoleUpdateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeClanMemberRoleUpdateHit", true]];
+    return {};
 })
 
 Hydra.clanMember.afterRoleUpdate(function(request, response){
@@ -679,11 +583,8 @@ Hydra.clanMember.afterRoleUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterClanMemberRoleUpdateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterClanMemberRoleUpdateHit", true]];
+    return {};
 })
 
 Hydra.clanMember.beforeInvite(function(request, response){
@@ -691,11 +592,8 @@ Hydra.clanMember.beforeInvite(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeClanMemberInviteHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeClanMemberInviteHit", true]];
+    return {};
 })
 
 Hydra.clanMember.afterInvite(function(request, response){
@@ -703,11 +601,8 @@ Hydra.clanMember.afterInvite(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterClanMemberInviteHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterClanMemberInviteHit", true]];
+    return {};
 })
 
 Hydra.clanMember.beforeApply(function(request, response){
@@ -715,11 +610,8 @@ Hydra.clanMember.beforeApply(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeClanMemberApplyHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeClanMemberApplyHit", true]];
+    return {};
 })
 
 Hydra.clanMember.afterApply(function(request, response){
@@ -727,11 +619,8 @@ Hydra.clanMember.afterApply(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterClanMemberApplyHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterClanMemberApplyHit", true]];
+    return {};
 })
 
 Hydra.clanMember.beforeApprove(function(request, response){
@@ -739,11 +628,8 @@ Hydra.clanMember.beforeApprove(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeClanMemberApproveHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeClanMemberApproveHit", true]];
+    return {};
 })
 
 Hydra.clanMember.afterApprove(function(request, response){
@@ -751,11 +637,8 @@ Hydra.clanMember.afterApprove(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterClanMemberApproveHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterClanMemberApproveHit", true]];
+    return {};
 })
 
 Hydra.clanMember.beforeReject(function(request, response){
@@ -763,11 +646,8 @@ Hydra.clanMember.beforeReject(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeClanMemberRejectHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeClanMemberRejectHit", true]];
+    return {};
 })
 
 Hydra.clanMember.afterReject(function(request, response){
@@ -775,11 +655,8 @@ Hydra.clanMember.afterReject(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterClanMemberRejectHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterClanMemberRejectHit", true]];
+    return {};
 })
 
 Hydra.clanMember.beforeDecline(function(request, response){
@@ -787,11 +664,8 @@ Hydra.clanMember.beforeDecline(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeClanMemberDeclineHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeClanMemberDeclineHit", true]];
+    return {};
 })
 
 Hydra.clanMember.afterDecline(function(request, response){
@@ -799,11 +673,8 @@ Hydra.clanMember.afterDecline(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterClanMemberDeclineHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterClanMemberDeclineHit", true]];
+    return {};
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -815,11 +686,8 @@ Hydra.lobby.beforeCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeLobbyCreateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeLobbyCreateHit", true]];
+    return {};
 })
 
 Hydra.lobby.afterCreate(function(request, response){
@@ -827,11 +695,8 @@ Hydra.lobby.afterCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterLobbyCreateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterLobbyCreateHit", true]];
+    return {};
 })
 
 Hydra.lobby.beforeUpdate(function(request, response){
@@ -839,11 +704,8 @@ Hydra.lobby.beforeUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeLobbyUpdateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeLobbyUpdateHit", true]];
+    return {};
 })
 
 Hydra.lobby.afterUpdate(function(request, response){
@@ -851,11 +713,8 @@ Hydra.lobby.afterUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterLobbyUpdateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterLobbyUpdateHit", true]];
+    return {};
 })
 
 Hydra.lobby.beforeDelete(function(request, response){
@@ -887,11 +746,8 @@ Hydra.matchMakingRequest.beforeCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeMatchmakingRequestCreateHit", true]])
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeMatchmakingRequestCreateHit", true]]
+    return {};
 })
 
 Hydra.matchMakingRequest.afterCreate(function(request, response){
@@ -899,11 +755,8 @@ Hydra.matchMakingRequest.afterCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterMatchmakingRequestCreateHit", true]])
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterMatchmakingRequestCreateHit", true]]
+    return {};
 })
 
 Hydra.matchMakingRequest.beforeCancel(function(request, response){
@@ -912,10 +765,7 @@ Hydra.matchMakingRequest.beforeCancel(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         updateLogObject("data.NumTimesBeforeMatchmakingRequestCancelHit");
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+    return {};
 })
 
 Hydra.matchMakingRequest.afterCancel(function(request, response){
@@ -924,10 +774,7 @@ Hydra.matchMakingRequest.afterCancel(function(request, response){
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
         updateLogObject("data.NumTimesAfterMatchmakingRequestCancelHit");
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+    return {};
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -953,11 +800,8 @@ Hydra.userContentItem.beforeCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeUserContentItemCreateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeUserContentItemCreateHit", true]];
+    return {};
 })
 
 Hydra.userContentItem.afterCreate(function(request, response){
@@ -965,11 +809,8 @@ Hydra.userContentItem.afterCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterUserContentItemCreateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterUserContentItemCreateHit", true]];
+    return {};
 })
 
 Hydra.userContentItem.beforeUpdate(function(request, response){
@@ -977,11 +818,8 @@ Hydra.userContentItem.beforeUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeUserContentItemUpdateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeUserContentItemUpdateHit", true]];
+    return {};
 })
 
 Hydra.userContentItem.afterUpdate(function(request, response){
@@ -989,11 +827,8 @@ Hydra.userContentItem.afterUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterUserContentItemUpdateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterUserContentItemUpdateHit", true]];
+    return {};
 })
 
 Hydra.userContentItem.beforeShare(function(request, response){
@@ -1001,11 +836,8 @@ Hydra.userContentItem.beforeShare(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeUserContentItemShareHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeUserContentItemShareHit", true]];
+    return {};
 })
 
 Hydra.userContentItem.afterShare(function(request, response){
@@ -1013,11 +845,8 @@ Hydra.userContentItem.afterShare(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterUserContentItemShareHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterUserContentItemShareHit", true]];
+    return {};
 })
 
 Hydra.userContentItem.beforeUnshare(function(request, response){
@@ -1025,11 +854,8 @@ Hydra.userContentItem.beforeUnshare(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeUserContentItemUnshareHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeUserContentItemUnshareHit", true]];
+    return {};
 })
 
 Hydra.userContentItem.afterUnshare(function(request, response){
@@ -1037,11 +863,8 @@ Hydra.userContentItem.afterUnshare(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterUserContentItemUnshareHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterUserContentItemUnshareHit", true]];
+    return {};
 })
 
 Hydra.userContentItem.beforePublish(function(request, response){
@@ -1049,11 +872,8 @@ Hydra.userContentItem.beforePublish(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeUserContentItemPublishHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeUserContentItemPublishHit", true]];
+    return {};
 })
 
 Hydra.userContentItem.afterPublish(function(request, response){
@@ -1061,11 +881,8 @@ Hydra.userContentItem.afterPublish(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterUserContentItemPublishHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterUserContentItemPublishHit", true]];
+    return {};
 })
 
 Hydra.userContentItem.beforeUnpublish(function(request, response){
@@ -1073,11 +890,8 @@ Hydra.userContentItem.beforeUnpublish(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeUserContentItemUnpublishHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeUserContentItemUnpublishHit", true]];
+    return {};
 })
 
 Hydra.userContentItem.afterUnpublish(function(request, response){
@@ -1085,11 +899,8 @@ Hydra.userContentItem.afterUnpublish(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterUserContentItemUnpublishHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterUserContentItemUnpublishHit", true]];
+    return {};
 })
 
 Hydra.userContentItem.beforeDelete(function(request, response){
@@ -1121,11 +932,8 @@ Hydra.userContentVersion.beforeCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeUserContentVersionCreateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeUserContentVersionCreateHit", true]];
+    return {};
 })
 
 Hydra.userContentVersion.afterCreate(function(request, response){
@@ -1133,11 +941,8 @@ Hydra.userContentVersion.afterCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterUserContentVersionCreateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterUserContentVersionCreateHit", true]];
+    return {};
 })
 
 Hydra.userContentVersion.beforeFileCreate(function(request, response){
@@ -1145,11 +950,8 @@ Hydra.userContentVersion.beforeFileCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeUserContentVersionFileCreateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeUserContentVersionFileCreateHit", true]];
+    return {};
 })
 
 Hydra.userContentVersion.afterFileCreate(function(request, response){
@@ -1157,11 +959,8 @@ Hydra.userContentVersion.afterFileCreate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterUserContentVersionFileCreateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterUserContentVersionFileCreateHit", true]];
+    return {};
 })
 
 Hydra.userContentVersion.beforeFileUpdate(function(request, response){
@@ -1169,11 +968,8 @@ Hydra.userContentVersion.beforeFileUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeUserContentVersionFileUpdateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeUserContentVersionFileUpdateHit", true]];
+    return {};
 })
 
 Hydra.userContentVersion.afterFileUpdate(function(request, response){
@@ -1181,11 +977,8 @@ Hydra.userContentVersion.afterFileUpdate(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterUserContentVersionFileUpdateHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterUserContentVersionFileUpdateHit", true]];
+    return {};
 })
 
 Hydra.userContentVersion.beforeFileDelete(function(request, response){
@@ -1193,11 +986,8 @@ Hydra.userContentVersion.beforeFileDelete(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.BeforeUserContentVersionFileDeleteHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.BeforeUserContentVersionFileDeleteHit", true]];
+    return {};
 })
 
 Hydra.userContentVersion.afterFileDelete(function(request, response){
@@ -1205,11 +995,8 @@ Hydra.userContentVersion.afterFileDelete(function(request, response){
     var myMap = new Map();
     myMap = request.userRequest.headers;
     if(myMap["query-string"] == "TestThisHook=True")
-        response.success([["set", "data.AfterUserContentVersionFileDeleteHit", true]]);
-    else if(myMap["query-string"] == "TestThisHook=False")
-        return {};
-    else
-        return {};
+        return [["set", "data.AfterUserContentVersionFileDeleteHit", true]];
+    return {};
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
