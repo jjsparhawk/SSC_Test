@@ -1338,7 +1338,7 @@ Hydra.get('test_resolve_all_in_correct_order', function(request, response) {
     deferred_one.resolve('resolved ONE');
     deferred_four.resolve('resolved FOUR');
     deferred_two.reject('rejected TWO');
-    D.resolveAll([deferred_one.promise, deferred_two.promise, deferred_three.promise, deferred_four.promise, deferred_five.promise, deferred_six.promise]).then(function(results) {
+    return D.resolveAll([deferred_one.promise, deferred_two.promise, deferred_three.promise, deferred_four.promise, deferred_five.promise, deferred_six.promise]).then(function(results) {
         return results;
     });
 });
