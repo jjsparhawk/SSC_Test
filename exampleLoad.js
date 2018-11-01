@@ -13,7 +13,7 @@ Hydra.onLoad(function()
 {
 	let serverAuth = Hydra.Client.authServer();
 	let censorCheck = Hydra.Client.get("/global_configuration_types/lists/global_configurations/noNoWords", {auth: serverAuth});
-	Logger.print(censorCheck);
+	Logger.info(censorCheck);
 	Global.set("restricted", censorCheck.badList);
-	Logger.print(Global.restricted)
+	Logger.info(Global.restricted)
 })
