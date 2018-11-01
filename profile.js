@@ -4,10 +4,10 @@ Hydra.profile.beforeUpdate(function(request){
 	let acceptable = true;
 	for (var bannedWord in banlist) {
 		if (request.userRequest.body.myNickname === bannedWord){
-			accetable = false
+			acceptable = false
 		}
 	}
-	if (accetable){
+	if (acceptable){
 		return;
 	}
 	else{
