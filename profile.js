@@ -3,7 +3,7 @@ Logger.level = Logger.INFO;
 Hydra.profile.beforeUpdate(function(request){
 	let userRequestBody = request.userRequest.body;
 	if (userRequestBody.operations[0][1] === 'data.myNickname') {
-		let acceptable = filter.validateWord(userRequestBody.operations[0][2]);
+		let acceptable = validateWord(userRequestBody.operations[0][2]);
 		if (acceptable){
 			return {};
 		} else{
