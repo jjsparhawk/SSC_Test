@@ -27,7 +27,7 @@ Hydra.onLoad(function(response) {
     .then(function(censorCheck) {
       // Logger.info(censorCheck);
       Global.set("restricted", censorCheck.response.body.data.badList);
-      Logger.info(Global.restricted);
+      Logger.info(Global.get('restricted');
       return true;
 
       //To test onLoad automatic re-try loop:
