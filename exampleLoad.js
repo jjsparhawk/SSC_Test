@@ -6,13 +6,14 @@
 Tests the profile.beforeUpdate hook, decompressing a string in SSC, the OnLoad function, and Globals in ssc.
 */
 
+//set Logger Level
+Logger.level = Logger.INFO;
 // On Load Event
-
 Hydra.onLoad(function()
 {
 	let serverAuth = Hydra.Client.authServer();
 	let censorCheck = Hydra.Client.get("/global_configuration_types/lists/global_configurations/noNoWords", {auth: serverAuth});
-	logger.print(censorCheck);
+	Logger.print(censorCheck);
 	Global.set("restricted", censorCheck.badList);
-	logger.print(Global.restricted)
+	Logger.print(Global.restricted)
 })
