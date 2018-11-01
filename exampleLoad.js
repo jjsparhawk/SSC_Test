@@ -8,6 +8,7 @@ Tests the profile.beforeUpdate hook, decompressing a string in SSC, the OnLoad f
 
 //set Logger Level
 Logger.level = Logger.INFO;
+/*
 // On Load Event
 Hydra.onLoad(function()
 {
@@ -16,4 +17,23 @@ Hydra.onLoad(function()
 	.then(Logger.info(censorCheck.response));
 	Global.set("restricted", censorCheck.badList);
 	// Logger.info(Global.restricted)
+})
+*/
+Hydra.onLoad(function(response) {
+    //return true;
+    var serverAuth = Hydra.Client.authServer();
+
+    return Hydra.Client.get("/global_configuration_types/lists/global_configurations/noNoWords", {auth: serverAuth})
+    .then(function(censorCheck) {
+      Logger.info(censorCheck)
+      //Global.set("restricted", censorCheck);
+      return true;
+
+      //To test onLoad automatic re-try loop:
+      //response.failure({})
+    })/**/
+
+    /*//Testing with Deferred promises that are never fulfilled
+    var deferred = D.defer();
+    return deferred.promise;*/
 })
