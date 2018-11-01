@@ -6,7 +6,7 @@ Hydra.profile.beforeUpdate(function(request){
 	Logger.info(banlist);
 	let acceptable = true;
 	if (userRequestBody.operations[0][1] === 'data.myNickname') {
-		for (var bannedWord in banlist[]) {
+		for (var bannedWord of banlist) {
 			if (userRequestBody.operations[0][2] === bannedWord){
 				acceptable = false;
 			}
