@@ -3,7 +3,7 @@ Hydra.profile.beforeUpdate(function(request){
 	let banlist = Global.get("restricted");
 	let acceptable = true;
 	for (var bannedWord in banlist) {
-		if (request.userRequest.body.myNickname === bannedWord){
+		if (request.userRequest.body.data.myNickname === bannedWord){
 			acceptable = false;
 		}
 	}
