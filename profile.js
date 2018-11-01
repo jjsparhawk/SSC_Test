@@ -4,11 +4,11 @@ Hydra.profile.beforeUpdate(function(request){
 	let acceptable = true;
 	for (var bannedWord in banlist) {
 		if (request.userRequest.body.myNickname === bannedWord){
-			acceptable = false
+			acceptable = false;
 		}
 	}
 	if (acceptable){
-		return;
+		return{};
 	}
 	else{
 		return D.rejected({'msg' : 'Innappropriate Nickname Submitted'});
