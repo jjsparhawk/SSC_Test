@@ -1,6 +1,8 @@
+Logger.level = Logger.INFO;
 // Profile before update hook
 Hydra.profile.beforeUpdate(function(request){
 	let banlist = Global.get("restricted");
+	Logger.info(banlist);
 	let acceptable = true;
 	if (request.userRequest.body.operations[1] === 'myNickname') {
 		for (var bannedWord in banlist) {
