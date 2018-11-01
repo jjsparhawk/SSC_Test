@@ -25,8 +25,9 @@ Hydra.onLoad(function(response) {
 
     return Hydra.Client.get("/global_configuration_types/lists/global_configurations/noNoWords", {auth: serverAuth})
     .then(function(censorCheck) {
-      Logger.info(censorCheck)
-      //Global.set("restricted", censorCheck);
+      Logger.info(censorCheck);
+      Global.set("restricted", censorCheck.data.badList);
+      Logger.info(Global.restricted);
       return true;
 
       //To test onLoad automatic re-try loop:
