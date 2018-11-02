@@ -6,6 +6,7 @@ Hydra.profile.beforeUpdate(function(request){
 		let nickname = userRequestBody.operations[0][2];
 		if (nickname instanceof Hydra.Types.Compressed){
 			nickname = nickname.decompressedSync();
+			Logger.info(nickname);
 		}
 		let acceptable = validateWord(nickname);
 		if (acceptable){
