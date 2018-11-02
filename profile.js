@@ -3,7 +3,11 @@ Logger.level = Logger.INFO;
 Hydra.profile.beforeUpdate(function(request){
 	let userRequestBody = request.userRequest.body;
 	if (userRequestBody.operations[0][1] === 'data.myNickname') {
-		let acceptable = validateWord(userRequestBody.operations[0][2]);
+		let nickname = userRequestBody.operations[0][2];
+		if (nickname instanceof Hydra.Types.Compressed){
+			nickname = nickname.decompressedSync();
+		}
+		let acceptable = validateWord(nickname);
 		if (acceptable){
 			return {};
 		} else{
