@@ -1103,26 +1103,26 @@ Hydra.notification.afterConsume(function(request, response){
 //Arena Participant Events
 
 Hydra.arenaParticipant.beforeJoin(function(request, response){
-    var theEmbeddedModels = request.embeddedModels;
-    Logger.info("Before Join Embedded Model: " + theEmbeddedModels);
+    var theModel = request.model;
+    Logger.info("Before Join Embedded Model: " + theModel);
     return {};
 })
 
 Hydra.arenaParticipant.afterJoin(function(request, response){
-    var theEmbeddedModels = request.embeddedModels;
-    Logger.info("After Join Embedded Model: " + theEmbeddedModels);
+    var theModel = request.model;
+    Logger.info("After Join Embedded Model: " + theModel);
     return {};
 })
 
 Hydra.arenaParticipant.beforeUpdate(function(request, response){
-    var theEmbeddedModels = request.embeddedModels;
-    Logger.info("Before Update Embedded Model: " + theEmbeddedModels);
+    var theModel = request.model;
+    Logger.info("Before Update Embedded Model: " + theModel);
     return {};
 })
 
 Hydra.arenaParticipant.afterUpdate(function(request, response){
-    var theEmbeddedModels = request.embeddedModels;
-    Logger.info("After Update Embedded Model: " + theEmbeddedModels);
+    var theModel = request.model;
+    Logger.info("After Update Embedded Model: " + theModel);
     return {};
 })
 
@@ -1131,14 +1131,14 @@ Hydra.arenaParticipant.afterUpdate(function(request, response){
 //Arena Group Events
 
 Hydra.arenaGroup.beforeUpdate(function(request, response){
-    var theEmbeddedModels = request.embeddedModels;
-    Logger.info("Before Update Embedded Model: " + theEmbeddedModels);
+    var theModel = request.model;
+    Logger.info("Before Update Embedded Model: " + theModel);
     return {};
 })
 
 Hydra.arenaGroup.afterUpdate(function(request, response){
-    var theEmbeddedModels = request.embeddedModels;
-    Logger.info("After Update Embedded Model: " + theEmbeddedModels);
+    var theModel = request.model;
+    Logger.info("After Update Embedded Model: " + theModel);
     return {};
 })
 
