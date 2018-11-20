@@ -1104,25 +1104,25 @@ Hydra.notification.afterConsume(function(request, response){
 
 Hydra.arenaParticipant.beforeJoin(function(request, response){
     var theModel = request.model;
-    Logger.info("Before Join Embedded Model: " + theModel);
+    Logger.info("Before Join Embedded Model: " + JSON.stringify(theModel);
     return {};
 })
 
 Hydra.arenaParticipant.afterJoin(function(request, response){
     var theModel = request.model;
-    Logger.info("After Join Embedded Model: " + theModel);
+    Logger.info("After Join Embedded Model: " + JSON.stringify(theModel));
     return {};
 })
 
 Hydra.arenaParticipant.beforeUpdate(function(request, response){
     var theModel = request.model;
-    Logger.info("Before Update Embedded Model: " + theModel);
+    Logger.info("Before Update Embedded Model: " + JSON.stringify(theModel));
     return {};
 })
 
 Hydra.arenaParticipant.afterUpdate(function(request, response){
     var theModel = request.model;
-    Logger.info("After Update Embedded Model: " + theModel);
+    Logger.info("After Update Embedded Model: " + JSON.stringify(theModel));
     return {};
 })
 
@@ -1132,13 +1132,13 @@ Hydra.arenaParticipant.afterUpdate(function(request, response){
 
 Hydra.arenaGroup.beforeUpdate(function(request, response){
     var theModel = request.model;
-    Logger.info("Before Update Embedded Model: " + theModel);
+    Logger.info("Before Update Embedded Model: " + JSON.stringify(theModel));
     return {};
 })
 
 Hydra.arenaGroup.afterUpdate(function(request, response){
     var theModel = request.model;
-    Logger.info("After Update Embedded Model: " + theModel);
+    Logger.info("After Update Embedded Model: " + JSON.stringify(theModel));
     return {};
 })
 
