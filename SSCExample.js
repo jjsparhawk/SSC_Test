@@ -12,15 +12,61 @@ Hydra.onLoad(function(response) {
     .then(function(result) {
       Global.set("onLoad", result.body);
       return true;
-
-      //To test onLoad automatic re-try loop:
-      //response.failure({})
-    })/**/
-
-    /*//Testing with Deferred promises that are never fulfilled
-    var deferred = D.defer();
-    return deferred.promise;*/
+    })
 })
+
+/*
+    This function retreives a list of the log objects (there should only be 1)
+    It then updates the specified data field to true, confirming the hook was hit
+*/
+function updateLogObject(dataFieldToUpdate){
+    var serverAuth = Hydra.Client.authServer();
+    return Hydra.Client.get("/objects/log-object/list", {auth: serverAuth})
+        .then(function (myReq){
+            var loggerObjectList = myReq.body;
+            Logger.info("Logger Object List: " + loggerObjectList.objects)
+            if(loggerObjectList.objects.length > 0 && loggerObjectList.objects.length < 2){
+                Logger.info("loopB");
+                var objectToUpdate = "/objects/log-object/" + loggerObjectList.objects[0].id;
+                return Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["inc", dataFieldToUpdate, 1]]})
+                    .then(function (reqResp){
+                        Logger.info("reqResp Status Code: " + reqResp.response.statusCode);
+                        if(reqResp.response.statusCode == 200) {
+                            return D.resolved();
+                        } else {
+                            return D.rejected();
+                        }
+                    })
+            }
+            else {
+                Logger.info("Number of Logging Objects: " + loggerObjectList.objects.length);
+                return D.rejected();
+            }
+        });
+}
+
+function setLogObjectData(dataFromTest){
+    var serverAuth = Hydra.Client.authServer();
+    return Hydra.Client.get("/objects/log-object/list", {auth: serverAuth})
+        .then(function(myReq){
+            var loggerObjectList = myReq.body;
+
+            if(loggerObjectList.objects.length > 0 && loggerObjectList.objects.length < 2){
+                var objectToUpdate = "/objects/log-object/" + loggerObjectList.objects[0].id;
+                return Hydra.Client.put(objectToUpdate, {auth: serverAuth, body: [["set", "data.dataFromTest", dataFromTest]]})
+                    .then(function(serverReq){
+                        if(serverReq.response.statusCode == 200){
+                            return D.resolved();
+                        } else{
+                            return D.rejected();
+                        }
+                    })
+            }
+            else{
+                return D.rejected();
+            }
+        });
+}
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -29,7 +75,8 @@ Hydra.onLoad(function(response) {
 //beforeCreate (with invalid return type)
 Hydra.account.beforeCreate(function(request, response){
     Logger.info("Before Account Create Log");
-    return true;
+    return{};
+    
 })
 
 //afterCreate (with invalid return type)
@@ -89,7 +136,6 @@ Hydra.account.afterOnline(function(request, response){
 })
 
 Hydra.account.afterOffline(function(request, response){
-    //NOTE: This hook does not support accessing of 'modelBefore' data
     return [['inc', 'server_data.timesWentOffline', 1]];
 })
 
@@ -98,19 +144,17 @@ Hydra.account.afterOffline(function(request, response){
 //Profile Events
 
 Hydra.profile.afterCreate(function(request, response){
-    Logger.info(request);
-    return D.resolved([]);
+    Logger.info("After Profile Create Log");
+    return {};
 })
 
 //Edit compressed data on profile model
 Hydra.profile.beforeUpdate(function(request, response){
     Logger.info("Before Profile Update Log");
-    return [['inc', 'server_data.timesBeforeProfileUpdateHit', 1], ['set', 'data.testingCompressedInSSCHook', new Hydra.Types.Compressed("Compress This Data Yo.")]];
+    return [['inc', 'server_data.timesBeforeProfileUpdateHit', 1], ['set', 'data.testingCompressedInSSCHook', new Hydra.Types.Compressed("Compress This Data Yo.")]];;
 })
 
 Hydra.profile.afterUpdate(function(request, response){
-    var serverAuth = Hydra.Client.authServer();
-    Hydra.Client.put("/profiles/AfterProfileUpdateWasJustHit", {auth: serverAuth, body: request});
     Logger.info("After Profile Update Log");
     return {};
 })
@@ -151,160 +195,164 @@ Hydra.profile.afterFileDelete(function(request, response){
 
 Hydra.match.beforeCreate(function(request, response){
     Logger.info("Before Match Create Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeMatchCreateHit", true]];
     return {};
 })
 
 Hydra.match.afterCreate(function(request, response){
     Logger.info("After Match Create Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterMatchCreateHit", true]];
     return {};
 })
 
 Hydra.match.beforeUpdate(function(request, response){
     Logger.info("Before Match Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeMatchUpdateHit", true]];
     return {};
 })
 
 Hydra.match.afterUpdate(function(request, response){
-    var serverAuth = Hydra.Client.authServer();
-    Hydra.Client.put("/profiles/AfterMatchUpdateWasJustHit", {auth: serverAuth, body: request});
     Logger.info("After Match Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterMatchUpdateHit", true]];
     return {};
 })
 
 Hydra.match.beforeJoin(function(request, response){
     Logger.info("Before Match Join Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeMatchJoinHit", true]];
     return {};
 })
 
 Hydra.match.afterJoin(function(request, response){
     Logger.info("After Match Join Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterMatchJoinHit", true]];
     return {};
 })
 
 Hydra.match.beforeLeave(function(request, response){
     Logger.info("Before Match Leave Log");
-    
-    var serverAuth = Hydra.Client.authServer();
-    return Hydra.Client.get("/broadcast_channels/test/BeforeMatchLeaveWasJustHit", {auth: serverAuth})
-    .then(function(result) {
-      Global.set("onLoad", result.body);
-      return true;
-
-      //To test onLoad automatic re-try loop:
-      //response.failure({})
-    })
-
-    //return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeMatchLeaveHit", true]];
+    return {};
 })
 
 Hydra.match.afterLeave(function(request, response){
     Logger.info("After Match Leave Log");
-
-    var serverAuth = Hydra.Client.authServer();
-    return Hydra.Client.get("/broadcast_channels/test/AfterMatchLeaveWasJustHit", {auth: serverAuth})
-    .then(function(result) {
-      Global.set("onLoad", result.body);
-      return true;
-
-      //To test onLoad automatic re-try loop:
-      //response.failure({})
-    })
-
-    //return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterMatchLeaveHit", true]];
+    return {};
 })
 
 Hydra.match.beforeComplete(function(request, response){
     Logger.info("Before Match Complete Log");
-
-    var serverAuth = Hydra.Client.authServer();
-    return Hydra.Client.get("/broadcast_channels/test/BeforeMatchCompleteWasJustHit", {auth: serverAuth})
-    .then(function(result) {
-      Global.set("onLoad", result.body);
-      return true;
-
-      //To test onLoad automatic re-try loop:
-      //response.failure({})
-    })
-
-    //return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeMatchCompleteHit", true]];
+    return {};
 })
 
 Hydra.match.afterComplete(function(request, response){
     Logger.info("After Match Complete Log");
-
-    var serverAuth = Hydra.Client.authServer();
-    return Hydra.Client.get("/broadcast_channels/test/AfterMatchCompleteWasJustHit", {auth: serverAuth})
-    .then(function(result) {
-      Global.set("onLoad", result.body);
-      return true;
-
-      //To test onLoad automatic re-try loop:
-      //response.failure({})
-    })
-
-    //return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterMatchCompleteHit", true]];
+    return {};
 })
 
 Hydra.match.beforeKick(function(request, response){
     Logger.info("Before Match Kick Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeMatchKickHit", true]];
     return {};
 })
 
 Hydra.match.afterKick(function(request, response){
     Logger.info("After Match Kick Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterMatchKickHit", true]];
     return {};
 })
 
 Hydra.match.beforeInvite(function(request, response){
     Logger.info("Before Match Invite Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeMatchInviteHit", true]];
     return {};
 })
 
 Hydra.match.afterInvite(function(request, response){
     Logger.info("After Match Invite Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterMatchInviteHit", true]];
     return {};
 })
 
 Hydra.match.beforeFluidCreate(function(request, response){
     Logger.info("Before Fluid Match Create Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeFluidMatchCreateHit", true]];
     return {};
 })
 
 Hydra.match.afterFluidCreate(function(request, response){
     Logger.info("After Fluid Match Create Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterFluidMatchCreateHit", true]];
     return {};
 })
 
 Hydra.match.beforeFixedCreate(function(request, response){
     Logger.info("Before Fixed Match Create Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeFixedMatchCreateHit", true]];
     return {};
 })
 
 Hydra.match.afterFixedCreate(function(request, response){
     Logger.info("After Fixed Match Create Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterFixedMatchCreateHit", true]];
     return {};
-})
-
-Hydra.match.afterPlayerOffline(function(request, response){
-    return [['inc', 'data.matchPlayerWentOffline', 1]];
-})
-
-Hydra.match.afterExpire(function(request, response){
-    var serverAuth = Hydra.Client.authServer();
-
-    return Hydra.Client.get("/broadcast_channels/test/MatchExpired", {auth: serverAuth})
-    .then(function(result) {
-      return [['set', 'data.matchExpired', "Match Expired SSC Update"]];
-    })
-})
-
-Hydra.match.afterAbandon(function(request, response){
-    var serverAuth = Hydra.Client.authServer();
-
-    return Hydra.Client.get("/broadcast_channels/test/MatchAbandoned", {auth: serverAuth})
-    .then(function(result) {
-      return [['set', 'data.matchAbandoned', "Match Abandoned SSC Update"]];
-    })
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -313,34 +361,58 @@ Hydra.match.afterAbandon(function(request, response){
 
 Hydra.object.beforeCreate(function(request, response){
     Logger.info("Before Generic Object Create Log");
-    return [['set', 'server_data.beforeCreateHookHit', "true"]];
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeObjectCreateHit", true]];
+    return {};
 })
 
 Hydra.object.afterCreate(function(request, response){
     Logger.info("After Generic Object Create Log");
-    return [['set', 'data.afterCreateHookHit', "true"]];
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterObjectCreateHit", true]];
+    return {};
 })
 
 Hydra.object.beforeUpdate(function(request, response){
     Logger.info("Before Generic Object Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeObjectUpdateHit", true]];
     return {};
 })
 
 Hydra.object.afterUpdate(function(request, response){
-    var serverAuth = Hydra.Client.authServer();
-    Hydra.Client.put("/profiles/AfterObjectUpdateWasJustHit", {auth: serverAuth, body: request});
     Logger.info("After Generic Object Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterObjectUpdateHit", true]];
     return {};
 })
 
 Hydra.object.beforeDelete(function(request, response){
     Logger.info("Before Generic Object Delete Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesBeforeObjectDeleteHit");
+        return D.resolved({});
+    return D.resolved({});
 })
 
 Hydra.object.afterDelete(function(request, response){
     Logger.info("After Generic Object Delete Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesAfterObjectDeleteHit");
+        return D.resolved({});
+    return D.resolved({});
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -349,34 +421,62 @@ Hydra.object.afterDelete(function(request, response){
 
 Hydra.clan.beforeCreate(function(request, response){
     Logger.info("Before Clan Create Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeClanCreateHit", true]];
     return {};
 })
 
 Hydra.clan.afterCreate(function(request, response){
     Logger.info("After Clan Create Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterClanCreateHit", true]];
     return {};
 })
 
 Hydra.clan.beforeUpdate(function(request, response){
     Logger.info("Before Clan Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeClanUpdateHit", true]];
     return {};
 })
 
 Hydra.clan.afterUpdate(function(request, response){
+    Logger.info("After Clan Update Log");
     var serverAuth = Hydra.Client.authServer();
     Hydra.Client.put("/profiles/AfterClanUpdateWasJustHit", {auth: serverAuth, body: request});
-    Logger.info("After Clan Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterClanUpdateHit", true]];
+    else if(myMap["query-string"] == "TestModelBefore=True")
+        setLogObjectData(request);
     return {};
 })
 
 Hydra.clan.beforeDelete(function(request, response){
     Logger.info("Before Clan Delete Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesBeforeClanDeleteHit");
+        return D.resolved({});
+    return D.resolved({});
 })
 
 Hydra.clan.afterDelete(function(request, response){
     Logger.info("After Clan Delete Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesAfterClanDeleteHit");
+        return D.resolved({});
+    return D.resolved({});
 })
 
 Hydra.clan.beforeClanMembersIdle(function(request, response){
@@ -395,101 +495,187 @@ Hydra.clan.beforeClanMembersIdle(function(request, response){
 
 Hydra.clanMember.beforeJoin(function(request, response){
     Logger.info("Before Clan Member Join Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeClanMemberJoinHit", true]];
     return {};
 })
 
 Hydra.clanMember.afterJoin(function(request, response){
     Logger.info("After Clan Member Join Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterClanMemberJoinHit", true]];
     return {};
 })
 
 Hydra.clanMember.beforeUpdate(function(request, response){
     Logger.info("Before Clan Member Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeClanMemberUpdateHit", true]];
     return {};
 })
 
 Hydra.clanMember.afterUpdate(function(request, response){
     Logger.info("After Clan Member Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterClanMemberUpdateHit", true]];
     return {};
 })
 
 Hydra.clanMember.beforeLeave(function(request, response){
     Logger.info("Before Clan Member Leave Log");
-    return [['inc', 'server_data.LeftClan', 1]];
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeClanMemberLeaveHit", true]];
+    return {};
 })
 
 Hydra.clanMember.afterLeave(function(request, response){
     Logger.info("After Clan Member Leave Log");
-    return [['inc', 'server_data.LeftClan', 1]];
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestAfterHook=True")
+        return [["set", "data.AfterClanMemberLeaveHit", true]];
+    else if(myMap["query-string"] == "TestAfterHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.beforeKick(function(request, response){
     Logger.info("Before Clan Member Kick Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeClanMemberKickHit", true]];
     return {};
 })
 
 Hydra.clanMember.afterKick(function(request, response){
     Logger.info("After Clan Member Kick Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestAfterHook=True")
+        return [["set", "data.AfterClanMemberKickHit", true]];
+    else if(myMap["query-string"] == "TestAfterHook=False")
+        return {};
+    else
+        return {};
 })
 
 Hydra.clanMember.beforeRoleUpdate(function(request, response){
     Logger.info("Before Clan Member Role Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeClanMemberRoleUpdateHit", true]];
     return {};
 })
 
 Hydra.clanMember.afterRoleUpdate(function(request, response){
     Logger.info("After Clan Member Role Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterClanMemberRoleUpdateHit", true]];
     return {};
 })
 
 Hydra.clanMember.beforeInvite(function(request, response){
     Logger.info("Before Clan Member Invite Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeClanMemberInviteHit", true]];
     return {};
 })
 
 Hydra.clanMember.afterInvite(function(request, response){
     Logger.info("After Clan Member Invite Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterClanMemberInviteHit", true]];
     return {};
 })
 
 Hydra.clanMember.beforeApply(function(request, response){
     Logger.info("Before Clan Member Apply Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeClanMemberApplyHit", true]];
     return {};
 })
 
 Hydra.clanMember.afterApply(function(request, response){
     Logger.info("After Clan Member Apply Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterClanMemberApplyHit", true]];
     return {};
 })
 
 Hydra.clanMember.beforeApprove(function(request, response){
     Logger.info("Before Clan Member Approve Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeClanMemberApproveHit", true]];
     return {};
 })
 
 Hydra.clanMember.afterApprove(function(request, response){
     Logger.info("After Clan Member Approve Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterClanMemberApproveHit", true]];
     return {};
 })
 
 Hydra.clanMember.beforeReject(function(request, response){
     Logger.info("Before Clan Member Reject Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeClanMemberRejectHit", true]];
     return {};
 })
 
 Hydra.clanMember.afterReject(function(request, response){
     Logger.info("After Clan Member Reject Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterClanMemberRejectHit", true]];
     return {};
 })
 
 Hydra.clanMember.beforeDecline(function(request, response){
     Logger.info("Before Clan Member Decline Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeClanMemberDeclineHit", true]];
     return {};
 })
 
 Hydra.clanMember.afterDecline(function(request, response){
     Logger.info("After Clan Member Decline Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterClanMemberDeclineHit", true]];
     return {};
 })
 
@@ -499,32 +685,58 @@ Hydra.clanMember.afterDecline(function(request, response){
 
 Hydra.lobby.beforeCreate(function(request, response){
     Logger.info("Before Lobby Create Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeLobbyCreateHit", true]];
     return {};
 })
 
 Hydra.lobby.afterCreate(function(request, response){
     Logger.info("After Lobby Create Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterLobbyCreateHit", true]];
     return {};
 })
 
 Hydra.lobby.beforeUpdate(function(request, response){
     Logger.info("Before Lobby Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeLobbyUpdateHit", true]];
     return {};
 })
 
 Hydra.lobby.afterUpdate(function(request, response){
     Logger.info("After Lobby Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterLobbyUpdateHit", true]];
     return {};
 })
 
 Hydra.lobby.beforeDelete(function(request, response){
     Logger.info("Before Lobby Delete Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesBeforeLobbyDeleteHit");
+        return D.resolved({});
+    return D.resolved({});
 })
 
 Hydra.lobby.afterDelete(function(request, response){
     Logger.info("After Lobby Delete Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesAfterLobbyDeleteHit");
+        return D.resolved({});
+    return D.resolved({});
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -533,21 +745,37 @@ Hydra.lobby.afterDelete(function(request, response){
 
 Hydra.matchMakingRequest.beforeCreate(function(request, response){
     Logger.info("Before Matchmaking Request Create Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeMatchmakingRequestCreateHit", true]]
     return {};
 })
 
 Hydra.matchMakingRequest.afterCreate(function(request, response){
     Logger.info("After Matchmaking Request Create Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterMatchmakingRequestCreateHit", true]]
     return {};
 })
 
 Hydra.matchMakingRequest.beforeCancel(function(request, response){
     Logger.info("Before Matchmaking Cancel Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesBeforeMatchmakingRequestCancelHit");
     return {};
 })
 
 Hydra.matchMakingRequest.afterCancel(function(request, response){
     Logger.info("After Matchmaking Request Cancel Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesAfterMatchmakingRequestCancelHit");
     return {};
 })
 
@@ -571,72 +799,130 @@ Hydra.matchMakingResult.afterCreate(function(request, response){
 
 Hydra.userContentItem.beforeCreate(function(request, response){
     Logger.info("Before UGC Item Create Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeUserContentItemCreateHit", true]];
     return {};
 })
 
 Hydra.userContentItem.afterCreate(function(request, response){
     Logger.info("After User Content Item Create Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterUserContentItemCreateHit", true]];
     return {};
 })
 
 Hydra.userContentItem.beforeUpdate(function(request, response){
     Logger.info("Before UGC Item Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeUserContentItemUpdateHit", true]];
     return {};
 })
 
 Hydra.userContentItem.afterUpdate(function(request, response){
     Logger.info("After User Content Item Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterUserContentItemUpdateHit", true]];
     return {};
 })
 
 Hydra.userContentItem.beforeShare(function(request, response){
     Logger.info("Before UGC Item Share Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeUserContentItemShareHit", true]];
     return {};
 })
 
 Hydra.userContentItem.afterShare(function(request, response){
     Logger.info("After User Content Item Share Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterUserContentItemShareHit", true]];
     return {};
 })
 
 Hydra.userContentItem.beforeUnshare(function(request, response){
     Logger.info("Before UGC Item Unshare Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeUserContentItemUnshareHit", true]];
     return {};
 })
 
 Hydra.userContentItem.afterUnshare(function(request, response){
     Logger.info("After User Content Item Unshare Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterUserContentItemUnshareHit", true]];
     return {};
 })
 
 Hydra.userContentItem.beforePublish(function(request, response){
     Logger.info("Before UGC Item Publish Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeUserContentItemPublishHit", true]];
     return {};
 })
 
 Hydra.userContentItem.afterPublish(function(request, response){
     Logger.info("After User Content Item Publish Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterUserContentItemPublishHit", true]];
     return {};
 })
 
 Hydra.userContentItem.beforeUnpublish(function(request, response){
     Logger.info("Before UGC Item Unpublish Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeUserContentItemUnpublishHit", true]];
     return {};
 })
 
 Hydra.userContentItem.afterUnpublish(function(request, response){
     Logger.info("After User Content Item Unpublish Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterUserContentItemUnpublishHit", true]];
     return {};
 })
 
 Hydra.userContentItem.beforeDelete(function(request, response){
     Logger.info("Before UGC Item Delete Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesBeforeUserContentItemDeleteHit");
+        return D.resolved({});
+    return D.resolved({});
 })
 
 Hydra.userContentItem.afterDelete(function(request, response){
     Logger.info("After User Content Item Delete Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesAfterUserContentItemDeleteHit");
+        return D.resolved({});
+    return D.resolved({});
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -645,41 +931,73 @@ Hydra.userContentItem.afterDelete(function(request, response){
 
 Hydra.userContentVersion.beforeCreate(function(request, response){
     Logger.info("Before UGC Version Create Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeUserContentVersionCreateHit", true]];
     return {};
 })
 
 Hydra.userContentVersion.afterCreate(function(request, response){
     Logger.info("After User Content Version Create Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterUserContentVersionCreateHit", true]];
     return {};
 })
 
 Hydra.userContentVersion.beforeFileCreate(function(request, response){
     Logger.info("Before UGC Version File Create Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeUserContentVersionFileCreateHit", true]];
     return {};
 })
 
 Hydra.userContentVersion.afterFileCreate(function(request, response){
     Logger.info("After User Content Version File Create Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterUserContentVersionFileCreateHit", true]];
     return {};
 })
 
 Hydra.userContentVersion.beforeFileUpdate(function(request, response){
     Logger.info("Before UGC Version File Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeUserContentVersionFileUpdateHit", true]];
     return {};
 })
 
 Hydra.userContentVersion.afterFileUpdate(function(request, response){
     Logger.info("After User Content Version File Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterUserContentVersionFileUpdateHit", true]];
     return {};
 })
 
 Hydra.userContentVersion.beforeFileDelete(function(request, response){
     Logger.info("Before UGC Version File Delete Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeUserContentVersionFileDeleteHit", true]];
     return {};
 })
 
 Hydra.userContentVersion.afterFileDelete(function(request, response){
     Logger.info("After User Content Version File Delete Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.AfterUserContentVersionFileDeleteHit", true]];
     return {};
 })
 
@@ -689,20 +1007,32 @@ Hydra.userContentVersion.afterFileDelete(function(request, response){
 
 Hydra.purchase.beforeCreate(function(request, response){
     Logger.info("Before Purchase Create Log");
-    return [['set', 'server_data.beforePurchaseHookHit', "Yes"]];
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.BeforePurchaseCreateHit");
+        return D.resolved({});
+    return D.resolved({});
 })
 
 Hydra.purchase.afterFinalize(function(request, response){
-    var returnString = "After Purchase Finalize Hit. Purchase Id: " + request.model.id;
-    Logger.info(returnString);
-    //Logger.info("After Purchase Finalize Log");
-    //Logger.info(request.model.id);
-    return [['set', 'server_data.afterPurchaseHookHit', "Yes"]];
+    Logger.info("After Purchase Finalize Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.AfterPurchaseFinalizeHit");
+        return D.resolved({});
+    return D.resolved({});
 })
 
 Hydra.purchase.afterCancel(function(request, response){
     Logger.info("After Purchase Cancel Log");
-    return {};
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.AfterPurchaseCancelHit");
+        return D.resolved({});
+    return D.resolved({});
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -711,15 +1041,39 @@ Hydra.purchase.afterCancel(function(request, response){
 
 Hydra.inventory.beforeUpdate(function(request, response){
     Logger.info("Before Inventory Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesBeforeInventoryUpdateHit");
+        return D.resolved({});
+    return D.resolved({});
+})
+// Will probably need to use log object for these endpoints
+Hydra.inventory.afterUpdate(function(request, response){
+    Logger.info("After Inventory Update Log");
+    var serverAuth = Hydra.Client.authServer();
+    Hydra.Client.put("/profiles/AfterInventoryUpdateWasJustHit", {auth: serverAuth, body: request});
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        updateLogObject("data.NumTimesAfterInventoryUpdateHit");
+        return D.resolved({});
+    return D.resolved({});
+})
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//Inventory Events
+
+Hydra.gameServerInstance.beforeCreate(function(request, response){
+    Logger.info("Before Clan Member Update Log");
+    var myMap = new Map();
+    myMap = request.userRequest.headers;
+    if(myMap["query-string"] == "TestThisHook=True")
+        return [["set", "data.BeforeGameServerInstanceUpdateHit", true]];
     return {};
 })
 
-Hydra.inventory.afterUpdate(function(request, response){
-    var serverAuth = Hydra.Client.authServer();
-    Hydra.Client.put("/profiles/AfterInventoryUpdateWasJustHit", {auth: serverAuth, body: request});
-    Logger.info("After Inventory Update Log");
-    return {};
-})
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -737,76 +1091,55 @@ Hydra.notification.afterConsume(function(request, response){
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-//GameServer Events
+//Arena Instance Events
 
-Hydra.gameServerInstance.beforeCreate(function(request, response){
-    Logger.info("Before Game Server Instance Create Log");
+/*Hydra.arenaInstance.beforeConsume(function(request, response){
+    Logger.info("Before Notification Consume Log");
+    return {};
+})*/
 
-    var serverAuth = Hydra.Client.authServer();
-    return Hydra.Client.get("/broadcast_channels/test/BeforeGameServerInstanceCreateWasJustHit", {auth: serverAuth})
-    .then(function(result) {
-      Global.set("onLoad", result.body);
-      return true;
+//------------------------------------------------------------------------------------------------------------------------------------------
 
-      //To test onLoad automatic re-try loop:
-      //response.failure({})
-    })
+//Arena Participant Events
+
+Hydra.arenaParticipant.beforeJoin(function(request, response){
+    var theEmbeddedModels = request.embeddedModels;
+    Logger.info("Embedded Model: " + theEmbeddedModel);
+    return {};
 })
 
-Hydra.gameServerInstance.afterCreate(function(request, response){
-    Logger.info("After Game Server Instance Create Log");
-
-    var serverAuth = Hydra.Client.authServer();
-    return Hydra.Client.get("/broadcast_channels/test/AfterGameServerInstanceCreateWasJustHit", {auth: serverAuth})
-    .then(function(result) {
-      Global.set("onLoad", result.body);
-      return true;
-
-      //To test onLoad automatic re-try loop:
-      //response.failure({})
-    })
+Hydra.arenaParticipant.afterJoin(function(request, response){
+    var theEmbeddedModels = request.embeddedModels;
+    Logger.info("Embedded Model: " + theEmbeddedModel);
+    return {};
 })
 
-Hydra.gameServerInstance.afterReady(function(request, response){
-    Logger.info("After Game Server Instance Ready Log");
-
-    var serverAuth = Hydra.Client.authServer();
-    return Hydra.Client.get("/broadcast_channels/test/AfterGameServerInstanceReadyWasJustHit", {auth: serverAuth})
-    .then(function(result) {
-      Global.set("onLoad", result.body);
-      return true;
-
-      //To test onLoad automatic re-try loop:
-      //response.failure({})
-    })
+Hydra.arenaParticipant.beforeUpdate(function(request, response){
+    var theEmbeddedModels = request.embeddedModels;
+    Logger.info("Embedded Model: " + theEmbeddedModel);
+    return {};
 })
 
-Hydra.gameServerInstance.afterStopped(function(request, response){
-    Logger.info("After Game Server Instance Stopped Log");
-
-    var serverAuth = Hydra.Client.authServer();
-    return Hydra.Client.get("/broadcast_channels/test/AfterGameServerInstanceStoppedWasJustHit", {auth: serverAuth})
-    .then(function(result) {
-      Global.set("onLoad", result.body);
-      return true;
-
-      //To test onLoad automatic re-try loop:
-      //response.failure({})
-    })
+Hydra.arenaParticipant.afterUpdate(function(request, response){
+    var theEmbeddedModels = request.embeddedModels;
+    Logger.info("Embedded Model: " + theEmbeddedModel);
+    return {};
 })
 
-Hydra.gameServerInstance.afterError(function(request, response){
-    Logger.info("After Game Server Instance Stopped Log");
+//------------------------------------------------------------------------------------------------------------------------------------------
 
-    var serverAuth = Hydra.Client.authServer();
-    return Hydra.Client.get("/broadcast_channels/test/AfterGameServerInstanceErrorWasJustHit", {auth: serverAuth})
-    .then(function(result) {
-      Global.set("onLoad", result.body);
-      return true;
+//Arena Group Events
 
-      //To test onLoad automatic re-try loop:
-      //response.failure({})
-    })
+Hydra.arenaGroup.beforeUpdate(function(request, response){
+    var theEmbeddedModels = request.embeddedModels;
+    Logger.info("Embedded Model: " + theEmbeddedModel);
+    return {};
+})
+
+Hydra.arenaGroup.beforeUpdate(function(request, response){
+    var theEmbeddedModels = request.embeddedModels;
+    Logger.info("Embedded Model: " + theEmbeddedModel);
+    return {};
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -1201,8 +1534,8 @@ Hydra.put('use_raw_server_key_from_request', function(request, response){
 
 //Custom endpoint to make a request with a hard-coded Server Key and Server Secret
 Hydra.get('use_raw_server_key', function(request, response){
-    var publicKey = "0d8d4c816a6a487fb67b7c35c7006d75";
-    var privateKey = "YzQzODE2ZDgtYmQwMC00NzJiLWIyODYtNmYzYjc1MTE1MmRmYmU3NzZmMjUtYWZhMC00MTBhLWJjMDItMjRhMDQ4ODVkM2M3";
+    var publicKey = "insert-your-public-key-here";
+    var privateKey = "insert-your-private-key-here";
     var serverAuth = Hydra.Client.authServer(publicKey, privateKey);
 
     return Hydra.Client.get("/broadcast_channels/thisChannelIsForTestingAndDoesntExist/broadcast_messages", {auth: serverAuth})
@@ -1343,109 +1676,6 @@ Hydra.get('test_resolve_all_in_correct_order', function(request, response) {
     });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------
-
-//Notification Hooks
-
-//Before Notification Consume, update account
-/*Hydra.notification.beforeConsume(function(request, response) {
-    var serverAuth = Hydra.Client.authServer("1ef8c79dc364407f9eb9c84d053827c0", "MDZhZTU1MzEtOWViZS00YzRmLWFmMTYtOWRlOWYyMzBhNWZiNGUyMTE5ZjktY2QxNy00NjE4LTg3MDgtODZiNDExMWMzODNi");
-
-    Hydra.Client.put("/accounts/572a7671e80762f4d7fe7953", {auth: serverAuth, body:[["inc","server_data.timesBeforeNotificationConsume",1]]}, function(serverRequest, body) {
-        if(serverRequest.statusCode == 200) {
-            response.success({});
-        } else {
-            response.failure({});
-        }
-    })
-});
-
-//After Notification Consume, update account
-Hydra.notification.afterConsume(function(request, response) {
-    var serverAuth = Hydra.Client.authServer("1ef8c79dc364407f9eb9c84d053827c0", "MDZhZTU1MzEtOWViZS00YzRmLWFmMTYtOWRlOWYyMzBhNWZiNGUyMTE5ZjktY2QxNy00NjE4LTg3MDgtODZiNDExMWMzODNi");
-
-    Hydra.Client.put("/accounts/572a7671e80762f4d7fe7953", {auth: serverAuth, body:[["inc","server_data.timesAfterNotificationConsume",1]]}, function(serverRequest, body) {
-        if(serverRequest.statusCode == 200) {
-            response.success({});
-        } else {
-            response.failure({});
-        }
-    })
-});*/
-
-
-/*
-//Before Generic Object Delete, Update Account
-Hydra.object.beforeDelete(function(request, response) {
-    var serverAuth = Hydra.Client.authServer("3f3379d19374409a9c069e4a087329fe", "YjRlZDRiMzUtNjhmYy00YjQ1LWJhNjUtZmIzNmI3Nzk5Nzg4ODEyZmVjYzgtNmU4Mi00MTRjLTkyNTAtZTgwYjMxMzk4NGMx");
-
-    Hydra.Client.put("/accounts/561c174f1fd89c2c4388a9da", {auth: serverAuth, body:[["inc","server_data.timesBeforeDeleteHit",1]]}, function(serverRequest, body) {
-        if(serverRequest.statusCode == 200) {
-            response.success({});
-        } else {
-            response.failure({});
-        }
-    })
-});
-
-//After Generic Object Delete, Update Account
-Hydra.object.afterDelete(function(request, response) {
-    var serverAuth = Hydra.Client.authServer("cc909b3e8e8c4b2b98f76b54023aa821", "ZmI5ZjVmN2YtNDk0YS00NDgwLWJhYTMtNDJkZjA2MDEwZjUyOTQ1MDdjODMtNWFiYi00MGYxLWI1ZTctNDI1NmQ5MTA0MmZk");
-
-    Hydra.Client.put("/accounts/569eb62c1fd89c3340c233ea", {auth: serverAuth, body:[["inc","server_data.timesAfterDeleteHit",1]]}, function(serverRequest, body) {
-        if(serverRequest.statusCode == 200) {
-            response.success([]);
-        } else {
-            response.failure([]);
-        }
-    })
-});
-*/
 
 
 
