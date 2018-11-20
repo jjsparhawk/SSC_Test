@@ -1098,7 +1098,7 @@ Hydra.arenaInstance.afterRunning(function(request, response){
     theModel = JSON.stringify(theModel);
     theModel = "Arena Instance After Running Model: " + theModel;
 
-    return Hydra.Client.get("/broadcast_channels/test/afterRunning", {auth: serverAuth, body: theModel})
+    return Hydra.Client.put("/broadcast_channels/test/afterRunning", {auth: serverAuth, body: theModel})
     .then(function(result) {
       Global.set("onLoad", result.body);
       return true;
@@ -1110,7 +1110,7 @@ Hydra.arenaInstance.afterComplete(function(request, response){
     theModel = JSON.stringify(theModel);
     theModel = "Arena Instance After Complete Model: " + theModel;
 
-    return Hydra.Client.get("/broadcast_channels/test/aftercomplete", {auth: serverAuth, body: theModel})
+    return Hydra.Client.put("/broadcast_channels/test/aftercomplete", {auth: serverAuth, body: theModel})
     .then(function(result) {
       Global.set("onLoad", result.body);
       return true;
@@ -1122,7 +1122,7 @@ Hydra.arenaInstance.afterError(function(request, response){
     theModel = JSON.stringify(theModel);
     theModel = "Arena Instance After Error Model: " + theModel;
 
-    return Hydra.Client.get("/broadcast_channels/test/afterError", {auth: serverAuth, body: theModel})
+    return Hydra.Client.put("/broadcast_channels/test/afterError", {auth: serverAuth, body: theModel})
     .then(function(result) {
       Global.set("onLoad", result.body);
       return true;
