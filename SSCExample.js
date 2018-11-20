@@ -1104,7 +1104,7 @@ Hydra.notification.afterConsume(function(request, response){
 
 Hydra.arenaParticipant.beforeJoin(function(request, response){
     var theModel = request.model;
-    Logger.info("Before Join Embedded Model: " + JSON.stringify(theModel);
+    Logger.info("Before Join Embedded Model: " + JSON.stringify(theModel));
     return {};
 })
 
