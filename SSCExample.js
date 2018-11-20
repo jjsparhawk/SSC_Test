@@ -1093,10 +1093,41 @@ Hydra.notification.afterConsume(function(request, response){
 
 //Arena Instance Events
 
-/*Hydra.arenaInstance.beforeConsume(function(request, response){
-    Logger.info("Before Notification Consume Log");
-    return {};
-})*/
+Hydra.arenaInstance.afterRunning(function(request, response){
+    var theModel = request.model;
+    theModel = JSON.stringify(theModel);
+    theModel = "Arena Instance After Running Model: " + theModel;
+
+    return Hydra.Client.get("/broadcast_channels/test/afterRunning", {auth: serverAuth, body: theModel})
+    .then(function(result) {
+      Global.set("onLoad", result.body);
+      return true;
+    })
+})
+
+Hydra.arenaInstance.afterComplete(function(request, response){
+    var theModel = request.model;
+    theModel = JSON.stringify(theModel);
+    theModel = "Arena Instance After Complete Model: " + theModel;
+
+    return Hydra.Client.get("/broadcast_channels/test/aftercomplete", {auth: serverAuth, body: theModel})
+    .then(function(result) {
+      Global.set("onLoad", result.body);
+      return true;
+    })
+})
+
+Hydra.arenaInstance.afterError(function(request, response){
+    var theModel = request.model;
+    theModel = JSON.stringify(theModel);
+    theModel = "Arena Instance After Error Model: " + theModel;
+
+    return Hydra.Client.get("/broadcast_channels/test/afterError", {auth: serverAuth, body: theModel})
+    .then(function(result) {
+      Global.set("onLoad", result.body);
+      return true;
+    })
+})
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1104,25 +1135,25 @@ Hydra.notification.afterConsume(function(request, response){
 
 Hydra.arenaParticipant.beforeJoin(function(request, response){
     var theModel = request.model;
-    Logger.info("Before Join Embedded Model: " + JSON.stringify(theModel));
+    Logger.info("Arena Participant Before Join Model: " + JSON.stringify(theModel));
     return {};
 })
 
 Hydra.arenaParticipant.afterJoin(function(request, response){
     var theModel = request.model;
-    Logger.info("After Join Embedded Model: " + JSON.stringify(theModel));
+    Logger.info("Arena Participant After Join Model: " + JSON.stringify(theModel));
     return {};
 })
 
 Hydra.arenaParticipant.beforeUpdate(function(request, response){
     var theModel = request.model;
-    Logger.info("Before Update Embedded Model: " + JSON.stringify(theModel));
+    Logger.info("Arena Participant Before Update Model: " + JSON.stringify(theModel));
     return {};
 })
 
 Hydra.arenaParticipant.afterUpdate(function(request, response){
     var theModel = request.model;
-    Logger.info("After Update Embedded Model: " + JSON.stringify(theModel));
+    Logger.info("Arena Participant After Update Model: " + JSON.stringify(theModel));
     return {};
 })
 
@@ -1132,13 +1163,13 @@ Hydra.arenaParticipant.afterUpdate(function(request, response){
 
 Hydra.arenaGroup.beforeUpdate(function(request, response){
     var theModel = request.model;
-    Logger.info("Before Update Embedded Model: " + JSON.stringify(theModel));
+    Logger.info("Arena Group Before Update Model: " + JSON.stringify(theModel));
     return {};
 })
 
 Hydra.arenaGroup.afterUpdate(function(request, response){
     var theModel = request.model;
-    Logger.info("After Update Embedded Model: " + JSON.stringify(theModel));
+    Logger.info("Arena Group After Update Model: " + JSON.stringify(theModel));
     return {};
 })
 
