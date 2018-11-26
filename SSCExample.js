@@ -1094,33 +1094,30 @@ Hydra.notification.afterConsume(function(request, response){
 //Arena Instance Events
 
 Hydra.arenaInstance.afterRunning(function(request, response){
-    var theModel = request.model;
-    theModel = JSON.stringify(theModel);
-    theModel = "Arena Instance After Running Model: " + theModel;
+    var serverAuth = Hydra.Client.authServer();
+    var theModel = "Arena Instance After Running Model: " + JSON.stringify(request.model);
 
-    return Hydra.Client.put("/profiles/thisEndpointWillFail_AfterRunning", {auth: serverAuth, body: theModel})
+    return Hydra.Client.put("/ssc/invoke/thisEndpointWillFail_AfterRunning", {auth: serverAuth, body: theModel})
     .then(function(result) {
       return true;
     })
 })
 
 Hydra.arenaInstance.afterComplete(function(request, response){
-    var theModel = request.model;
-    theModel = JSON.stringify(theModel);
-    theModel = "Arena Instance After Complete Model: " + theModel;
+    var serverAuth = Hydra.Client.authServer();
+    var theModel = "Arena Instance After Complete Model: " + JSON.stringify(request.model);
 
-    return Hydra.Client.put("/profiles/thisEndpointWillFail_Aftercomplete", {auth: serverAuth, body: theModel})
+    return Hydra.Client.put("/ssc/invoke/thisEndpointWillFail_Aftercomplete", {auth: serverAuth, body: theModel})
     .then(function(result) {
       return true;
     })
 })
 
 Hydra.arenaInstance.afterError(function(request, response){
-    var theModel = request.model;
-    theModel = JSON.stringify(theModel);
-    theModel = "Arena Instance After Error Model: " + theModel;
+    var serverAuth = Hydra.Client.authServer();
+    var theModel = "Arena Instance After Error Model: " + JSON.stringify(request.model);
 
-    return Hydra.Client.put("/profiles/thisEndpointWillFail_AfterError", {auth: serverAuth, body: theModel})
+    return Hydra.Client.put("/ssc/invoke/thisEndpointWillFail_AfterError", {auth: serverAuth, body: theModel})
     .then(function(result) {
       return true;
     })
