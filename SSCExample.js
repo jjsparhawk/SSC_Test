@@ -1701,10 +1701,65 @@ Hydra.get('test_resolve_all_in_correct_order', function(request, response) {
     });
 });
 
+// Pre-envelope return styles
+Hydra.get('success_old', function(request, response) {
+    return 'all good';
+});
 
+Hydra.get('success_old_response', function(request, response) {
+    return {"code": 220, "body": "all good"};
+});
 
+Hydra.get('success_old_promise', function(request, response) {
+    return D.resolved('all good');
+});
 
+Hydra.get('success_old_promise_response', function(request, response) {
+    return D.resolved({"code": 220, "body": "all good"});
+});
 
+Hydra.get('success_old_direct', function(request, response) {
+    response.success('all good');
+});
 
+Hydra.get('success_old_direct_response', function(request, response) {
+    response.success({"code": 220, "body": "all good"});
+});
 
+Hydra.get('failure_old_promise', function(request, response) {
+    return D.rejected('all bad');
+});
 
+Hydra.get('failure_old_promise_response', function(request, response) {
+    return D.rejected({"code": 450, "body": "all bad"});
+});
+
+Hydra.get('failure_old_direct', function(request, response) {
+    response.failure('all bad');
+});
+
+// New SSC return code return styles
+Hydra.get('success_new_response', function(request, response) {
+    let result = new SSCResponse(55, "all good");
+    return result;
+});
+
+Hydra.get('success_new_promise_response', function(request, response) {
+    let result = new SSCResponse(66, "all good");
+    return D.resolved(result);
+});
+
+Hydra.get('success_new_direct_response', function(request, response) {
+    let result = new SSCResponse(44, "all good");
+    response.success(result);
+});
+
+Hydra.get('failure_new_promise_response', function(request, response) {
+    let result = new HydraErrorResponse(HydraReturnCode.GlobalsMissing, "all bad");
+    return D.rejected(result);
+});
+
+Hydra.get('failure_new_direct_response', function(request, response) {
+    let result = new HydraErrorResponse(HydraReturnCode.UnrecoverableError, "all bad");
+    response.failure(result);
+});
