@@ -76,7 +76,7 @@ function setLogObjectData(dataFromTest){
 Hydra.account.beforeCreate(function(request, response){
     Logger.info("Before Account Create Log");
     return{};
-    
+
 })
 
 //afterCreate (with invalid return type)
@@ -1489,7 +1489,7 @@ Hydra.put('update_profile_with_large_number', function(request, response){
 Hydra.put('update_profile_with_map_of_key_string_numbers', function(request, response){
     var serverAuth = Hydra.Client.authServer();
     var profileToUpdate = "/profiles/" + request.body['account_id'];
-    
+
     var thePromise = Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
         [["set", "data.mapOfNumberKeys", {"1": "juan", "2": "due", "3": "twa", "4": "quat", "5": "cinc"}]]});
     return thePromise.then(function(theReq) {
@@ -1600,7 +1600,7 @@ Hydra.put('emit_external_event_with_invalid_string', function(request, response)
     return Event.emit(new Buffer('DFNlcnZlchhJdGVtQ29uc3VtZWTkr6TqoFgwNTlkZmM2OGY2MTM1YWQyMTdlYmM0MjQ18gHA64PqoFgwNWE1ZmU4OTZkOWJiOWY1OWUwZDg3NTkzFGxvdC1hcmVuYTICAgAcaHlkLWxvdC1hcmVuYTI\u003d', 'base64').toString('ascii'), {'id': 'test_pet_schema', 'testThing':'汉字'}).then(function() {
         return {"ret": "here"};
     });
-});  
+});
 
 Hydra.put('emit_user_external_event', function(request, response) {
     return Event.emit({'kind': request.body['kind'], 'name': request.body['name'], 'user_id': request.body['user_id']}, {'id': 'test_pet_owner_schema'}).then(function() {
@@ -1633,7 +1633,7 @@ Hydra.put('emit_many_external_events', function(request, response) {
     for(var i=0; i < num; i++){
         promises.push(Event.emit({'kind': request.body['kind'], 'name': request.body['name'], 'user_id': request.body['user_id']}, {'id': 'test_pet_owner_schema'}));
     }
-    
+
     return D.all(promises.map(function(promise){
         return promise.then(function(){/*no-op*/}, function(error){ return error; })
     }))
@@ -1738,6 +1738,10 @@ Hydra.get('failure_old_direct', function(request, response) {
     response.failure('all bad');
 });
 
+Hydra.get('success_old_direct_response', function(request, response) {
+    response.failure({"code": 450, "body": "all bad"});
+});
+
 // New SSC return code return styles
 Hydra.get('success_new_response', function(request, response) {
     let result = new SSCResponse(55, "all good");
@@ -1755,11 +1759,11 @@ Hydra.get('success_new_direct_response', function(request, response) {
 });
 
 Hydra.get('failure_new_promise_response', function(request, response) {
-    let result = new HydraErrorResponse(HydraReturnCode.GlobalsMissing, "all bad");
+    let result = new SSCErrorResponse(HydraErrorCode.GlobalsMissing, "all bad");
     return D.rejected(result);
 });
 
 Hydra.get('failure_new_direct_response', function(request, response) {
-    let result = new HydraErrorResponse(HydraReturnCode.UnrecoverableError, "all bad");
+    let result = new SSCErrorResponse(HydraErrorCode.UnrecoverableError, "all bad");
     response.failure(result);
 });
