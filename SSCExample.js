@@ -1702,94 +1702,92 @@ Hydra.get('test_resolve_all_in_correct_order', function(request, response) {
 });
 
 // Pre-envelope return styles
-Hydra.get('success_old', function(request, response) {
+Hydra.get('success_plain', function(request, response) {
     return 'all good';
 });
 
-Hydra.get('success_old_response', function(request, response) {
+Hydra.get('success_plain_response', function(request, response) {
     return {"code": 220, "body": "all good"};
 });
 
-Hydra.get('success_old_promise', function(request, response) {
+Hydra.get('success_plain_promise', function(request, response) {
     return D.resolved('all good');
 });
 
-Hydra.get('success_old_promise_response', function(request, response) {
+Hydra.get('success_plain_promise_response', function(request, response) {
     return D.resolved({"code": 220, "body": "all good"});
 });
 
-Hydra.get('success_old_direct', function(request, response) {
+Hydra.get('success_plain_direct', function(request, response) {
     response.success('all good');
 });
 
-Hydra.get('success_old_direct_response', function(request, response) {
+Hydra.get('success_plain_direct_response', function(request, response) {
     response.success({"code": 220, "body": "all good"});
 });
 
-Hydra.get('failure_old_promise', function(request, response) {
+Hydra.get('failure_plain_promise', function(request, response) {
     return D.rejected('all bad');
 });
 
-Hydra.get('failure_old_promise_response', function(request, response) {
+Hydra.get('failure_plain_promise_response', function(request, response) {
     return D.rejected({"code": 450, "body": "all bad"});
 });
 
-Hydra.get('failure_old_direct', function(request, response) {
+Hydra.get('failure_plain_direct', function(request, response) {
     response.failure('all bad');
 });
 
-Hydra.get('failure_old_direct_response', function(request, response) {
+Hydra.get('failure_plain_direct_response', function(request, response) {
     response.failure({"code": 450, "body": "all bad"});
 });
 
 // New SSC return code return styles
-Hydra.get('success_new_response', function(request, response) {
-    let result = new SSCResponse(55, "all good");
-    return result;
+Hydra.get('success_envelope', function(request, response) {
+    return new SSCResponse(234, "all good");
 });
 
-Hydra.get('success_new_promise_response', function(request, response) {
-    let result = new SSCResponse(66, "all good");
-    return D.resolved(result);
+Hydra.get('success_envelope_promise', function(request, response) {
+    return D.resolved(new SSCResponse(234, "all good"));
 });
 
-Hydra.get('success_new_direct_response', function(request, response) {
-    let result = new SSCResponse(44, "all good");
-    response.success(result);
+Hydra.get('success_envelope_direct', function(request, response) {
+    response.success(new SSCResponse(234, "all good"));
 });
 
-Hydra.get('failure_new_promise_response', function(request, response) {
-    let result = new SSCErrorResponse(SSCErrorCode.GlobalsMissing, "all bad");
-    return D.rejected(result);
+Hydra.get('failure_envelope', function(request, response) {
+    return new SSCErrorResponse("all bad");
 });
 
-Hydra.get('failure_new_direct_response', function(request, response) {
-    let result = new SSCErrorResponse(SSCErrorCode.UnrecoverableError, "all bad");
-    response.failure(result);
+Hydra.get('failure_envelope_promise', function(request, response) {
+    return D.rejected(new SSCErrorResponse("all bad"));
+});
+
+Hydra.get('failure_envelope_direct', function(request, response) {
+    response.failure(new SSCErrorResponse("all bad"));
 });
 
 // New SSC return code return styles with metadata
-Hydra.get('success_new_response_withmd', function(request, response) {
-    let result = new SSCResponse(55, "all good", {"hello": "world"});
-    return result;
+Hydra.get('success_envelope_withmd', function(request, response) {
+    return new SSCResponse(234, "all good", {"hello": "world"});
 });
 
-Hydra.get('success_new_promise_response_withmd', function(request, response) {
-    let result = new SSCResponse(66, "all good", {"hello": "world"});
-    return D.resolved(result);
+Hydra.get('success_envelope_promise_withmd', function(request, response) {
+    return D.resolved(new SSCResponse(234, "all good", {"hello": "world"}));
 });
 
-Hydra.get('success_new_direct_response_withmd', function(request, response) {
-    let result = new SSCResponse(44, "all good", {"hello": "world"});
-    response.success(result);
+Hydra.get('success_envelope_direct_withmd', function(request, response) {
+    response.success(new SSCResponse(234, "all good", {"hello": "world"}));
 });
 
-Hydra.get('failure_new_promise_response_withmd', function(request, response) {
-    let result = new SSCErrorResponse(SSCErrorCode.GlobalsMissing, "all bad", {"hello": "world"});
-    return D.rejected(result);
+Hydra.get('failure_envelope_withmd', function(request, response) {
+    return new SSCErrorResponse("all bad", {"hello": "world"});
 });
 
-Hydra.get('failure_new_direct_response_withmd', function(request, response) {
-    let result = new SSCErrorResponse(SSCErrorCode.UnrecoverableError, "all bad", {"hello": "world"});
-    response.failure(result);
+Hydra.get('failure_envelope_promise_withmd', function(request, response) {
+    return D.rejected(new SSCErrorResponse("all bad", {"hello": "world"}));
+});
+
+Hydra.get('failure_envelope_direct_withmd', function(request, response) {
+    response.failure(new SSCErrorResponse("all bad", {"hello": "world"}));
 });
