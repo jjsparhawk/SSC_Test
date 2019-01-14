@@ -1744,15 +1744,15 @@ Hydra.get('failure_plain_direct_response', function(request, response) {
 
 // New SSC return code return styles
 Hydra.get('success_envelope', function(request, response) {
-    return new SSCResponse(234, "all good");
+    return new SSCSuccess(234, "all good");
 });
 
 Hydra.get('success_envelope_promise', function(request, response) {
-    return D.resolved(new SSCResponse(234, "all good"));
+    return D.resolved(new SSCSuccess(234, "all good"));
 });
 
 Hydra.get('success_envelope_direct', function(request, response) {
-    response.success(new SSCResponse(234, "all good"));
+    response.success(new SSCSuccess(234, "all good"));
 });
 
 Hydra.get('error_envelope', function(request, response) {
@@ -1768,28 +1768,28 @@ Hydra.get('error_envelope_direct', function(request, response) {
 });
 
 Hydra.get('failure_envelope', function(request, response) {
-    return new SSCHydraError("all bad");
+    return new HydraError("all bad");
 });
 
 Hydra.get('failure_envelope_promise', function(request, response) {
-    return D.rejected(new SSCHydraError("all bad"));
+    return D.rejected(new HydraError("all bad"));
 });
 
 Hydra.get('failure_envelope_direct', function(request, response) {
-    response.failure(new SSCHydraError("all bad"));
+    response.failure(new HydraError("all bad"));
 });
 
 // New SSC return code return styles with metadata
 Hydra.get('success_envelope_withmd', function(request, response) {
-    return new SSCResponse(234, "all good", {"hello": "world"});
+    return new SSCSuccess(234, "all good", {"hello": "world"});
 });
 
 Hydra.get('success_envelope_promise_withmd', function(request, response) {
-    return D.resolved(new SSCResponse(234, "all good", {"hello": "world"}));
+    return D.resolved(new SSCSuccess(234, "all good", {"hello": "world"}));
 });
 
 Hydra.get('success_envelope_direct_withmd', function(request, response) {
-    response.success(new SSCResponse(234, "all good", {"hello": "world"}));
+    response.success(new SSCSuccess(234, "all good", {"hello": "world"}));
 });
 
 Hydra.get('error_envelope_withmd', function(request, response) {
@@ -1805,13 +1805,13 @@ Hydra.get('error_envelope_direct_withmd', function(request, response) {
 });
 
 Hydra.get('failure_envelope_withmd', function(request, response) {
-    return new SSCHydraError("all bad", {"hello": "world"});
+    return new HydraError("all bad", {"hello": "world"});
 });
 
 Hydra.get('failure_envelope_promise_withmd', function(request, response) {
-    return D.rejected(new SSCHydraError("all bad", {"hello": "world"}));
+    return D.rejected(new HydraError("all bad", {"hello": "world"}));
 });
 
 Hydra.get('failure_envelope_direct_withmd', function(request, response) {
-    response.failure(new SSCHydraError("all bad", {"hello": "world"}));
+    response.failure(new HydraError("all bad", {"hello": "world"}));
 });
