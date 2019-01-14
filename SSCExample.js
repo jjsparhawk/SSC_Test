@@ -1755,16 +1755,28 @@ Hydra.get('success_envelope_direct', function(request, response) {
     response.success(new SSCResponse(234, "all good"));
 });
 
+Hydra.get('error_envelope', function(request, response) {
+    return new SSCError(234, "all bad");
+});
+
+Hydra.get('error_envelope_promise', function(request, response) {
+    return D.rejected(new SSCError(234, "all bad"));
+});
+
+Hydra.get('error_envelope_direct', function(request, response) {
+    response.failure(new SSCError(234, "all bad"));
+});
+
 Hydra.get('failure_envelope', function(request, response) {
-    return new SSCErrorResponse("all bad");
+    return new SSCHydraError("all bad");
 });
 
 Hydra.get('failure_envelope_promise', function(request, response) {
-    return D.rejected(new SSCErrorResponse("all bad"));
+    return D.rejected(new SSCHydraError("all bad"));
 });
 
 Hydra.get('failure_envelope_direct', function(request, response) {
-    response.failure(new SSCErrorResponse("all bad"));
+    response.failure(new SSCHydraError("all bad"));
 });
 
 // New SSC return code return styles with metadata
@@ -1780,14 +1792,26 @@ Hydra.get('success_envelope_direct_withmd', function(request, response) {
     response.success(new SSCResponse(234, "all good", {"hello": "world"}));
 });
 
+Hydra.get('error_envelope_withmd', function(request, response) {
+    return new SSCError(234, "all bad", {"hello": "world"});
+});
+
+Hydra.get('error_envelope_promise_withmd', function(request, response) {
+    return D.rejected(new SSCError(234, "all bad", {"hello": "world"}));
+});
+
+Hydra.get('error_envelope_direct_withmd', function(request, response) {
+    response.failure(new SSCError(234, "all bad", {"hello": "world"}));
+});
+
 Hydra.get('failure_envelope_withmd', function(request, response) {
-    return new SSCErrorResponse("all bad", {"hello": "world"});
+    return new SSCHydraError("all bad", {"hello": "world"});
 });
 
 Hydra.get('failure_envelope_promise_withmd', function(request, response) {
-    return D.rejected(new SSCErrorResponse("all bad", {"hello": "world"}));
+    return D.rejected(new SSCHydraError("all bad", {"hello": "world"}));
 });
 
 Hydra.get('failure_envelope_direct_withmd', function(request, response) {
-    response.failure(new SSCErrorResponse("all bad", {"hello": "world"}));
+    response.failure(new SSCHydraError("all bad", {"hello": "world"}));
 });
