@@ -784,12 +784,16 @@ Hydra.matchMakingRequest.afterCancel(function(request, response){
 //Matchmaking Result Events
 
 Hydra.matchMakingResult.beforeCreate(function(request, response){
-    Logger.info("Before Matchmaking Result Create Log");
+    var myMap = new Map();
+    myMap = request.model;
+    Logger.info(myMap);
     return {};
 })
 
 Hydra.matchMakingResult.afterCreate(function(request, response){
-    Logger.info("After Matchmaking Result Create Log");
+    var myMap = new Map();
+    myMap = request.model;
+    Logger.info(myMap);
     return {};
 })
 
