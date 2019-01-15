@@ -76,7 +76,7 @@ function setLogObjectData(dataFromTest){
 Hydra.account.beforeCreate(function(request, response){
     Logger.info("Before Account Create Log");
     return{};
-    
+
 })
 
 //afterCreate (with invalid return type)
@@ -1489,7 +1489,7 @@ Hydra.put('update_profile_with_large_number', function(request, response){
 Hydra.put('update_profile_with_map_of_key_string_numbers', function(request, response){
     var serverAuth = Hydra.Client.authServer();
     var profileToUpdate = "/profiles/" + request.body['account_id'];
-    
+
     var thePromise = Hydra.Client.put(profileToUpdate, {auth: serverAuth, body:
         [["set", "data.mapOfNumberKeys", {"1": "juan", "2": "due", "3": "twa", "4": "quat", "5": "cinc"}]]});
     return thePromise.then(function(theReq) {
@@ -1600,7 +1600,7 @@ Hydra.put('emit_external_event_with_invalid_string', function(request, response)
     return Event.emit(new Buffer('DFNlcnZlchhJdGVtQ29uc3VtZWTkr6TqoFgwNTlkZmM2OGY2MTM1YWQyMTdlYmM0MjQ18gHA64PqoFgwNWE1ZmU4OTZkOWJiOWY1OWUwZDg3NTkzFGxvdC1hcmVuYTICAgAcaHlkLWxvdC1hcmVuYTI\u003d', 'base64').toString('ascii'), {'id': 'test_pet_schema', 'testThing':'汉字'}).then(function() {
         return {"ret": "here"};
     });
-});  
+});
 
 Hydra.put('emit_user_external_event', function(request, response) {
     return Event.emit({'kind': request.body['kind'], 'name': request.body['name'], 'user_id': request.body['user_id']}, {'id': 'test_pet_owner_schema'}).then(function() {
@@ -1633,7 +1633,7 @@ Hydra.put('emit_many_external_events', function(request, response) {
     for(var i=0; i < num; i++){
         promises.push(Event.emit({'kind': request.body['kind'], 'name': request.body['name'], 'user_id': request.body['user_id']}, {'id': 'test_pet_owner_schema'}));
     }
-    
+
     return D.all(promises.map(function(promise){
         return promise.then(function(){/*no-op*/}, function(error){ return error; })
     }))
@@ -1701,10 +1701,117 @@ Hydra.get('test_resolve_all_in_correct_order', function(request, response) {
     });
 });
 
+// Pre-envelope return styles
+Hydra.get('success_plain', function(request, response) {
+    return 'all good';
+});
 
+Hydra.get('success_plain_response', function(request, response) {
+    return {"code": 220, "body": "all good"};
+});
 
+Hydra.get('success_plain_promise', function(request, response) {
+    return D.resolved('all good');
+});
 
+Hydra.get('success_plain_promise_response', function(request, response) {
+    return D.resolved({"code": 220, "body": "all good"});
+});
 
+Hydra.get('success_plain_direct', function(request, response) {
+    response.success('all good');
+});
 
+Hydra.get('success_plain_direct_response', function(request, response) {
+    response.success({"code": 220, "body": "all good"});
+});
 
+Hydra.get('failure_plain_promise', function(request, response) {
+    return D.rejected('all bad');
+});
 
+Hydra.get('failure_plain_promise_response', function(request, response) {
+    return D.rejected({"code": 450, "body": "all bad"});
+});
+
+Hydra.get('failure_plain_direct', function(request, response) {
+    response.failure('all bad');
+});
+
+Hydra.get('failure_plain_direct_response', function(request, response) {
+    response.failure({"code": 450, "body": "all bad"});
+});
+
+// New SSC return code return styles
+Hydra.get('success_envelope', function(request, response) {
+    return new SSCSuccess(234, "all good");
+});
+
+Hydra.get('success_envelope_promise', function(request, response) {
+    return D.resolved(new SSCSuccess(234, "all good"));
+});
+
+Hydra.get('success_envelope_direct', function(request, response) {
+    response.success(new SSCSuccess(234, "all good"));
+});
+
+Hydra.get('error_envelope', function(request, response) {
+    return new SSCError(234, "all bad");
+});
+
+Hydra.get('error_envelope_promise', function(request, response) {
+    return D.rejected(new SSCError(234, "all bad"));
+});
+
+Hydra.get('error_envelope_direct', function(request, response) {
+    response.failure(new SSCError(234, "all bad"));
+});
+
+Hydra.get('failure_envelope', function(request, response) {
+    return new HydraError("all bad");
+});
+
+Hydra.get('failure_envelope_promise', function(request, response) {
+    return D.rejected(new HydraError("all bad"));
+});
+
+Hydra.get('failure_envelope_direct', function(request, response) {
+    response.failure(new HydraError("all bad"));
+});
+
+// New SSC return code return styles with metadata
+Hydra.get('success_envelope_withmd', function(request, response) {
+    return new SSCSuccess(234, "all good", {"hello": "world"});
+});
+
+Hydra.get('success_envelope_promise_withmd', function(request, response) {
+    return D.resolved(new SSCSuccess(234, "all good", {"hello": "world"}));
+});
+
+Hydra.get('success_envelope_direct_withmd', function(request, response) {
+    response.success(new SSCSuccess(234, "all good", {"hello": "world"}));
+});
+
+Hydra.get('error_envelope_withmd', function(request, response) {
+    return new SSCError(234, "all bad", {"hello": "world"});
+});
+
+Hydra.get('error_envelope_promise_withmd', function(request, response) {
+    return D.rejected(new SSCError(234, "all bad", {"hello": "world"}));
+});
+
+Hydra.get('error_envelope_direct_withmd', function(request, response) {
+    response.failure(new SSCError(234, "all bad", {"hello": "world"}));
+});
+
+Hydra.get('failure_envelope_withmd', function(request, response) {
+    return new HydraError("all bad", {"hello": "world"});
+});
+
+Hydra.get('failure_envelope_promise_withmd', function(request, response) {
+    return D.rejected(new HydraError("all bad", {"hello": "world"}));
+});
+
+Hydra.get('failure_envelope_direct_withmd', function(request, response) {
+    response.failure(new HydraError("all bad", {"hello": "world"}));
+});
