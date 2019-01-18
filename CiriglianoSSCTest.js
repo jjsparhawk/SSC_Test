@@ -99,9 +99,140 @@ Hydra.userContentItem.afterUpdate(function(request) {
     return [["inc", "data.LoreBookUpdated", 1]];
 });
 
+// Pre-envelope return styles
+Hydra.get('success_plain', function(request, response) {
+    return 'all good';
+});
 
+Hydra.get('success_plain_response', function(request, response) {
+    return {"code": 220, "body": "all good"};
+});
 
+Hydra.get('success_plain_promise', function(request, response) {
+    return D.resolved('all good');
+});
 
+Hydra.get('success_plain_promise_response', function(request, response) {
+    return D.resolved({"code": 220, "body": "all good"});
+});
+
+Hydra.get('success_plain_direct', function(request, response) {
+    response.success('all good');
+});
+
+Hydra.get('success_plain_direct_response', function(request, response) {
+    response.success({"code": 220, "body": "all good"});
+});
+
+Hydra.get('failure_plain_promise', function(request, response) {
+    return D.rejected('all bad');
+});
+
+Hydra.get('failure_plain_promise_response', function(request, response) {
+    return D.rejected({"code": 450, "body": "all bad"});
+});
+
+Hydra.get('failure_plain_direct', function(request, response) {
+    response.failure('all bad');
+});
+
+Hydra.get('failure_plain_direct_response', function(request, response) {
+    response.failure({"code": 450, "body": "all bad"});
+});
+
+// New SSC return code return styles
+Hydra.get('success_envelope', function(request, response) {
+    return new SSCSuccess(234, "all good");
+});
+
+Hydra.get('success_envelope_promise', function(request, response) {
+    return D.resolved(new SSCSuccess(234, "all good"));
+});
+
+Hydra.get('success_envelope_direct', function(request, response) {
+    response.success(new SSCSuccess(234, "all good"));
+});
+
+Hydra.get('error_envelope', function(request, response) {
+    return new SSCError(234, "all bad");
+});
+
+Hydra.get('error_envelope_promise', function(request, response) {
+    return D.rejected(new SSCError(234, "all bad"));
+});
+
+Hydra.get('error_envelope_direct', function(request, response) {
+    response.failure(new SSCError(234, "all bad"));
+});
+
+Hydra.get('failure_envelope', function(request, response) {
+    return new HydraError("all bad");
+});
+
+Hydra.get('failure_envelope_promise', function(request, response) {
+    return D.rejected(new HydraError("all bad"));
+});
+
+Hydra.get('failure_envelope_direct', function(request, response) {
+    response.failure(new HydraError("all bad"));
+});
+
+// New SSC return code return styles with metadata
+Hydra.get('success_envelope_withmd', function(request, response) {
+    return new SSCSuccess(234, "all good", {"hello": "world"});
+});
+
+Hydra.get('success_envelope_promise_withmd', function(request, response) {
+    return D.resolved(new SSCSuccess(234, "all good", {"hello": "world"}));
+});
+
+Hydra.get('success_envelope_direct_withmd', function(request, response) {
+    response.success(new SSCSuccess(234, "all good", {"hello": "world"}));
+});
+
+Hydra.get('error_envelope_withmd', function(request, response) {
+    return new SSCError(234, "all bad", {"hello": "world"});
+});
+
+Hydra.get('error_envelope_promise_withmd', function(request, response) {
+    return D.rejected(new SSCError(234, "all bad", {"hello": "world"}));
+});
+
+Hydra.get('error_envelope_direct_withmd', function(request, response) {
+    response.failure(new SSCError(234, "all bad", {"hello": "world"}));
+});
+
+Hydra.get('failure_envelope_withmd', function(request, response) {
+    return new HydraError("all bad", {"hello": "world"});
+});
+
+Hydra.get('failure_envelope_promise_withmd', function(request, response) {
+    return D.rejected(new HydraError("all bad", {"hello": "world"}));
+});
+
+Hydra.get('failure_envelope_direct_withmd', function(request, response) {
+    response.failure(new HydraError("all bad", {"hello": "world"}));
+});
+
+Hydra.object.beforeCreate(function(request, response){
+    Logger.info("Before Generic Object Create Log");
+    return new SSCSuccess(256, [["set", "data.BeforeObjectCreateHit", true]], {"meta":"data"});
+})
+
+Hydra.object.afterCreate(function(request, response){
+    Logger.info("After Generic Object Create Log");
+    return new HydraError([["set", "data.AfterObjectCreateHit", true]], {"meta":"data"});
+})
+
+Hydra.object.beforeUpdate(function(request, response){
+    Logger.info("Before Generic Object Create Log");
+    return new HydraError([["add", "data.BeforeObjectCreateHitVal", 3]], {"meta":"data"});
+})
+
+Hydra.object.afterUpdate(function(request, response){
+    Logger.info("After Generic Object Create Log");
+    return new SSCSuccess(256, [["add", "data.AfterObjectCreateHitVal", 3]], {"meta":"data"});
+})
 
 
 
