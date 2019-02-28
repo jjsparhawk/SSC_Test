@@ -1646,6 +1646,7 @@ Hydra.put('emit_many_external_events', function(request, response) {
         }
     });
 });
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Custom Endpoint to search for profile with unicode character.
@@ -1700,6 +1701,19 @@ Hydra.get('test_resolve_all_in_correct_order', function(request, response) {
         return results;
     });
 });
+
+Hydra.put('arbitrarily_deep_json', function(request, response) {
+    let final = "hello world";
+    let temp = {};
+    for (let i = 0; i < +request.body['depth']; i++) {
+        temp = {};
+        temp[i] = final;
+        final = temp;
+    }
+    return final;
+});
+
+//------------------------------------------------------------------------------------------------------------------------------------------
 
 // Pre-envelope return styles
 Hydra.get('success_plain', function(request, response) {
