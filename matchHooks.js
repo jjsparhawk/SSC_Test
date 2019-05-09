@@ -7,11 +7,11 @@ Hydra.match.afterComplete(function(request, response){
 })
 
 Hydra.match.beforeComplete(function(request, response){
-    Logger.info("After Match Complete Log");
+    Logger.info("Before Match Complete Log");
     return {};
 })
 
 Hydra.match.afterAbandon(function(request, response){
-    Logger.info("After Match Complete Log");
+    Logger.info("After Match Abandon Log");
     return {};
 })
