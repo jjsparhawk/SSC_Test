@@ -1360,6 +1360,14 @@ Hydra.get('make_request_on_other_environment', function(request, response) {
 //Custom Endpoint That Doesn't Return
 Hydra.get('custom_no_response', function(request, response) {});
 
+//Custom Endpoint That Returns a NaN Because We Can't Have Nice Things
+Hydra.get('custom_nan', function(request, response) {
+    return {
+        number: 123,
+        not_a_number: parseInt('NaN')
+    };
+});
+
 //Custom 'StartsWith' Test
 Hydra.get('custom_starts_with_test', function(requst, response){
     var theString = "test123";
