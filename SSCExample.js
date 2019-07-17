@@ -355,6 +355,11 @@ Hydra.match.afterFixedCreate(function(request, response){
     return {};
 })
 
+Hydra.match.doArbitration(function(request, response){
+    Logger.info("Arbitration hook logger test");
+    return {};
+})
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //Generic Object Events
