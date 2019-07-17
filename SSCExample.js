@@ -357,7 +357,7 @@ Hydra.match.afterFixedCreate(function(request, response){
 
 Hydra.match.doArbitration(function(request, response){
     Logger.info("Arbitration hook logger test");
-    return {};
+    return {"win":[], "loss":[], "draw":bool(true)};
 })
 
 //------------------------------------------------------------------------------------------------------------------------------------------
