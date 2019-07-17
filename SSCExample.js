@@ -486,6 +486,7 @@ Hydra.clan.afterDelete(function(request, response){
 
 Hydra.clan.beforeClanMembersIdle(function(request, response){
     var serverAuth = Hydra.Client.authServer();
+    Logger.info("Clan Member Going Idle");
 
     return Hydra.Client.get("/broadcast_channels/ClanMembersIdle/broadcast_messages", {auth: serverAuth})
    .then(function(result) {
