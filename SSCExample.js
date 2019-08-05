@@ -1182,6 +1182,17 @@ Hydra.get('custom_ping', function(request, response) {
     return D.resolved({"ret":"custom_pong"});
 });
 
+//Use a 'catch' instead of a 'then'
+Hydra.get('custom_promise_catch', function(request, response) {
+    return D.rejected("error")
+    .then(function(value) {
+        return D.rejected("You should never end up here, as we'll always return an error.");
+    })
+    .catch(function(error) {
+        return D.resolved("There was an error.")
+    })
+})
+
 //Custom Endpoint with Query Parameter Use
 Hydra.get('query_param_use', function(request) {
     var speedy_return_value = request.userRequest.queryparams.TestInput;
