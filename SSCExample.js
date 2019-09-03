@@ -1182,6 +1182,31 @@ Hydra.get('custom_ping', function(request, response) {
     return D.resolved({"ret":"custom_pong"});
 });
 
+//Custom endpoint to print request properties
+Hydra.post('printProperties', function(request, response) {
+    var myMap = request.auth;
+    Logger.info(JSON.stringify(myMap));
+
+    var myMap = request.body;
+    Logger.info(JSON.stringify(myMap));
+
+    var myMap = request.embeddedModels;
+    Logger.info(JSON.stringify(myMap));
+
+    var myMap = request.headers;
+    Logger.info(JSON.stringify(myMap));
+
+    var myMap = request.model;
+    Logger.info(JSON.stringify(myMap));
+
+    var myMap = request.modelBefore;
+    Logger.info(JSON.stringify(myMap));
+
+    var myMap = request.userRequest;
+    Logger.info(JSON.stringify(myMap));    
+    return D.resolved({"ret":"pong"});
+});
+
 //Use a 'catch' instead of a 'then'
 Hydra.get('custom_promise_catch', function(request, response) {
     return D.rejected("error")
