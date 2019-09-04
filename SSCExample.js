@@ -1184,26 +1184,8 @@ Hydra.get('custom_ping', function(request, response) {
 
 //Custom endpoint to print request properties
 Hydra.post('printProperties', function(request, response) {
-    var myMap = request.auth;
-    Logger.info(JSON.stringify(myMap));
-
-    var myMap = request.body;
-    Logger.info(JSON.stringify(myMap));
-
-    var myMap = request.embeddedModels;
-    Logger.info(JSON.stringify(myMap));
-
-    var myMap = request.headers;
-    Logger.info(JSON.stringify(myMap));
-
-    var myMap = request.model;
-    Logger.info(JSON.stringify(myMap));
-
-    var myMap = request.modelBefore;
-    Logger.info(JSON.stringify(myMap));
-
-    var myMap = request.userRequest;
-    Logger.info(JSON.stringify(myMap));    
+    Logger.info(JSON.stringify(request));
+   
     return D.resolved({"ret":"pong"});
 });
 
