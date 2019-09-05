@@ -1336,7 +1336,7 @@ Hydra.get('custom_get_without_headers', function(request, response) {
 //Custom endpoint to test Profile Response Body
 Hydra.put('custom_test_profile_response_body', function(request) {
     var serverAuth = Hydra.Client.authServer();
-    var profileToRetrieve = "/profiles/" + request.body['account_id'];
+    var profileToRetrieve = "/profiles/{{account_id}}";
     return Hydra.Client.get(profileToRetrieve, {"auth":serverAuth})
         .then(function (profile) {
             return D.resolved(profile.response.body);
