@@ -1185,7 +1185,7 @@ Hydra.get('custom_ping', function(request, response) {
 //Custom endpoint to print request properties
 Hydra.post('printProperties', function(request, response) {
     Logger.info(JSON.stringify(request));
-   return (request);
+   return ({auth: serverAuth});
     
 });
 
