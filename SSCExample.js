@@ -1188,7 +1188,7 @@ Hydra.post('printProperties', function(request, response) {
    var serverAuth = Hydra.Client.authServer();
     
    Logger.info(JSON.stringify(request));
-   return (request, {auth: serverAuth})
+   return (request, {headers})
 });
 
 //Use a 'catch' instead of a 'then'
