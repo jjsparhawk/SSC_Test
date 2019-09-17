@@ -156,7 +156,7 @@ Hydra.profile.beforeUpdate(function(request, response){
 
 Hydra.profile.afterUpdate(function(request, response){
     Logger.info("After Profile Update Log");
-    return (Hydra.Client.post('printProperties', {auth: serverAuth})
+    return (Hydra.post('printProperties', {auth: serverAuth})
             .then(function(result) {
     return request.headers.access;
     })
