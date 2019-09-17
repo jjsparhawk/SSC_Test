@@ -156,7 +156,7 @@ Hydra.profile.beforeUpdate(function(request, response){
 
 Hydra.profile.afterUpdate(function(request, response){
     Logger.info("After Profile Update Log");
-    return {("Inventory Updated, maybe")};
+    return ({"Inventory Updated, maybe"});
 })
 
 Hydra.profile.beforeFileCreate(function(request, response){
