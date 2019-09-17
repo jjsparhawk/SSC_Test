@@ -156,7 +156,7 @@ Hydra.profile.beforeUpdate(function(request, response){
 
 Hydra.profile.afterUpdate(function(request, response){
     Logger.info("After Profile Update Log");
-    return {};
+    return {("Inventory Updated, maybe")};
 })
 
 Hydra.profile.beforeFileCreate(function(request, response){
@@ -1184,6 +1184,11 @@ Hydra.get('custom_ping', function(request, response) {
 
 //Custom endpoint to print request properties
 Hydra.post('printProperties', function(request, response) {
+   return request.headers.access
+});
+
+//Custom endpoint for learning purposes
+Hydra.post('test', function(request, response) {
    return request.headers.access
 });
 
