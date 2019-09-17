@@ -156,9 +156,12 @@ Hydra.profile.beforeUpdate(function(request, response){
 
 Hydra.profile.afterUpdate(function(request, response){
     Logger.info("After Profile Update Log");
-    return ("Inventory Updated, maybe");
+    return (Hydra.Client.post('printProperties', {auth: serverAuth})
+            .then(function(request, response) {
+    return request.headers.access;
+    })
 })
-
+    
 Hydra.profile.beforeFileCreate(function(request, response){
     Logger.info("Before Profile File Create Log");
     return {};
