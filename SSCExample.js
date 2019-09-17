@@ -156,8 +156,10 @@ Hydra.profile.beforeUpdate(function(request, response){
 
 Hydra.profile.afterUpdate(function(request, response){
     Logger.info("After Profile Update Log");
-    return (Hydra.Client.post('/ssc/invoke/printProperties', {auth: serverAuth})
-            .then(function(result) {
+    
+    let postPromise = Hydra.post('/ssc/invoke/printProperties', {auth: serverAuth})
+    
+    return (postPromise.then(function(result) {
     return request.headers.access;
     })
 })
