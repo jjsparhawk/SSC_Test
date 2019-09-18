@@ -157,11 +157,11 @@ Hydra.profile.beforeUpdate(function(request, response){
 Hydra.profile.afterUpdate(function(request, response){
     Logger.info("After Profile Update Log");
     
-    //let postPromise = Hydra.post('/ssc/invoke/printProperties', {auth: serverAuth})
+    let postPromise = Hydra.post('/ssc/invoke/printProperties', {auth: serverAuth})
     
-   // return (postPromise.then(function(result) {
+    return (postPromise.then(function(result) {
     return request.headers.access;
-   // })
+    })
 })
     
 Hydra.profile.beforeFileCreate(function(request, response){
